@@ -42,6 +42,9 @@ const IdeMain = () => {
   const [showChatRoom, setShowChatRoom] = useState(false);
   //채팅방 인풋창에 입력한 내용 가져오기
   const [chatInputText, setChatInputText] = useState("");
+  // 대화 메시지 목록을 저장할 상태 변수 추가
+  const [chatMessages, setChatMessages] = useState([]);
+
 
 
   //실행 버튼을 눌렀을 때 에디터에 작성된 데이터를 콘솔에 출력
@@ -77,9 +80,16 @@ const IdeMain = () => {
   const handleChatInputChange = (e) => {
     setChatInputText(e.target.value);
   };
-  // ChatInput에 입력한 값 콘솔에 띄우기
+  // ChatInput에 입력한 값 전송
   const handleSendChatMessage = () => {
+    // ChatInput에 입력한 값 콘솔에 띄우기
     console.log("Sending chat message:", chatInputText);
+    //텍스트 + 현재시각
+    const newMessage = { text: chatInputText, timestamp: new Date() };
+
+    // 새 메시지로 상태 변수 업데이트
+    setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+
     setChatInputText("");
   };
   // 엔터 키를 누르면 handleSendChatMessage 함수를 호출, 채팅 메시지를 보냄
@@ -170,6 +180,11 @@ const IdeMain = () => {
           <ChatText>
             {/* 채팅 내용 출력 */}
             대화 기록
+            {chatMessages.map((message, index) => (
+              <div key={index}>
+                <strong>{message.timestamp.toLocaleTimeString()}:</strong> {message.text}
+              </div>
+            ))}
           </ChatText>
 
           <ChatInputContainer>
@@ -180,7 +195,6 @@ const IdeMain = () => {
               onKeyDown={handleEnterKey}
             />
           </ChatInputContainer>
-          <ChatRoomContainer />
         </ChatRoomContainer>
       </MainContainer>
     </>
