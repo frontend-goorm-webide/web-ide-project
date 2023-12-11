@@ -167,5 +167,7 @@ export const TerminalBar = styled.div`
 export const TerminalContent = styled.div`
   width: 100%;
   height: 350px;
-  color: #00ff00;
+  color: #000000;
+  padding: 10px;
+  margin-left: 15px;
 `;
