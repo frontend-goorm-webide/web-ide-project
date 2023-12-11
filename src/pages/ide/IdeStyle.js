@@ -42,6 +42,7 @@ export const EditorTerminalContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  height: 100vh;
 `;
 
 
@@ -49,7 +50,7 @@ export const EditorTerminalContainer = styled.div`
 
 export const ChatRoomContainer = styled.div`
   width: 300px;
-  height: 100%;
+  height: 630px;
   background-color: #f0f0f0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: ${(props) => (props.show ? 'block' : 'none')};
@@ -118,6 +119,7 @@ export const EditorSection = styled.div`
   flex-direction: column;
   align-items: center;
   flex: 1;
+  border: 1px solid red;
 `;
 
 export const EditorBar = styled.div`
@@ -145,6 +147,8 @@ export const TerminalSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1px solid aqua;
+  height: 400px;
 `;
 
 export const TerminalBar = styled.div`
