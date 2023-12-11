@@ -149,6 +149,7 @@ const IdeMain = () => {
               </div>
             </TerminalBar>
             <TerminalContent style={{ backgroundColor: backgroundColor }}>
+              결과값
             </TerminalContent>
           </TerminalSection>
         </EditorTerminalContainer>
