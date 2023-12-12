@@ -11,10 +11,8 @@ import {
   EditorTerminalContainer,
   ChatRoomContainer,
   ChatBar,
-  CloseButton,
   ChatText,
   ChatInputContainer,
-  ChatButton,
   ChatInput,
   EditorSection,
   EditorBar,
@@ -182,7 +180,7 @@ const IdeMain = () => {
         <ChatRoomContainer show={showChatRoom}>
           <ChatBar>
             <p>채팅방</p>
-            <CloseButton onClick={toggleChatRoom}>X</CloseButton>
+            <Button onClick={toggleChatRoom}>X</Button>
           </ChatBar>
 
           <ChatText style={{ backgroundColor: backgroundColor, color: Color }}>
@@ -197,7 +195,7 @@ const IdeMain = () => {
           </ChatText>
 
           <ChatInputContainer style={{ backgroundColor: backgroundColor }}>
-            <ChatButton>+</ChatButton>
+            <Button>+</Button>
             <ChatInput placeholder="Type your message..."
               value={chatInputText}
               onChange={handleChatInputChange}

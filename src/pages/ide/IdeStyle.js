@@ -70,16 +70,9 @@ export const ChatBar = styled.div`
     
 `;
 
-export const CloseButton = styled.button`
-  color: #000000;
-  padding: 8px 16px;
-  border: 1px solid #546e7a;
-  cursor: pointer;
-`;
-
 export const ChatText = styled.div`
-background-color: #ffffff;
-color: #183258; 
+  background - color: #ffffff;
+  color: #183258;
   overflow-y: auto;
   height: 100%;
   padding: 10px;
@@ -88,19 +81,8 @@ color: #183258;
 export const ChatInputContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space - between;
   border-top: 2px solid #0A562D;
-`;
-
-export const ChatButton = styled.button`
-  color: #000000;
-  margin: 2px 4px;
-  border: 1px solid #546e7a;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #78909c;
-  }
 `;
 
 export const ChatInput = styled.input`
@@ -119,7 +101,6 @@ export const EditorSection = styled.div`
   flex-direction: column;
   align-items: center;
   flex: 1;
-  border: 1px solid red;
 `;
 
 export const EditorBar = styled.div`
@@ -136,7 +117,7 @@ export const EditorBar = styled.div`
 `;
 
 export const SelectBox = styled.select`
-  padding: 8px 16px;
+padding: 8px 16px;
 `;
 
 
@@ -147,7 +128,6 @@ export const TerminalSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid aqua;
   height: 400px;
 `;
 
