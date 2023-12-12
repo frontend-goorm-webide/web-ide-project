@@ -36,6 +36,8 @@ const IdeMain = () => {
   const [editorTheme, setEditorTheme] = useState("vs-light");
   // Header와 TerminalContent의 배경색을 관리
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+  // 터미널과 채팅방의 텍스트 색상 관리
+  const [Color, setColor] = useState("#000000");
   // useNavigate 훅을 사용하여 페이지 이동 함수 가져오기
   const navigate = useNavigate();
   // 채팅방 표시 여부 상태 추가
@@ -67,6 +69,7 @@ const IdeMain = () => {
   const toggleEditorTheme = () => {
     setEditorTheme((prevTheme) => (prevTheme === "vs-light" ? "vs-dark" : "vs-light"));
     setBackgroundColor((prevColor) => (prevColor === "#ffffff" ? "#000000" : "#ffffff"));
+    setColor((prevColor) => (prevColor === "#000000" ? "#ffffff" : "#000000"));
   };
   // 나가기 버튼을 눌렀을 때 메인 페이지로 이동
   const goToMainPage = () => {
@@ -167,7 +170,7 @@ const IdeMain = () => {
               </div>
             </TerminalBar>
             <TerminalContent style={{ backgroundColor: backgroundColor }}>
-              결과값
+              <sapan style={{ color: Color }}>결과값</sapan>
             </TerminalContent>
           </TerminalSection>
         </EditorTerminalContainer>
@@ -178,7 +181,7 @@ const IdeMain = () => {
             <CloseButton onClick={toggleChatRoom}>X</CloseButton>
           </ChatBar>
 
-          <ChatText>
+          <ChatText style={{ backgroundColor: backgroundColor, color: Color }}>
             대화 기록
             {/* chatMessages 배열을 순회 */}
             {chatMessages.map((message, index) => (
@@ -189,7 +192,7 @@ const IdeMain = () => {
             ))}
           </ChatText>
 
-          <ChatInputContainer>
+          <ChatInputContainer style={{ backgroundColor: backgroundColor }}>
             <ChatButton>+</ChatButton>
             <ChatInput placeholder="Type your message..."
               value={chatInputText}
