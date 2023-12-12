@@ -88,6 +88,7 @@ const IdeMain = () => {
     const newMessage = { text: chatInputText, timestamp: new Date() };
 
     // 새 메시지로 상태 변수 업데이트
+    //현재의 채팅 메시지 상태를 가져와서 새로운 메시지를 추가한 새로운 배열을 만듭니다.
     setChatMessages((prevMessages) => [...prevMessages, newMessage]);
 
     setChatInputText("");
@@ -178,11 +179,12 @@ const IdeMain = () => {
           </ChatBar>
 
           <ChatText>
-            {/* 채팅 내용 출력 */}
             대화 기록
+            {/* chatMessages 배열을 순회 */}
             {chatMessages.map((message, index) => (
               <div key={index}>
-                <strong>{message.timestamp.toLocaleTimeString()}:</strong> {message.text}
+                {/* 각 메시지(시간:메세지 내용)를 화면에 표시하는 컴포넌트를 생성 */}
+                아이디:<strong>{message.text}</strong>{message.timestamp.toLocaleTimeString()}
               </div>
             ))}
           </ChatText>

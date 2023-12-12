@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const ModalWrapper = styled.div`
 width: 500px; 
@@ -24,14 +25,16 @@ cursor: pointer;
 
 const MyInfoModal = ({ onRequestClose }) => {
   // 상태 추가
-  const [profilePicture, setProfilePicture] = useState(''); // 프로필 사진
-  const [name, setName] = useState(''); // 이름
-  const [email, setEmail] = useState(''); // 이메일
-  const [phone, setPhone] = useState(''); // 휴대전화번호
+  const [profilePicture, setProfilePicture] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  // useNavigate 훅을 사용하여 페이지 이동 함수 가져오기
+  const navigate = useNavigate();
 
   // 프로필 정보 변경 함수
   const handleProfileChange = () => {
-    // 실제로 서버에 변경된 정보를 전송하는 로직을 추가해야 합니다.
+    // 변경된 정보를 콘솔에 출력
     console.log('Profile information changed:', {
       profilePicture,
       name,
@@ -42,9 +45,18 @@ const MyInfoModal = ({ onRequestClose }) => {
 
   // 회원 탈퇴 함수
   const handleWithdrawal = () => {
-    // 실제로 서버에 회원 탈퇴 요청을 보내는 로직을 추가해야 합니다.
+
+    // 회원 탈퇴 요청을 콘솔에 출력
     console.log('Withdrawal requested');
+    // 회원 탈퇴 완료 시 알림창 표시
+    alert('회원 탈퇴가 완료되었습니다.');
+    // 모달 닫기
+    onRequestClose();
+    //메인 페이지로 이동
+    navigate('/');
   };
+
+
 
   return (
     <ModalWrapper>
