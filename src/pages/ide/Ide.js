@@ -101,6 +101,10 @@ const IdeMain = () => {
     if (e.key === 'Enter') {
       // 엔터 키의 기본 동작 방지 (새 줄이 추가되지 않도록)
       e.preventDefault();
+      // 빈 값인 경우 함수 종료
+      if (!chatInputText.trim()) {
+        return;
+      }
       handleSendChatMessage();
     }
   };
