@@ -113,10 +113,22 @@ const IdeMain = () => {
       <Header style={{ backgroundColor: backgroundColor }}>
         <h1>IDE<span style={{ color: '#E20000' }}>A</span></h1>
         <div>
-          <Button onClick={toggleEditorTheme}>테마</Button>
-          <Button>??</Button>
-          <Button onClick={openMyInfoModal}>내 정보</Button>
-          <Button onClick={goToMainPage}>나가기</Button>
+          <Button onClick={toggleEditorTheme}>
+            <img src='/icons/toggle-off.svg' alt='테마'>
+            </img>
+          </Button>
+          {/* 이 버튼의 역할? */}
+          <Button>
+            <img src='/icons/download.svg' alt='파일저장??'>
+            </img>
+          </Button>
+          <Button onClick={openMyInfoModal}>
+            <img src='/icons/person-circle.svg' alt='내정보'>
+            </img>
+          </Button>
+          <Button onClick={goToMainPage}>
+            <img src='/icons/box-arrow-right.svg' alt='나가기'></img>
+          </Button>
         </div>
       </Header>
 
@@ -139,7 +151,10 @@ const IdeMain = () => {
                   <option value="javascript">JavaScript</option>
                   <option value="python">Python</option>
                 </SelectBox>
-                <Button onClick={onClickEditorButton}>실행</Button>
+                <Button onClick={onClickEditorButton}>
+                  <img src='/icons/play-circle.svg' alt='실행'>
+                  </img>
+                </Button>
               </div>
             </EditorBar>
 
@@ -168,7 +183,9 @@ const IdeMain = () => {
             <TerminalBar>
               <div>
                 <p>터미널</p>
-                <Button onClick={toggleChatRoom}>채팅</Button>
+                <Button onClick={toggleChatRoom}>
+                  <img src='/icons/chat-dots.svg' alt='logo'></img>
+                </Button>
               </div>
             </TerminalBar>
             <TerminalContent style={{ backgroundColor: backgroundColor }}>
@@ -179,7 +196,10 @@ const IdeMain = () => {
 
         <ChatRoomContainer show={showChatRoom}>
           <ChatBar>
-            <p>채팅방</p>
+            <p>
+              <img src='/icons/chat-dots.svg' alt='logo'></img>
+              채팅방
+            </p>
             <Button onClick={toggleChatRoom}>X</Button>
           </ChatBar>
 
