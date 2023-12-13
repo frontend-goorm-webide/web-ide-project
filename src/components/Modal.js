@@ -12,23 +12,16 @@ function CommonModal(args) {
       <Button color='danger' onClick={toggle}>
         Click Me
       </Button>
-      <Modal isOpen={modal} toggle={toggle} {...args}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-        <ModalBody>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-          est laborum.
-        </ModalBody>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>아이디 찾기</ModalHeader>
+        <ModalBody>가입한 아이디는 example 입니다.</ModalBody>
         <ModalFooter>
           <Button color='primary' onClick={toggle}>
-            Do Something
+            돌아가기
           </Button>{' '}
-          <Button color='secondary' onClick={toggle}>
+          {/* <Button color='secondary' onClick={toggle}>
             Cancel
-          </Button>
+          </Button> */}
         </ModalFooter>
       </Modal>
     </div>
