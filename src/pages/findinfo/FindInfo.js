@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { PiUserCircle } from 'react-icons/pi';
+import { PiUserCircle } from 'react-icons/pi'; // npm i react-icons
 import { MdAlternateEmail } from 'react-icons/md';
 import styled from 'styled-components';
 import { StyledLogo, RedLetter } from '../../components/Logo';
