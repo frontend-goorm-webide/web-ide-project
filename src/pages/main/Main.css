@@ -1,0 +1,18 @@
+.header-grid {
+  display: grid;
+  grid-template-columns: 33% 33% auto;
+  border-bottom: solid 1px #cacaca;
+}
+
+.acenter {
+  text-align: center;
+}
+
+.btn-cursor {
+  cursor: pointer;
+}
+
+.link-tit {
+  color: black;
+  text-decoration: none;
+}
