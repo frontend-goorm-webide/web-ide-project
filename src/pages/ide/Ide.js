@@ -119,7 +119,7 @@ const IdeMain = () => {
           </Button>
           {/* 이 버튼의 역할? */}
           <Button>
-            <img src='/icons/download.svg' alt='파일저장??'>
+            <img src='/icons/download.svg' alt='파일저장'>
             </img>
           </Button>
           <Button onClick={openMyInfoModal}>
