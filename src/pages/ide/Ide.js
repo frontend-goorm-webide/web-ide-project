@@ -4,6 +4,11 @@ import MonacoEditor from 'react-monaco-editor';
 import Modal from 'react-modal';
 import MyInfoModal from './MyInfoModal';
 import { BsToggles } from 'react-icons/bs';
+import { BsDownload } from 'react-icons/bs';
+import { IoPersonCircleOutline } from 'react-icons/io5';
+import { IoIosLogOut } from 'react-icons/io';
+import { FaRegPlayCircle } from 'react-icons/fa';
+import { BsChatDots } from 'react-icons/bs';
 import {
   GlobalStyle,
   Header,
@@ -36,16 +41,14 @@ const IdeMain = () => {
   // Header와 TerminalContent의 배경색을 관리
   const [backgroundColor, setBackgroundColor] = useState('#ffffff');
   // 터미널과 채팅방의 텍스트 색상 관리
-  const [Color, setColor] = useState('#000000');
+  const [color, setColor] = useState('#000000');
   // useNavigate 훅을 사용하여 페이지 이동 함수 가져오기
   const navigate = useNavigate();
   // 채팅방 표시 여부 상태 추가
   const [showChatRoom, setShowChatRoom] = useState(false);
   //채팅방 인풋창에 입력한 내용 가져오기
   const [chatInputText, setChatInputText] = useState('');
-
   const [chatMessages, setChatMessages] = useState([]);
-
   //실행 버튼을 눌렀을 때 에디터에 작성된 데이터를 콘솔에 출력
   const onClickEditorButton = () => {
     console.log('editor Val : ' + editorData);
@@ -111,9 +114,15 @@ const IdeMain = () => {
           <Button onClick={toggleEditorTheme}>
             <BsToggles />
           </Button>
-          <Button>??</Button>
-          <Button onClick={openMyInfoModal}>내 정보</Button>
-          <Button onClick={goToMainPage}>나가기</Button>
+          <Button>
+            <BsDownload />
+          </Button>
+          <Button onClick={openMyInfoModal}>
+            <IoPersonCircleOutline />
+          </Button>
+          <Button onClick={goToMainPage}>
+            <IoIosLogOut />
+          </Button>
         </div>
       </Header>
 
@@ -139,7 +148,10 @@ const IdeMain = () => {
                   <option value='javascript'>JavaScript</option>
                   <option value='python'>Python</option>
                 </SelectBox>
-                <Button onClick={onClickEditorButton}>실행</Button>
+                <Button onClick={onClickEditorButton}>
+                  <FaRegPlayCircle />
+                  실행
+                </Button>
               </div>
             </EditorBar>
 
@@ -162,22 +174,27 @@ const IdeMain = () => {
             <TerminalBar>
               <div>
                 <p>터미널</p>
-                <Button onClick={toggleOpenChatRoom}>채팅</Button>
+                <Button onClick={toggleOpenChatRoom}>
+                  <BsChatDots />
+                </Button>
               </div>
             </TerminalBar>
             <TerminalContent style={{ backgroundColor: backgroundColor }}>
-              <span style={{ color: Color }}>결과값</span>
+              <span style={{ color: color }}>결과값</span>
             </TerminalContent>
           </TerminalSection>
         </EditorTerminalContainer>
 
         <ChatRoomContainer style={{ display: showChatRoom ? 'block' : 'none' }}>
           <ChatBar>
-            <p>채팅방</p>
+            <p>
+              <BsChatDots />
+              채팅방
+            </p>
             <Button onClick={toggleCloseChatRoom}>X</Button>
           </ChatBar>
 
-          <ChatText style={{ backgroundColor: backgroundColor, color: Color }}>
+          <ChatText style={{ backgroundColor: backgroundColor, color: color }}>
             {/* chatMessages 배열을 순회 */}
             {chatMessages.map((message, index) => (
               <div key={index}>
