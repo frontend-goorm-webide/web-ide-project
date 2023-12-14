@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MonacoEditor from 'react-monaco-editor';
 import Modal from 'react-modal';
 import MyInfoModal from './MyInfoModal';
+import { BsToggles } from 'react-icons/bs';
 import {
   GlobalStyle,
   Header,
@@ -105,7 +106,9 @@ const IdeMain = () => {
           IDE<span style={{ color: '#E20000' }}>A</span>
         </h1>
         <div>
-          <Button onClick={toggleEditorTheme}>테마</Button>
+          <Button onClick={toggleEditorTheme}>
+            <BsToggles />
+          </Button>
           <Button>??</Button>
           <Button onClick={openMyInfoModal}>내 정보</Button>
           <Button onClick={goToMainPage}>나가기</Button>
