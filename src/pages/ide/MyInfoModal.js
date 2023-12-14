@@ -48,9 +48,6 @@ const Button = styled.button`
 `;
 const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 const MyInfoModal = ({ onRequestClose }) => {
-  // axios 예제 상태 훅
-  const [users, setUsers] = useState([]);
-
   // 상태 추가
   const [profilePicture, setProfilePicture] = useState('');
   const [name, setName] = useState('');
