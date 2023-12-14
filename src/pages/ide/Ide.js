@@ -194,7 +194,7 @@ const IdeMain = () => {
           </TerminalSection>
         </EditorTerminalContainer>
 
-        <ChatRoomContainer show={showChatRoom}>
+        <ChatRoomContainer className={showChatRoom ? 'visible' : ''}>
           <ChatBar>
             <p>
               <img src='/icons/chat-dots.svg' alt='logo'></img>
