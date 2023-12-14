@@ -8,7 +8,7 @@ const ModalWrapper = styled.div`
 `;
 
 const Section = styled.div`
-margin - bottom: 20px;
+  margin-bottom: 20px;
 `;
 
 const Button = styled.button`
@@ -64,10 +64,7 @@ const MyInfoModal = ({ onRequestClose }) => {
     <ModalWrapper>
       {/* 프로필 섹션 */}
       <Section>
-        <img
-          src='/Users/jiyeong/Documents/web-ide-frontend-main/src/pages/ide/user_picture.jpg'
-          alt='기본 프로필 사진'
-        ></img>
+        <img src='' alt='기본 프로필 사진'></img>
         <p>프로필 사진: {profilePicture}</p>
         {/* 프로필 사진 변경 기능 */}
         <input type='file' accept='image/*' onChange={(e) => setProfilePicture(e.target.value)} />
