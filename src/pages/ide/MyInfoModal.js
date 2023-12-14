@@ -8,8 +8,26 @@ const ModalWrapper = styled.div`
   height: 300px;
 `;
 
+const SectionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ProfileImage = styled.img`
+  width: 100px;
+  height: 100px;
+`;
+
 const Section = styled.div`
   margin-bottom: 20px;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-items: center;
+  border: 1px solid aqua;
 `;
 
 const Button = styled.button`
@@ -30,6 +48,7 @@ const Button = styled.button`
 `;
 const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 const MyInfoModal = ({ onRequestClose }) => {
+  // axios 예제 상태 훅
   const [users, setUsers] = useState([]);
 
   // 상태 추가
@@ -82,12 +101,16 @@ const MyInfoModal = ({ onRequestClose }) => {
     <ModalWrapper>
       {/* 프로필 섹션 */}
       <Section>
-        <img src='' alt='기본 프로필 사진'></img>
-        <p>프로필 사진: {profilePicture}</p>
-        {/* 프로필 사진 변경 기능 */}
-        <input type='file' accept='image/*' onChange={(e) => setProfilePicture(e.target.value)} />
+        <SectionContainer>
+          <ProfileImage src='' alt='기본 프로필 사진' />
+          <p>프로필 사진: {profilePicture}</p>
+          {/* 프로필 사진 변경 기능 */}
+          <input type='file' accept='image/*' onChange={(e) => setProfilePicture(e.target.value)} />
+        </SectionContainer>
         {/* 프로필 변경 버튼 */}
-        <Button onClick={handleProfileChange}>프로필 변경</Button>
+        <ButtonContainer>
+          <Button onClick={handleProfileChange}>프로필 변경</Button>
+        </ButtonContainer>
       </Section>
 
       {/* 가입 정보 섹션 */}
