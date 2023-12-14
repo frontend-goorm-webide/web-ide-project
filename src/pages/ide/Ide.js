@@ -11,10 +11,8 @@ import {
   EditorTerminalContainer,
   ChatRoomContainer,
   ChatBar,
-  CloseButton,
   ChatText,
   ChatInputContainer,
-  ChatButton,
   ChatInput,
   EditorSection,
   EditorBar,
@@ -36,6 +34,8 @@ const IdeMain = () => {
   const [editorTheme, setEditorTheme] = useState('vs-light');
   // Header와 TerminalContent의 배경색을 관리
   const [backgroundColor, setBackgroundColor] = useState('#ffffff');
+  // 터미널과 채팅방의 텍스트 색상 관리
+  const [Color, setColor] = useState('#000000');
   // useNavigate 훅을 사용하여 페이지 이동 함수 가져오기
   const navigate = useNavigate();
   // 채팅방 표시 여부 상태 추가
@@ -63,14 +63,21 @@ const IdeMain = () => {
   const toggleEditorTheme = () => {
     setEditorTheme((prevTheme) => (prevTheme === 'vs-light' ? 'vs-dark' : 'vs-light'));
     setBackgroundColor((prevColor) => (prevColor === '#ffffff' ? '#000000' : '#ffffff'));
+    setColor((prevColor) => (prevColor === '#000000' ? '#ffffff' : '#000000'));
   };
   // 나가기 버튼을 눌렀을 때 메인 페이지로 이동
   const goToMainPage = () => {
+    // 로그아웃 시 알림창 표시
+    alert('로그아웃되었습니다.');
     navigate('/');
   };
   // 채팅 버튼 누르면 채팅방 나타나기
-  const toggleChatRoom = () => {
-    setShowChatRoom((prevShowChatRoom) => !prevShowChatRoom);
+  const toggleOpenChatRoom = () => {
+    setShowChatRoom(true);
+  };
+  // 채팅 버튼 누르면 채팅방 나가기
+  const toggleCloseChatRoom = () => {
+    setShowChatRoom(false);
   };
   // ChatInput에 텍스트를 입력할 때마다 해당 텍스트를 chatInputText 상태에 업데이트
   const handleChatInputChange = (e) => {
@@ -150,26 +157,35 @@ const IdeMain = () => {
             <TerminalBar>
               <div>
                 <p>터미널</p>
-                <Button onClick={toggleChatRoom}>채팅</Button>
+                <Button onClick={toggleOpenChatRoom}>채팅</Button>
               </div>
             </TerminalBar>
-            <TerminalContent style={{ backgroundColor: backgroundColor }}></TerminalContent>
+            <TerminalContent style={{ backgroundColor: backgroundColor }}>
+              <span style={{ color: Color }}>결과값</span>
+            </TerminalContent>
           </TerminalSection>
         </EditorTerminalContainer>
 
         <ChatRoomContainer show={showChatRoom}>
           <ChatBar>
             <p>채팅방</p>
-            <CloseButton onClick={toggleChatRoom}>X</CloseButton>
+            <Button onClick={toggleCloseChatRoom}>X</Button>
           </ChatBar>
 
-          <ChatText>
-            {/* 채팅 내용 출력 */}
+          <ChatText style={{ backgroundColor: backgroundColor, color: Color }}>
+            {/* chatMessages 배열을 순회 */}
+            {chatMessages.map((message, index) => (
+              <div key={index}>
+                {/* 각 메시지(시간:메세지 내용)를 화면에 표시하는 컴포넌트를 생성 */}
+                아이디:<strong>{message.text}</strong>
+                {message.timestamp.toLocaleTimeString()}
+              </div>
+            ))}
             대화 기록
           </ChatText>
 
-          <ChatInputContainer>
-            <ChatButton>+</ChatButton>
+          <ChatInputContainer style={{ backgroundColor: backgroundColor }}>
+            <Button>+</Button>
             <ChatInput
               placeholder='Type your message...'
               value={chatInputText}
@@ -177,7 +193,6 @@ const IdeMain = () => {
               onKeyDown={handleEnterKey}
             />
           </ChatInputContainer>
-          <ChatRoomContainer />
         </ChatRoomContainer>
       </MainContainer>
     </>
