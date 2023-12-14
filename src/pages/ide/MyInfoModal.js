@@ -12,15 +12,20 @@ margin - bottom: 20px;
 `;
 
 const Button = styled.button`
-color: #000000;
-padding: 8px 16px;
-border: 1px solid #546e7a;
-margin - left: 8px;
-cursor: pointer;
-
+  width: 110px;
+  height: 40px;
+  background-color: #36599d;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 15px;
+  cursor: pointer;
   &:hover {
-  background - color: #78909c;
-}
+    background-color: darkblue;
+  }
+  margin-top: 10px;
 `;
 
 const MyInfoModal = ({ onRequestClose }) => {
