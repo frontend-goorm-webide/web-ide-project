@@ -39,7 +39,7 @@ function Main() {
         onClick={() =>
           openModal({
             title: 'ide 이동',
-            contents: '새로운 비밀번호를 설정하세요:)',
+            contents: '이건 연습용 버튼입니다 :)',
             btnName: 'ide',
             redirectTo: '/ide', // ide 페이지 이동
           })
