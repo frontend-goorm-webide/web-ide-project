@@ -53,11 +53,6 @@ export const ChatRoomContainer = styled.div`
   height: 630px;
   background-color: #f0f0f0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  display: none; /* 기본적으로는 숨김 */
-
-  &.visible {
-    display: block; /* visible 클래스가 있을 때에만 보이도록 설정 */
-  }
 `;
 
 export const ChatBar = styled.div`
