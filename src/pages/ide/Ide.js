@@ -92,6 +92,8 @@ const IdeMain = () => {
   // ChatInput에 입력한 값 콘솔에 띄우기
   const handleSendChatMessage = () => {
     console.log('Sending chat message:', chatInputText);
+    const newMessage = { text: chatInputText, timestamp: new Date() };
+    setChatMessages((prevMessages) => [...prevMessages, newMessage]);
     setChatInputText('');
   };
   // 엔터 키를 누르면 handleSendChatMessage 함수를 호출, 채팅 메시지를 보냄
