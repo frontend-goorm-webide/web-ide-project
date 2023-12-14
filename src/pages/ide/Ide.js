@@ -47,6 +47,8 @@ const IdeMain = () => {
 
 
 
+  const [chatMessages, setChatMessages] = useState([]);
+
   //실행 버튼을 눌렀을 때 에디터에 작성된 데이터를 콘솔에 출력
   const onClickEditorButton = () => {
     console.log("editor Val : " + editorData);
