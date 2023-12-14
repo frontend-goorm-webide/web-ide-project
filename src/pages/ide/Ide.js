@@ -44,6 +44,8 @@ const IdeMain = () => {
   //채팅방 인풋창에 입력한 내용 가져오기
   const [chatInputText, setChatInputText] = useState('');
 
+  const [chatMessages, setChatMessages] = useState([]);
+
   //실행 버튼을 눌렀을 때 에디터에 작성된 데이터를 콘솔에 출력
   const onClickEditorButton = () => {
     console.log('editor Val : ' + editorData);
