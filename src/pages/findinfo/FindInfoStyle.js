@@ -29,13 +29,13 @@ export const FindIdContainer = styled.div`
   p {
     margin-bottom: 0.3rem;
     margin-top: 0.3rem;
-    font-size: 20px;
+    font-size: 18px;
   }
 
   svg {
     color: #aaa;
     font-size: 25px;
-    margin-right: 5px;
+    margin-right: 3px;
   }
 
   p,
@@ -77,13 +77,13 @@ export const FindPasswordContainer = styled.div`
   p {
     margin-bottom: 0.3rem;
     margin-top: 0.3rem;
-    font-size: 20px;
+    font-size: 18px;
   }
 
   svg {
     color: #aaa;
     font-size: 25px;
-    margin-right: 5px;
+    margin-right: 3px;
   }
 
   p,
