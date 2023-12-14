@@ -23,31 +23,29 @@ function Main() {
   return (
     <div>
       Main
-      {/* 아이디찾기 버튼 */}
       <Button
         onClick={() =>
           openModal({
-            title: '아이디 찾기',
-            contents: '해당 아이디로 다시 로그인 해주세요:)',
-            btnName: '로그인하기',
-            redirectTo: '/', // main 페이지 이동
+            title: 'findInfo 이동',
+            contents: '이건 연습용 버튼입니다 :)',
+            btnName: 'findInfo',
+            redirectTo: '/findinfo', // findinfo 페이지 이동
           })
         }
       >
-        아이디 찾기
+        findInfo
       </Button>
-      {/* 비밀번호찾기 버튼 */}
       <Button
         onClick={() =>
           openModal({
-            title: '비밀번호 찾기',
+            title: 'ide 이동',
             contents: '새로운 비밀번호를 설정하세요:)',
-            btnName: '확인',
+            btnName: 'ide',
             redirectTo: '/ide', // ide 페이지 이동
           })
         }
       >
-        비밀번호 찾기
+        ide
       </Button>
       {/* isModalOpen 이 true 인 경우에만 && 뒤 실행
       CommonModal 컴포넌트 랜더링, { }는 내용 전달, closeModal에 닫기 함수 전달 */}

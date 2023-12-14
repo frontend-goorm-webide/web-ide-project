@@ -1,28 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const ModalWrapper = styled.div`
   width: 500px;
   height: 300px;
 `;
 
+const SectionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ProfileImage = styled.img`
+  width: 100px;
+  height: 100px;
+`;
+
 const Section = styled.div`
-margin - bottom: 20px;
+  margin-bottom: 20px;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-items: center;
 `;
 
 const Button = styled.button`
-color: #000000;
-padding: 8px 16px;
-border: 1px solid #546e7a;
-margin - left: 8px;
-cursor: pointer;
-
+  width: 110px;
+  height: 40px;
+  background-color: #36599d;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 15px;
+  cursor: pointer;
   &:hover {
-  background - color: #78909c;
-}
+    background-color: darkblue;
+  }
+  margin-top: 10px;
 `;
-
+const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 const MyInfoModal = ({ onRequestClose }) => {
   // 상태 추가
   const [profilePicture, setProfilePicture] = useState('');
@@ -55,49 +78,42 @@ const MyInfoModal = ({ onRequestClose }) => {
     navigate('/');
   };
 
+  useEffect(() => {
+    axios
+      .get(SERVER_URL)
+      .then((response) => {
+        const userData = response.data[0];
+        setProfilePicture(userData.profilePicture);
+        setName(userData.name);
+        setEmail(userData.email);
+        setPhone(userData.phone);
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+      });
+  }, []);
+
   return (
     <ModalWrapper>
       {/* 프로필 섹션 */}
       <Section>
-        <img
-          src='/Users/jiyeong/Documents/web-ide-frontend-main/src/pages/ide/user_picture.jpg'
-          alt='기본 프로필 사진'
-        ></img>
-        <p>프로필 사진: {profilePicture}</p>
-        {/* 프로필 사진 변경 기능 */}
-        <input type='file' accept='image/*' onChange={(e) => setProfilePicture(e.target.value)} />
+        <SectionContainer>
+          <ProfileImage src='' alt='기본 프로필 사진' />
+          <p>프로필 사진: {profilePicture}</p>
+          {/* 프로필 사진 변경 기능 */}
+          <input type='file' accept='image/*' onChange={(e) => setProfilePicture(e.target.value)} />
+        </SectionContainer>
         {/* 프로필 변경 버튼 */}
-        <Button onClick={handleProfileChange}>프로필 변경</Button>
+        <ButtonContainer>
+          <Button onClick={handleProfileChange}>프로필 변경</Button>
+        </ButtonContainer>
       </Section>
 
       {/* 가입 정보 섹션 */}
       <Section>
         <p>이름: {name}</p>
-        {/* 이름 변경 기능 */}
-        <input
-          type='text'
-          placeholder='이름'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-
         <p>아이디: {email}</p>
-        {/* 아이디 변경 기능 */}
-        <input
-          type='text'
-          placeholder='아이디'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
         <p>이메일: {phone}</p>
-        {/* 이메일 변경 기능 */}
-        <input
-          type='text'
-          placeholder='이메일'
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
       </Section>
 
       {/* 닫기 버튼 */}
