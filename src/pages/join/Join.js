@@ -1,7 +1,12 @@
 import React from 'react';
+import { StyledLogo, RedLetter } from '../../components/Logo';
 
-function Join() {
-  return <div>Join</div>;
-}
+const Join = () => {
+  return (
+    <StyledLogo>
+      IDE<RedLetter>A</RedLetter>
+    </StyledLogo>
+  );
+};
 
 export default Join;
