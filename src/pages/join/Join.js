@@ -1,12 +1,17 @@
 import React from 'react';
-import { StyledLogo, RedLetter } from '../../components/Logo';
+import { Link } from 'react-router-dom';
+import Logo from '../../components/Logo';
+// import { StyledLogo, RedLetter } from '../../components/Logo';
 
 const Join = () => {
   return (
     <>
-      <StyledLogo>
+      <Link to='/' style={{ textDecoration: 'none' }}>
+        <Logo />
+      </Link>
+      {/* <StyledLogo>
         IDE<RedLetter>A</RedLetter>
-      </StyledLogo>
+      </StyledLogo> */}
       <span>Create Account</span>
     </>
   );

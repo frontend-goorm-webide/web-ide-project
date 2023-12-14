@@ -1,56 +1,47 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
-import CommonModal from '../../components/Modal';
+import Logo from '../../components/Logo';
+import Input from '../../components/Input';
 
 function Main() {
-  // 모달 열고 닫기 -> false 초기화
-  const [isModalOpen, setModalOpen] = useState(false);
-  // 모달 내용 -> 빈내용 초기화
-  const [modalContent, setModalContent] = useState({});
+  // id, pw 입력 Input 설정
+  const [userId, setUserId] = useState('');
+  const [userPw, setUserPw] = useState('');
 
-  // 모달 열기 함수
-  const openModal = (content) => {
-    setModalOpen(true); // isModalOpen = true
-    setModalContent(content); // 모달 내용 전달
-  };
-
-  // 모달 닫기 함수
-  const closeModal = () => {
-    setModalOpen(false); // isModalOpen = false
-    setModalContent({}); // 모달 내용 공백 전달
+  // 로그인 버튼 클릭 시 실행
+  const clickLogin = (e) => {
+    e.preventDefault();
+    console.log(userId, userPw); // 임시 값 확인
+    //값 초기화
+    setUserId('');
+    setUserPw('');
   };
 
   return (
-    <div>
-      Main
-      <Button
-        onClick={() =>
-          openModal({
-            title: 'findInfo 이동',
-            contents: '이건 연습용 버튼입니다 :)',
-            btnName: 'findInfo',
-            redirectTo: '/findinfo', // findinfo 페이지 이동
-          })
-        }
-      >
-        findInfo
-      </Button>
-      <Button
-        onClick={() =>
-          openModal({
-            title: 'ide 이동',
-            contents: '이건 연습용 버튼입니다 :)',
-            btnName: 'ide',
-            redirectTo: '/ide', // ide 페이지 이동
-          })
-        }
-      >
-        ide
-      </Button>
-      {/* isModalOpen 이 true 인 경우에만 && 뒤 실행
-      CommonModal 컴포넌트 랜더링, { }는 내용 전달, closeModal에 닫기 함수 전달 */}
-      {isModalOpen && <CommonModal {...modalContent} closeModal={closeModal} />}
-    </div>
+    <>
+      <form onSubmit={clickLogin}>
+        <Logo />
+        <div>
+          서비스 이용을 위해 로그인 해주세요 :)
+          <Input placeholder=' ID' value={userId} />
+          <Input placeholder=' PASSWORD' value={userPw} />
+          <Button>로그인</Button>
+        </div>
+      </form>
+      <Link to='/findinfo' style={{ color: 'black', textDecoration: 'none' }}>
+        아이디/비밀번호 찾기
+      </Link>
+      <br></br>
+      <Link to='/join' style={{ color: 'black', textDecoration: 'none' }}>
+        회원가입
+      </Link>
+      <br />
+      {/* 카카오 로그인 시 이동 경로 수정 필요 */}
+      <Link to='/ide'>
+        <img src='img/kakaoLogin.png' alt=''></img>
+      </Link>
+    </>
   );
 }
 
