@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const ModalWrapper = styled.div`
   width: 500px;
@@ -27,8 +28,10 @@ const Button = styled.button`
   }
   margin-top: 10px;
 `;
-
+const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 const MyInfoModal = ({ onRequestClose }) => {
+  const [users, setUsers] = useState([]);
+
   // 상태 추가
   const [profilePicture, setProfilePicture] = useState('');
   const [name, setName] = useState('');
@@ -60,6 +63,21 @@ const MyInfoModal = ({ onRequestClose }) => {
     navigate('/');
   };
 
+  useEffect(() => {
+    axios
+      .get(SERVER_URL)
+      .then((response) => {
+        const userData = response.data[0];
+        setProfilePicture(userData.profilePicture);
+        setName(userData.name);
+        setEmail(userData.email);
+        setPhone(userData.phone);
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+      });
+  }, []);
+
   return (
     <ModalWrapper>
       {/* 프로필 섹션 */}
@@ -75,31 +93,8 @@ const MyInfoModal = ({ onRequestClose }) => {
       {/* 가입 정보 섹션 */}
       <Section>
         <p>이름: {name}</p>
-        {/* 이름 변경 기능 */}
-        <input
-          type='text'
-          placeholder='이름'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-
         <p>아이디: {email}</p>
-        {/* 아이디 변경 기능 */}
-        <input
-          type='text'
-          placeholder='아이디'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
         <p>이메일: {phone}</p>
-        {/* 이메일 변경 기능 */}
-        <input
-          type='text'
-          placeholder='이메일'
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
       </Section>
 
       {/* 닫기 버튼 */}
