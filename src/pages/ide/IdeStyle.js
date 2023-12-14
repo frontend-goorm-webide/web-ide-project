@@ -24,12 +24,13 @@ export const Header = styled.header`
 export const Button = styled.button`
   color: #000000;
   padding: 8px 16px;
-  border: 1px solid #546e7a;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
   margin-left: 8px;
-  cursor: pointer;
+  background: none;
 
   &:hover {
-    background-color: #78909c;
+    cursor: pointer;
   }
 `;
 
@@ -65,13 +66,6 @@ export const ChatBar = styled.div`
   }
 `;
 
-export const CloseButton = styled.button`
-  color: #000000;
-  padding: 8px 16px;
-  border: 1px solid #546e7a;
-  cursor: pointer;
-`;
-
 export const ChatText = styled.div`
   background-color: #ffffff;
   color: #183258;
@@ -85,17 +79,6 @@ export const ChatInputContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   border-top: 2px solid #0a562d;
-`;
-
-export const ChatButton = styled.button`
-  color: #000000;
-  margin: 2px 4px;
-  border: 1px solid #546e7a;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #78909c;
-  }
 `;
 
 export const ChatInput = styled.input`
