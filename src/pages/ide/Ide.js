@@ -166,7 +166,7 @@ const IdeMain = () => {
           </TerminalSection>
         </EditorTerminalContainer>
 
-        <ChatRoomContainer show={showChatRoom}>
+        <ChatRoomContainer className={showChatRoom ? 'visible' : ''}>
           <ChatBar>
             <p>채팅방</p>
             <Button onClick={toggleCloseChatRoom}>X</Button>
