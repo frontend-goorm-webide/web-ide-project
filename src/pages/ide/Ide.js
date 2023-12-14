@@ -162,7 +162,7 @@ const IdeMain = () => {
               height='100%'
               language={selectedLanguage}
               theme={editorTheme}
-              options={{ fontSize: 14 }}
+              options={{ fontSize: 14, scrollBeyondLastLine: false, minimap: { enabled: false } }}
               //에디터가 비어있을 때 기본 문구 출력, 내용이 있으면 내용 유지
               value={
                 editorData ||
