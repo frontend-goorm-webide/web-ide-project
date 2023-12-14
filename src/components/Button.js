@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Button = styled.button`
+const StyledButton = styled.button`
   width: 110px;
   height: 40px;
   background-color: #36599d;
@@ -16,5 +16,14 @@ const Button = styled.button`
   }
   margin-top: 10px;
 `;
+
+// 함수 컴포넌트에서 스타일링된 버튼 사용
+const Button = ({ onClick, type, children }) => {
+  return (
+    <StyledButton onClick={onClick} type={type}>
+      {children}
+    </StyledButton>
+  );
+};
 
 export default Button;

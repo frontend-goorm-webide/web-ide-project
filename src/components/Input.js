@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Input = styled.input`
+export const StyledInput = styled.input`
   width: 13rem;
   height: 2.7rem;
   top: 378px;
@@ -24,5 +24,16 @@ const Input = styled.input`
     background-color: #ffffff;
   }
 `;
+
+const Input = ({ label, placeholder, value, onChange }) => {
+  return (
+    <div>
+      <label>
+        {label}
+        <StyledInput placeholder={placeholder} value={value} onChange={onChange} />
+      </label>
+    </div>
+  );
+};
 
 export default Input;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { StyledLogo, RedLetter } from '../../components/Logo';
+import Logo from '../../components/Logo';
 import { PiUserCircle } from 'react-icons/pi';
 import { CiMail } from 'react-icons/ci';
 import { GlobalStyle, FindIdContainer, FindPasswordContainer } from './FindInfoStyle';
@@ -14,6 +14,11 @@ const FindInfo = () => {
   const [nameForPassword, setNameForPassword] = useState('');
   const [emailForPassword, setEmailForPassword] = useState('');
   const [idForPassword, setIdForPassword] = useState('');
+
+  // 버튼 클릭 핸들러
+  const handleNewButtonClick = () => {
+    console.log('버튼 클릭!');
+  };
 
   // 폼 제출 핸들러
   const handleSubmit = (e) => {
@@ -37,35 +42,42 @@ const FindInfo = () => {
     <>
       <GlobalStyle />
       <form onSubmit={handleSubmit}>
-        <StyledLogo>
-          IDE<RedLetter>A</RedLetter>
-        </StyledLogo>
+        <Logo />
 
         <FindIdContainer>
           <div>
             <h2>아이디 찾기</h2>
             <div className='input-find-id'>
-              <p>
-                <PiUserCircle />
-                성명
-              </p>
               <Input
-                label='성명'
+                label={
+                  <>
+                    <p>
+                      <PiUserCircle />
+                      성명
+                    </p>
+                  </>
+                }
                 placeholder=' 예시) 홍길동'
                 value={nameForId}
                 onChange={(e) => setNameForId(e.target.value)}
               />
-              <p>
-                <CiMail />
-                이메일
-              </p>
+
               <Input
-                label='이메일'
+                label={
+                  <>
+                    <p>
+                      <CiMail />
+                      이메일
+                    </p>
+                  </>
+                }
                 placeholder=' 가입한 이메일 입력'
                 value={emailForId}
                 onChange={(e) => setEmailForId(e.target.value)}
               />
-              <Button type='submit'>찾기</Button>
+              <Button onClick={handleNewButtonClick} type='submit'>
+                찾기
+              </Button>
             </div>
           </div>
         </FindIdContainer>
@@ -74,37 +86,50 @@ const FindInfo = () => {
           <div>
             <h2>비밀번호 찾기</h2>
             <div className='input-find-password'>
-              <p>
-                <PiUserCircle />
-                성명
-              </p>
               <Input
-                label='성명'
+                label={
+                  <>
+                    <p>
+                      <PiUserCircle />
+                      성명
+                    </p>
+                  </>
+                }
                 placeholder=' 예시) 홍길동'
                 value={nameForPassword}
                 onChange={(e) => setNameForPassword(e.target.value)}
               />
-              <p>
-                <CiMail />
-                이메일
-              </p>
+
               <Input
-                label='이메일'
+                label={
+                  <>
+                    <p>
+                      <CiMail />
+                      이메일
+                    </p>
+                  </>
+                }
                 placeholder=' 가입한 이메일 입력'
                 value={emailForPassword}
                 onChange={(e) => setEmailForPassword(e.target.value)}
               />
-              <p>
-                <PiUserCircle />
-                아이디
-              </p>
+
               <Input
-                label='아이디'
+                label={
+                  <>
+                    <p>
+                      <PiUserCircle />
+                      아이디
+                    </p>
+                  </>
+                }
                 placeholder=' 찾을 아이디 입력'
                 value={idForPassword}
                 onChange={(e) => setIdForPassword(e.target.value)}
               />
-              <Button type='submit'>찾기</Button>
+              <Button onClick={handleNewButtonClick} type='submit'>
+                찾기
+              </Button>
             </div>
           </div>
         </FindPasswordContainer>
