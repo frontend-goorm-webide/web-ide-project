@@ -27,7 +27,6 @@ const ButtonContainer = styled.div`
   margin-top: 10px;
   display: flex;
   justify-items: center;
-  border: 1px solid aqua;
 `;
 
 const Button = styled.button`
