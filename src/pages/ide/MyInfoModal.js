@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+// 공통 Modal import로 수정
+import Modal from 'react-modal';
 
 const ModalWrapper = styled.div`
   width: 500px;
@@ -45,6 +47,17 @@ const Button = styled.button`
   }
   margin-top: 10px;
 `;
+const DeleteModalWrapper = styled(Modal)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const DeleteModalContent = styled.div`
+  width: 300px;
+  text-align: center;
+`;
 const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 const MyInfoModal = ({ onRequestClose }) => {
   // 상태 추가
@@ -54,6 +67,8 @@ const MyInfoModal = ({ onRequestClose }) => {
   const [phone, setPhone] = useState('');
   // useNavigate 훅을 사용하여 페이지 이동 함수 가져오기
   const navigate = useNavigate();
+  // 삭제 모달 상태
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
 
   // 프로필 정보 변경 함수
   const handleProfileChange = () => {
@@ -68,6 +83,11 @@ const MyInfoModal = ({ onRequestClose }) => {
 
   // 회원 탈퇴 함수
   const handleWithdrawal = () => {
+    // 모달 열기
+    setDeleteModalIsOpen(true);
+  };
+
+  const handleConfirmWithdrawal = () => {
     // 회원 탈퇴 요청을 콘솔에 출력
     console.log('Withdrawal requested');
     // 회원 탈퇴 완료 시 알림창 표시
@@ -76,6 +96,11 @@ const MyInfoModal = ({ onRequestClose }) => {
     onRequestClose();
     //메인 페이지로 이동
     navigate('/');
+  };
+
+  const handleCancelWithdrawal = () => {
+    // 모달 닫기
+    setDeleteModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -121,6 +146,21 @@ const MyInfoModal = ({ onRequestClose }) => {
 
       {/* 회원 탈퇴 버튼 */}
       <Button onClick={handleWithdrawal}>회원 탈퇴</Button>
+
+      {/* 삭제 모달 */}
+      <DeleteModalWrapper
+        isOpen={deleteModalIsOpen}
+        onRequestClose={handleCancelWithdrawal}
+        contentLabel='Delete Modal'
+      >
+        <DeleteModalContent>
+          <p>회원 탈퇴 하시겠습니까?</p>
+          <ButtonContainer>
+            <Button onClick={handleCancelWithdrawal}>취소</Button>
+            <Button onClick={handleConfirmWithdrawal}>탈퇴</Button>
+          </ButtonContainer>
+        </DeleteModalContent>
+      </DeleteModalWrapper>
     </ModalWrapper>
   );
 };
