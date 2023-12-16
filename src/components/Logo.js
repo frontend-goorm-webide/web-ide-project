@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-export const StyledLogo = styled.h1`
+export const StyledLogo = styled.span`
   font-family: Inter;
   font-size: 60px;
   font-weight: 700;
   line-height: 50px;
-  padding-top: 50px;
+  padding-top: 70px;
   letter-spacing: 0em;
   text-align: center;
   color: #183258;
