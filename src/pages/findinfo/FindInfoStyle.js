@@ -6,13 +6,32 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: 'Open Sans', sans-serif;
   }
+  
+`;
+
+export const ErrorText = styled.p`
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 15px;
+`;
+
+export const FindInfoLogo = styled.span`
+  display: flex;
+  justify-content: center;
 `;
 
 export const FindIdContainer = styled.div`
   border-top: 1.5px solid black;
-  padding-top: 1.5rem;
+  padding-top: 2rem;
   padding-left: 6rem;
   margin: 50px;
+
+  span {
+    margin-right: 1.5rem;
+    font-size: 1.8rem;
+    white-space: nowrap;
+  }
 
   > div {
     display: flex;
@@ -59,7 +78,7 @@ export const FindIdContainer = styled.div`
 export const FindPasswordContainer = styled.div`
   border-top: 1px solid black;
   margin: 50px;
-  padding-top: 1.7rem;
+  padding-top: 2rem;
   padding-left: 5rem;
 
   > div {
