@@ -7,6 +7,8 @@ import { CiMail } from 'react-icons/ci';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { IoGlobeOutline } from 'react-icons/io5';
 import { GlobalStyle, Header, MainContainer } from './JoinStyle';
+import { Link } from 'react-router-dom';
+
 
 const Join = () => {
   const [name, setName] = useState('');
@@ -31,8 +33,10 @@ const Join = () => {
       <GlobalStyle />
       <form onSubmit={handleSubmit}>
         <Header>
-          <Logo />
-          <h2>Create Account</h2>
+          <Link to='/' style={{ textDecoration: 'none' }}>
+            <Logo />
+          </Link>
+            <h2>Create Account</h2>
         </Header>
 
         <MainContainer>

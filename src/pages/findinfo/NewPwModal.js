@@ -50,22 +50,29 @@ const NewPwModal = ({ title, contents, btnName, closePwModal, redirectTo }) => {
       <Modal isOpen={true} toggle={closePwModal} backdrop={backdrop}>
         <CenteredModalHeader toggle={closePwModal}>{title}</CenteredModalHeader>
         <CenteredModalBody>
-          <p>
-            <PiUserCircle />
-            비밀번호 재설정
-          </p>
           <Input
-            label='비밀번호 재설정'
+            label={
+              <>
+                <p>
+                  <PiUserCircle />
+                  비밀번호 재설정
+                </p>
+              </>
+            }
             placeholder='영문, 숫자 포함 최소 8자리'
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
-          <p>
-            <PiUserCircle />
-            비밀번호 확인
-          </p>
+
           <Input
-            label='비밀번호 확인'
+            label={
+              <>
+                <p>
+                  <PiUserCircle />
+                  비밀번호 확인
+                </p>
+              </>
+            }
             placeholder='위에서 설정한 비밀번호 재입력'
             value={checkNewPassword}
             onChange={(e) => setCheckNewPassword(e.target.value)}

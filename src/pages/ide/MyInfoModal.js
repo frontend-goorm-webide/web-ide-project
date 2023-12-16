@@ -2,10 +2,23 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.css';
 
-const ModalWrapper = styled.div`
-  width: 500px;
-  height: 300px;
+const CenteredModalHeader = styled(ModalHeader)`
+  display: flex;
+  justify-content: center;
+`;
+
+const CenteredModalBody = styled(ModalBody)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CenteredModalFooter = styled(ModalFooter)`
+  display: flex;
+  justify-content: center;
 `;
 
 const SectionContainer = styled.div`
@@ -45,6 +58,7 @@ const Button = styled.button`
   }
   margin-top: 10px;
 `;
+
 const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 const MyInfoModal = ({ onRequestClose }) => {
   // 상태 추가
@@ -54,20 +68,18 @@ const MyInfoModal = ({ onRequestClose }) => {
   const [phone, setPhone] = useState('');
   // useNavigate 훅을 사용하여 페이지 이동 함수 가져오기
   const navigate = useNavigate();
+  // 삭제 모달 상태
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
 
   // 프로필 정보 변경 함수
   const handleProfileChange = () => {
     // 변경된 정보를 콘솔에 출력
     console.log('Profile information changed:', {
       profilePicture,
-      name,
-      email,
-      phone,
     });
   };
 
-  // 회원 탈퇴 함수
-  const handleWithdrawal = () => {
+  const handleConfirmdrawal = () => {
     // 회원 탈퇴 요청을 콘솔에 출력
     console.log('Withdrawal requested');
     // 회원 탈퇴 완료 시 알림창 표시
@@ -76,6 +88,11 @@ const MyInfoModal = ({ onRequestClose }) => {
     onRequestClose();
     //메인 페이지로 이동
     navigate('/');
+  };
+
+  const handleCanceldrawal = () => {
+    // 모달 닫기
+    setDeleteModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -93,35 +110,53 @@ const MyInfoModal = ({ onRequestClose }) => {
       });
   }, []);
 
+  const backdrop = false;
+
   return (
-    <ModalWrapper>
-      {/* 프로필 섹션 */}
-      <Section>
-        <SectionContainer>
-          <ProfileImage src='' alt='기본 프로필 사진' />
-          <p>프로필 사진: {profilePicture}</p>
-          {/* 프로필 사진 변경 기능 */}
-          <input type='file' accept='image/*' onChange={(e) => setProfilePicture(e.target.value)} />
-        </SectionContainer>
-        {/* 프로필 변경 버튼 */}
-        <ButtonContainer>
-          <Button onClick={handleProfileChange}>프로필 변경</Button>
-        </ButtonContainer>
-      </Section>
+    <Modal isOpen={true} toggle={onRequestClose} backdrop={backdrop}>
+      <ModalHeader toggle={onRequestClose}>내 정보</ModalHeader>
 
-      {/* 가입 정보 섹션 */}
-      <Section>
-        <p>이름: {name}</p>
-        <p>아이디: {email}</p>
-        <p>이메일: {phone}</p>
-      </Section>
+      <CenteredModalBody>
+        <Section>
+          <SectionContainer>
+            <ProfileImage src='' alt='기본 프로필 사진' />
+            <p>프로필 사진: {profilePicture}</p>
+            {/* 프로필 사진 변경 기능 */}
+            <input
+              type='file'
+              accept='image/*'
+              onChange={(e) => setProfilePicture(e.target.value)}
+            />
+          </SectionContainer>
+          {/* 프로필 변경 버튼 */}
+          <ButtonContainer>
+            <Button onClick={handleProfileChange}>프로필 변경</Button>
+          </ButtonContainer>
 
-      {/* 닫기 버튼 */}
-      <Button onClick={onRequestClose}>닫기</Button>
+          {/* 가입 정보 섹션 */}
+          <Section>
+            <p>이름: {name}</p>
+            <p>아이디: {email}</p>
+            <p>이메일: {phone}</p>
+          </Section>
+        </Section>
+      </CenteredModalBody>
 
-      {/* 회원 탈퇴 버튼 */}
-      <Button onClick={handleWithdrawal}>회원 탈퇴</Button>
-    </ModalWrapper>
+      <CenteredModalFooter>
+        <Button onClick={() => setDeleteModalIsOpen(true)}>회원 탈퇴</Button>
+      </CenteredModalFooter>
+
+      {/* 회원탈퇴 안내 모달 */}
+      <Modal isOpen={deleteModalIsOpen} toggle={handleCanceldrawal} contentLabel='Delete Modal'>
+        <ModalHeader toggle={handleCanceldrawal}>회원 탈퇴</ModalHeader>
+
+        <CenteredModalBody>정말 탈퇴 하시겠습니까?</CenteredModalBody>
+
+        <CenteredModalFooter>
+          <Button onClick={handleConfirmdrawal}>탈퇴</Button>
+        </CenteredModalFooter>
+      </Modal>
+    </Modal>
   );
 };
 
