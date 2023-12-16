@@ -5,7 +5,13 @@ import Input from '../../components/Input';
 import Logo from '../../components/Logo';
 import { PiUserCircle } from 'react-icons/pi';
 import { CiMail } from 'react-icons/ci';
-import { GlobalStyle, FindIdContainer, FindPasswordContainer } from './FindInfoStyle';
+import {
+  GlobalStyle,
+  ErrorText,
+  FindInfoLogo,
+  FindIdContainer,
+  FindPasswordContainer,
+} from './FindInfoStyle';
 import CommonModal from '../../components/Modal';
 import NewPwModal from './NewPwModal';
 
@@ -66,17 +72,75 @@ const FindInfo = () => {
     setPwModalContent({}); // 모달 내용 공백 전달
   };
 
+  // 이메일 유효성 검사 함수
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleFindIdButtonClick = () => {
+    if (!nameForId || !emailForId) {
+      openModal({
+        title: '입력 오류',
+        contents: <ErrorText>모든 필드를 입력해주세요</ErrorText>,
+        btnName: '닫기',
+        redirectTo: null,
+      });
+    } else if (!validateEmail(emailForId)) {
+      openModal({
+        title: '입력 오류',
+        contents: <ErrorText>올바른 이메일 형식을 입력해주세요</ErrorText>,
+        btnName: '닫기',
+        redirectTo: null,
+      });
+    } else {
+      openModal({
+        title: '아이디 찾기',
+        contents: '해당 아이디로 다시 로그인 해주세요:)',
+        btnName: '로그인하기',
+        redirectTo: '/', // main 페이지 이동
+      });
+    }
+  };
+
+  const handleFindPwButtonClick = () => {
+    if (!nameForPassword || !emailForPassword || !idForPassword) {
+      openModal({
+        title: '입력 오류',
+        contents: <ErrorText>모든 필드를 입력해주세요</ErrorText>,
+        btnName: '닫기',
+        redirectTo: null,
+      });
+    } else if (!validateEmail(emailForPassword)) {
+      openModal({
+        title: '입력 오류',
+        contents: <ErrorText>올바른 이메일 형식을 입력해주세요</ErrorText>,
+        btnName: '닫기',
+        redirectTo: null,
+      });
+    } else {
+      openPwModal({
+        title: '아이디 찾기',
+        contents: '해당 아이디로 다시 로그인 해주세요:)',
+        btnName: '로그인하기',
+        redirectTo: '/', // main 페이지 이동
+      });
+    }
+  };
+
   return (
     <>
       <GlobalStyle />
-      <form onSubmit={handleSubmit}>
+      <FindInfoLogo>
         <Link to='/' style={{ textDecoration: 'none' }}>
           <Logo />
         </Link>
+      </FindInfoLogo>
 
+      <form onSubmit={handleSubmit}>
         <FindIdContainer>
           <div>
-            <h2>아이디 찾기</h2>
+            <span>아이디 찾기</span>
             <div className='input-find-id'>
               <Input
                 label={
@@ -105,17 +169,7 @@ const FindInfo = () => {
                 value={emailForId}
                 onChange={(e) => setEmailForId(e.target.value)}
               />
-              <Button
-                onClick={() =>
-                  openModal({
-                    title: '아이디 찾기',
-                    contents: '해당 아이디로 다시 로그인 해주세요:)',
-                    btnName: '로그인하기',
-                    redirectTo: '/', // main 페이지 이동
-                  })
-                }
-                type='submit'
-              >
+              <Button onClick={() => handleFindIdButtonClick({})} type='submit'>
                 찾기
               </Button>
             </div>
@@ -167,17 +221,7 @@ const FindInfo = () => {
                 value={idForPassword}
                 onChange={(e) => setIdForPassword(e.target.value)}
               />
-              <Button
-                onClick={() =>
-                  openPwModal({
-                    title: '비밀번호 재설정',
-                    contents: '새로운 비밀번호로 로그인 해주세요 :)',
-                    btnName: '로그인하기',
-                    redirectTo: '/', // main 페이지 이동
-                  })
-                }
-                type='submit'
-              >
+              <Button onClick={() => handleFindPwButtonClick({})} type='submit'>
                 찾기
               </Button>
             </div>
