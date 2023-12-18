@@ -69,6 +69,7 @@ const Button = styled.button`
   }
   margin-top: 10px;
 `;
+
 const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 const MyInfoModal = ({ closeMyInfoModal }) => {
   // 상태 추가

@@ -33,6 +33,12 @@ export const FindIdContainer = styled.div`
     white-space: nowrap;
   }
 
+  span {
+    margin-right: 1.5rem;
+    font-size: 1.8rem;
+    white-space: nowrap;
+  }
+
   > div {
     display: flex;
     align-items: center;

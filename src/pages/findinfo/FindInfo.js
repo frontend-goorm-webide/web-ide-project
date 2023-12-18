@@ -120,6 +120,7 @@ const FindInfo = () => {
       });
     } else {
       openPwModal({
+
         title: '비밀번호 재설정',
         contents: '새로운 비밀번호로 로그인 해주세요 :)',
         btnName: '로그인하기',
@@ -139,7 +140,6 @@ const FindInfo = () => {
           <Logo to='/' />
         </Link> */}
       </FindInfoLogo>
-
       <form onSubmit={handleSubmit}>
         <FindIdContainer>
           <div>

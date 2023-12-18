@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MonacoEditor from 'react-monaco-editor';
-// import Modal from 'react-modal';
+//import Modal from 'react-modal'; ===> 동작 확인 후 삭제 예정
+//import MyInfoModal2 from './MyInfoModal2';  ===> 동작 확인 후 삭제 예정
 import MyInfoModal from './MyInfoModal';
 import { BsToggles } from 'react-icons/bs';
 import { BsDownload } from 'react-icons/bs';
@@ -9,6 +10,7 @@ import { IoPersonCircleOutline } from 'react-icons/io5';
 import { IoIosLogOut } from 'react-icons/io';
 import { FaRegPlayCircle } from 'react-icons/fa';
 import { BsChatDots } from 'react-icons/bs';
+import io from 'socket.io-client';
 import {
   GlobalStyle,
   Header,
@@ -51,6 +53,8 @@ const IdeMain = () => {
   //채팅방 인풋창에 입력한 내용 가져오기
   const [chatInputText, setChatInputText] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
+
   //실행 버튼을 눌렀을 때 에디터에 작성된 데이터를 콘솔에 출력
   const onClickEditorButton = () => {
     console.log('editor Val : ' + editorData);
@@ -96,8 +100,17 @@ const IdeMain = () => {
   // ChatInput에 입력한 값 콘솔에 띄우기
   const handleSendChatMessage = () => {
     console.log('Sending chat message:', chatInputText);
+
+    // 인풋값 확인 테스트용
     const newMessage = { text: chatInputText, timestamp: new Date() };
     setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    // Socket 파트 추가
+    // 추후 수정사항 ==> 닉네임 값
+    if (socket) {
+      socket.emit('chat message', { text: chatInputText, timestamp: new Date() });
+    }
+
     setChatInputText('');
   };
   // 엔터 키를 누르면 handleSendChatMessage 함수를 호출, 채팅 메시지를 보냄
@@ -108,6 +121,34 @@ const IdeMain = () => {
       handleSendChatMessage();
     }
   };
+  // Socket 파트
+  useEffect(() => {
+    const newSocket = io('http://localhost:3000');
+    setSocket(newSocket);
+
+    return () => {
+      if (newSocket) {
+        newSocket.close();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (socket) {
+      // 서버로부터 메시지 수신
+      socket.on('chat message', (message) => {
+        // 새 메시지를 메시지 목록에 추가
+        setChatMessages((prevMessages) => [...prevMessages, message]);
+      });
+    }
+
+    // 컴포넌트 언마운트 시 소켓 이벤트 리스너 제거
+    return () => {
+      if (socket) {
+        socket.off('chat message');
+      }
+    };
+  }, [socket]);
 
   return (
     <>
