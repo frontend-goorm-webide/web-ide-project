@@ -121,13 +121,13 @@ const MyInfoModal = ({ onRequestClose }) => {
         <ButtonContainer>
           <Button onClick={handleProfileChange}>프로필 변경</Button>
         </ButtonContainer>
+      </Section>
 
-        {/* 가입 정보 섹션 */}
-        <Section>
-          <p>이름: {name}</p>
-          <p>아이디: {email}</p>
-          <p>이메일: {phone}</p>
-        </Section>
+      {/* 가입 정보 섹션 */}
+      <Section>
+        <p>이름: {name}</p>
+        <p>아이디: {email}</p>
+        <p>이메일: {phone}</p>
       </Section>
 
       {/* 회원 탈퇴 버튼 */}
