@@ -214,7 +214,7 @@ const FindInfo = () => {
 
         <FindPasswordContainer>
           <div>
-            <span>비밀번호 변경</span>
+            <span>비밀번호 찾기</span>
             <div className='input-find-password'>
               <Input
                 label={

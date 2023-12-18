@@ -75,22 +75,6 @@ function Main() {
             </div>
           </LoginSection>
         </form>
-        {/* <LoginForm onSubmit={clickLogin}>
-          <Input placeholder=' ID' value={userId} onChange={(e) => setUserId(e.target.value)} />
-          <Input
-            placeholder=' PASSWORD'
-            value={userPw}
-            onChange={(e) => setUserPw(e.target.value)}
-          />
-        </LoginForm>
-        <LoginBtn>
-          <div className={alertError()}>
-            <h5> 아이디 또는 비밀번호를 확인해주세요. </h5>
-          </div>
-          <Button onClick={() => handleAlertError({})} type='submit'>
-            로그인
-          </Button>
-        </LoginBtn> */}
         <LinkSection>
           <Link to='/findinfo' style={{ color: 'black', textDecoration: 'none' }}>
             아이디/비밀번호 찾기

@@ -173,6 +173,7 @@ const MyInfoModal = ({ closeMyInfoModal }) => {
           {isModalOpen && <CommonModal {...modalContent} closeModal={closeModal} />}
         </CenteredModalFooter>
       </Modal>
+      {/* <CommonModal {...modalContent} closeModal={closeModal} /> */}
     </div>
   );
 };
