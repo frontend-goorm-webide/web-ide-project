@@ -4,6 +4,11 @@ import styled from 'styled-components';
 import axios from 'axios';
 import CommonModal from '../../components/Modal';
 
+const ModalWrapper = styled.div`
+  width: 500px;
+  height: 300px;
+`;
+
 const SectionContainer = styled.div`
   display: flex;
   flex-direction: column;
