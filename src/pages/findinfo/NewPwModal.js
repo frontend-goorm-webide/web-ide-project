@@ -11,6 +11,7 @@ import { PiUserCircle } from 'react-icons/pi';
 const CenteredModalHeader = styled(ModalHeader)`
   display: flex;
   justify-content: center;
+  padding: 0.5rem 1rem;
 `;
 
 const CenteredModalBody = styled(ModalBody)`
@@ -23,6 +24,7 @@ const CenteredModalBody = styled(ModalBody)`
 const CenteredModalFooter = styled(ModalFooter)`
   display: flex;
   justify-content: center;
+  padding: 0.3rem 1rem;
 `;
 
 const NewPwModal = ({ title, contents, btnName, closePwModal, redirectTo }) => {

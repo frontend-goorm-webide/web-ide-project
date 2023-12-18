@@ -25,7 +25,13 @@ export const FindIdContainer = styled.div`
   border-top: 1.5px solid black;
   padding-top: 2rem;
   padding-left: 6rem;
-  margin: 50px;
+  margin: 30px; // 50 -> 30 변경
+
+  span {
+    margin-right: 1.5rem;
+    font-size: 1.8rem;
+    white-space: nowrap;
+  }
 
   span {
     margin-right: 1.5rem;

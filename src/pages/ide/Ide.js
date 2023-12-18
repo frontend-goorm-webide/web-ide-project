@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MonacoEditor from 'react-monaco-editor';
 //import Modal from 'react-modal'; ===> 동작 확인 후 삭제 예정
-//import MyInfoModal2 from './MyInfoModal2';
+//import MyInfoModal2 from './MyInfoModal2';  ===> 동작 확인 후 삭제 예정
 import MyInfoModal from './MyInfoModal';
 import { BsToggles } from 'react-icons/bs';
 import { BsDownload } from 'react-icons/bs';
@@ -68,7 +68,7 @@ const IdeMain = () => {
     setIsMyInfoModalOpen(true);
     setMyInfoModalContent(content);
   };
-  //내정보 모달 닫기
+  // //내정보 모달 닫기
   const closeMyInfoModal = () => {
     setIsMyInfoModalOpen(false);
     setMyInfoModalContent({});
@@ -176,13 +176,13 @@ const IdeMain = () => {
         </div>
       </Header>
 
-      {/*<Modal*/}
-      {/*  isOpen={isMyInfoModalOpen}*/}
-      {/*  onRequestClose={closeMyInfoModal}*/}
-      {/*  contentLabel='MyInfo Modal'*/}
-      {/*>*/}
-      {/*  <MyInfoModal onRequestClose={closeMyInfoModal} />*/}
-      {/*</Modal>*/}
+      {/* <Modal
+        isOpen={isMyInfoModalOpen}
+        closeMyInfoModal={closeMyInfoModal}
+        contentLabel='MyInfo Modal'
+      >
+        <MyInfoModal closeMyInfoModal={closeMyInfoModal} />
+      </Modal> */}
 
       <MainContainer>
         <EditorTerminalContainer>

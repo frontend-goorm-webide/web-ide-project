@@ -9,7 +9,6 @@ import { IoGlobeOutline } from 'react-icons/io5';
 import { GlobalStyle, Header, MainContainer } from './JoinStyle';
 import { Link } from 'react-router-dom';
 
-
 const Join = () => {
   const [name, setName] = useState('');
   const [id, setId] = useState('');
@@ -36,7 +35,10 @@ const Join = () => {
           <Link to='/' style={{ textDecoration: 'none' }}>
             <Logo />
           </Link>
-            <h2>Create Account</h2>
+          {/* <Link>
+            <Logo to='/' />
+          </Link> */}
+          <h2>Create Account</h2>
         </Header>
 
         <MainContainer>

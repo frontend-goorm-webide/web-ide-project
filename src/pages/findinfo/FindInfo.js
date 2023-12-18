@@ -120,8 +120,9 @@ const FindInfo = () => {
       });
     } else {
       openPwModal({
-        title: '아이디 찾기',
-        contents: '해당 아이디로 다시 로그인 해주세요:)',
+
+        title: '비밀번호 재설정',
+        contents: '새로운 비밀번호로 로그인 해주세요 :)',
         btnName: '로그인하기',
         redirectTo: '/', // main 페이지 이동
       });
@@ -135,8 +136,10 @@ const FindInfo = () => {
         <Link to='/' style={{ textDecoration: 'none' }}>
           <Logo />
         </Link>
+        {/* <Link>
+          <Logo to='/' />
+        </Link> */}
       </FindInfoLogo>
-
       <form onSubmit={handleSubmit}>
         <FindIdContainer>
           <div>
@@ -172,6 +175,19 @@ const FindInfo = () => {
               <Button onClick={() => handleFindIdButtonClick({})} type='submit'>
                 찾기
               </Button>
+              {/* <Button
+                onClick={() =>
+                  openModal({
+                    title: '아이디 찾기',
+                    contents: '해당 아이디로 다시 로그인 해주세요:)',
+                    btnName: '로그인하기',
+                    redirectTo: '/', // main 페이지 이동
+                  })
+                }
+                type='submit'
+              >
+                찾기
+              </Button> */}
             </div>
           </div>
         </FindIdContainer>
@@ -224,6 +240,19 @@ const FindInfo = () => {
               <Button onClick={() => handleFindPwButtonClick({})} type='submit'>
                 찾기
               </Button>
+              {/* <Button
+                onClick={() =>
+                  openPwModal({
+                    title: '비밀번호 재설정',
+                    contents: '새로운 비밀번호로 로그인 해주세요 :)',
+                    btnName: '로그인하기',
+                    redirectTo: '/', // main 페이지 이동
+                  })
+                }
+                type='submit'
+              >
+                찾기
+              </Button> */}
             </div>
           </div>
           {isModalOpen && <CommonModal {...modalContent} closeModal={closeModal} />}
