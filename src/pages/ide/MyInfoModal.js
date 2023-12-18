@@ -1,25 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.css';
-
-const CenteredModalHeader = styled(ModalHeader)`
-  display: flex;
-  justify-content: center;
-`;
-
-const CenteredModalBody = styled(ModalBody)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const CenteredModalFooter = styled(ModalFooter)`
-  display: flex;
-  justify-content: center;
-`;
+import CommonModal from '../../components/Modal';
 
 const SectionContainer = styled.div`
   display: flex;
@@ -67,9 +50,7 @@ const MyInfoModal = ({ onRequestClose }) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   // useNavigate 훅을 사용하여 페이지 이동 함수 가져오기
-  const navigate = useNavigate();
-  // 삭제 모달 상태
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  // const navigate = useNavigate();
 
   // 프로필 정보 변경 함수
   const handleProfileChange = () => {
@@ -79,20 +60,31 @@ const MyInfoModal = ({ onRequestClose }) => {
     });
   };
 
-  const handleConfirmdrawal = () => {
-    // 회원 탈퇴 요청을 콘솔에 출력
-    console.log('Withdrawal requested');
-    // 회원 탈퇴 완료 시 알림창 표시
-    alert('회원 탈퇴가 완료되었습니다.');
-    // 모달 닫기
-    onRequestClose();
-    //메인 페이지로 이동
-    navigate('/');
-  };
+  // 모달 열고 닫기 -> false 초기화
+  const [isModalOpen, setModalOpen] = useState(false);
+  // 모달 내용 -> 빈내용 초기화
+  const [modalContent, setModalContent] = useState({});
 
-  const handleCanceldrawal = () => {
-    // 모달 닫기
-    setDeleteModalIsOpen(false);
+  //const handleConfirmdrawal = () => {
+  // 회원 탈퇴 요청을 콘솔에 출력
+  //  console.log('Withdrawal requested');
+  // 회원 탈퇴 완료 시 알림창 표시
+  //  alert('회원 탈퇴가 완료되었습니다.');
+  // 모달 닫기
+  //  onRequestClose();
+  //메인 페이지로 이동
+  //  navigate('/');
+  //};
+
+  // 회원 탈퇴 모달 열기 함수
+  const openModal = (content) => {
+    setModalOpen(true); // isModalOpen = true
+    setModalContent(content); // 모달 내용 전달
+  };
+  // 모달 닫기 함수
+  const closeModal = () => {
+    setModalOpen(false); // isModalOpen = false
+    setModalContent({}); // 모달 내용 공백 전달
   };
 
   useEffect(() => {
@@ -113,50 +105,48 @@ const MyInfoModal = ({ onRequestClose }) => {
   const backdrop = false;
 
   return (
-    <Modal isOpen={true} toggle={onRequestClose} backdrop={backdrop}>
-      <ModalHeader toggle={onRequestClose}>내 정보</ModalHeader>
+    <ModalWrapper>
+      {/* 프로필 섹션 */}
+      <Section>
+        <SectionContainer>
+          <ProfileImage src='' alt='기본 프로필 사진' />
+          <p>프로필 사진: {profilePicture}</p>
+          {/* 프로필 사진 변경 기능 */}
+          <input type='file' accept='image/*' onChange={(e) => setProfilePicture(e.target.value)} />
+        </SectionContainer>
+        {/* 프로필 변경 버튼 */}
+        <ButtonContainer>
+          <Button onClick={handleProfileChange}>프로필 변경</Button>
+        </ButtonContainer>
 
-      <CenteredModalBody>
+        {/* 가입 정보 섹션 */}
         <Section>
-          <SectionContainer>
-            <ProfileImage src='' alt='기본 프로필 사진' />
-            <p>프로필 사진: {profilePicture}</p>
-            {/* 프로필 사진 변경 기능 */}
-            <input
-              type='file'
-              accept='image/*'
-              onChange={(e) => setProfilePicture(e.target.value)}
-            />
-          </SectionContainer>
-          {/* 프로필 변경 버튼 */}
-          <ButtonContainer>
-            <Button onClick={handleProfileChange}>프로필 변경</Button>
-          </ButtonContainer>
-
-          {/* 가입 정보 섹션 */}
-          <Section>
-            <p>이름: {name}</p>
-            <p>아이디: {email}</p>
-            <p>이메일: {phone}</p>
-          </Section>
+          <p>이름: {name}</p>
+          <p>아이디: {email}</p>
+          <p>이메일: {phone}</p>
         </Section>
-      </CenteredModalBody>
+      </Section>
 
-      <CenteredModalFooter>
-        <Button onClick={() => setDeleteModalIsOpen(true)}>회원 탈퇴</Button>
-      </CenteredModalFooter>
+      {/* 회원 탈퇴 버튼 */}
+      <Button
+        onClick={() =>
+          openModal({
+            title: '회원탈퇴',
+            contents: '회원 탈퇴가 완료되었습니다.',
+            btnName: '확인',
+            redirectTo: '/', // main 페이지 이동
+          })
+        }
+      >
+        회원탈퇴
+      </Button>
 
-      {/* 회원탈퇴 안내 모달 */}
-      <Modal isOpen={deleteModalIsOpen} toggle={handleCanceldrawal} contentLabel='Delete Modal'>
-        <ModalHeader toggle={handleCanceldrawal}>회원 탈퇴</ModalHeader>
+      {/* 닫기 버튼 */}
+      <Button onClick={onRequestClose}>닫기</Button>
 
-        <CenteredModalBody>정말 탈퇴 하시겠습니까?</CenteredModalBody>
-
-        <CenteredModalFooter>
-          <Button onClick={handleConfirmdrawal}>탈퇴</Button>
-        </CenteredModalFooter>
-      </Modal>
-    </Modal>
+      {isModalOpen && <CommonModal {...modalContent} closeModal={closeModal} />}
+      {/* <Button onClick={handleWithdrawal}>회원 탈퇴</Button> */}
+    </ModalWrapper>
   );
 };
 
