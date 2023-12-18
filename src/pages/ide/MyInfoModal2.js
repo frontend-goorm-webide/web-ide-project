@@ -69,9 +69,8 @@ const Button = styled.button`
   }
   margin-top: 10px;
 `;
-
 const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
-const MyInfoModal = ({ closeMyInfoModal }) => {
+const MyInfoModal2 = ({ closeMyInfoModal }) => {
   // 상태 추가
   const [profilePicture, setProfilePicture] = useState('');
   const [name, setName] = useState('');
@@ -177,4 +176,4 @@ const MyInfoModal = ({ closeMyInfoModal }) => {
   );
 };
 
-export default MyInfoModal;
+export default MyInfoModal2;

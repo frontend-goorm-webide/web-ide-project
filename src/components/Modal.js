@@ -9,26 +9,30 @@ import 'bootstrap/dist/css/bootstrap.css';
 const CenteredModalHeader = styled(ModalHeader)`
   display: flex;
   justify-content: center;
+  padding: 0.5rem 1rem;
 `;
 
 const CenteredModalBody = styled(ModalBody)`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 3rem 1rem;
 `;
 
 const CenteredModalFooter = styled(ModalFooter)`
   display: flex;
   justify-content: center;
+  padding: 0.3rem 1rem;
 `;
 
 const CommonModal = ({ title, contents, btnName, closeModal, redirectTo }) => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    if (redirectTo) {
-      navigate(redirectTo);
-    }
+    // if (redirectTo) {
+    //   navigate(redirectTo);
+    // }
+    navigate(redirectTo);
     closeModal();
   };
 
@@ -37,7 +41,11 @@ const CommonModal = ({ title, contents, btnName, closeModal, redirectTo }) => {
   return (
     <div>
       <Modal isOpen={true} toggle={closeModal} backdrop={backdrop}>
-        <CenteredModalHeader toggle={closeModal}>{title}</CenteredModalHeader>
+        {/* 회원 탈퇴인 경우 : toggle 제거 (닫기표시 제거) */}
+        {title === '회원탈퇴' && <CenteredModalHeader>{title}</CenteredModalHeader>}
+        {title !== '회원탈퇴' && (
+          <CenteredModalHeader toggle={closeModal}>{title}</CenteredModalHeader>
+        )}
         <CenteredModalBody>{contents}</CenteredModalBody>
         <CenteredModalFooter>
           <Button onClick={handleButtonClick}>{btnName}</Button>

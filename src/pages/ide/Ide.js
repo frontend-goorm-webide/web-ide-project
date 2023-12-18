@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MonacoEditor from 'react-monaco-editor';
-import Modal from 'react-modal';
+//import Modal from 'react-modal'; ===> 동작 확인 후 삭제 예정
+//import MyInfoModal2 from './MyInfoModal2';  ===> 동작 확인 후 삭제 예정
 import MyInfoModal from './MyInfoModal';
 import { BsToggles } from 'react-icons/bs';
 import { BsDownload } from 'react-icons/bs';
@@ -37,6 +38,8 @@ const IdeMain = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('java');
   //내정보 모달 창
   const [isMyInfoModalOpen, setIsMyInfoModalOpen] = useState(false);
+  // 내정보 모달 내용 -> 빈내용 초기화
+  const [myInfoModalContent, setMyInfoModalContent] = useState({});
   // 모나코 에디터의 테마를 관리
   const [editorTheme, setEditorTheme] = useState('vs-light');
   // Header와 TerminalContent의 배경색을 관리
@@ -61,12 +64,14 @@ const IdeMain = () => {
     setSelectedLanguage(language);
   };
   //내정보 모달 열기
-  const openMyInfoModal = () => {
+  const openMyInfoModal = (content) => {
     setIsMyInfoModalOpen(true);
+    setMyInfoModalContent(content);
   };
-  //내정보 모달 닫기
+  // //내정보 모달 닫기
   const closeMyInfoModal = () => {
     setIsMyInfoModalOpen(false);
+    setMyInfoModalContent({});
   };
   // 테마 변경
   const toggleEditorTheme = () => {
@@ -165,16 +170,19 @@ const IdeMain = () => {
           <Button onClick={goToMainPage}>
             <IoIosLogOut />
           </Button>
+          {isMyInfoModalOpen && (
+            <MyInfoModal {...myInfoModalContent} closeMyInfoModal={closeMyInfoModal} />
+          )}
         </div>
       </Header>
 
-      <Modal
+      {/* <Modal
         isOpen={isMyInfoModalOpen}
-        onRequestClose={closeMyInfoModal}
+        closeMyInfoModal={closeMyInfoModal}
         contentLabel='MyInfo Modal'
       >
-        <MyInfoModal onRequestClose={closeMyInfoModal} />
-      </Modal>
+        <MyInfoModal closeMyInfoModal={closeMyInfoModal} />
+      </Modal> */}
 
       <MainContainer>
         <EditorTerminalContainer>
