@@ -5,7 +5,7 @@ const StyledButton = styled.button`
   height: 40px;
   background-color: #36599d;
   color: white;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: bold;
   text-align: center;
   border: 1px solid black;
