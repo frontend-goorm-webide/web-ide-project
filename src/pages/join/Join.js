@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import { Link, useNavigate } from 'react-router-dom';
 import { PiUserCircle } from 'react-icons/pi';
 import { CiMail } from 'react-icons/ci';
 import { RiLockPasswordLine } from 'react-icons/ri';
@@ -36,13 +37,20 @@ const Join = () => {
     setMobile('');
   };
 
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate('/');
+  };
+
   return (
     <>
       <PageLayout>
         <GlobalStyle />
         <HeaderLogo>
           <StyledLogo>
-            IDE<span>A</span>
+            <Link to='/' style={{ color: 'black', textDecoration: 'none' }}>
+              IDE<span>A</span>
+            </Link>
             <p>Create Account</p>
           </StyledLogo>
         </HeaderLogo>
@@ -140,10 +148,12 @@ const Join = () => {
 
             <StyledButtons>
               <div className='buttons'>
-                <Button type='submit' className='cancel-btn'>
+                <Button onClick={handleButtonClick} type='submit' className='cancel-btn'>
                   취소
                 </Button>
-                <Button type='submit'>회원가입 완료</Button>
+                <Button onClick={handleButtonClick} type='submit'>
+                  회원가입 완료
+                </Button>
               </div>
             </StyledButtons>
           </form>

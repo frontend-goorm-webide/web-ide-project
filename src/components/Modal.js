@@ -29,9 +29,6 @@ const CommonModal = ({ title, contents, btnName, closeModal, redirectTo }) => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    // if (redirectTo) {
-    //   navigate(redirectTo);
-    // }
     navigate(redirectTo);
     closeModal();
   };
