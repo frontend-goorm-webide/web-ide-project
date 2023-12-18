@@ -30,62 +30,98 @@ const CenteredModalFooter = styled(ModalFooter)`
 const NewPwModal = ({ title, contents, btnName, closePwModal, redirectTo }) => {
   // 훅
   const navigate = useNavigate();
+  // 비밀번호 재설정
+  const [newPassword, setNewPassword] = useState('');
+  const [checkNewPassword, setCheckNewPassword] = useState('');
+  // 경고 메시지 상태
+  const [passwordError, setPasswordError] = useState('');
 
-  // 버튼 클릭 시, 페이지 이동 및 모달 닫기
-  const handleButtonClick = () => {
-    if (redirectTo) {
-      navigate(redirectTo); // 버튼 클릭 시 전달받은 페이지 이동
-    }
-    closePwModal(); // 모달 닫기
+  //비밀번호 유효성 검사 함수
+  const validatePassword = () => {
+    const regex = /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/;
+    return regex.test(newPassword);
   };
 
+  // 버튼 클릭 시, 페이지 이동 및 모달 닫기
+  const handleButtonClick = (event) => {
+    event.preventDefault();
+
+    if (!validatePassword()) {
+      setPasswordError('비밀번호는 최소 8자 이상이며, 문자와 숫자를 모두 포함해야 합니다');
+      return;
+    }
+
+    if (newPassword !== checkNewPassword) {
+      // 비밀번호가 일치하지 않을경우
+      setPasswordError('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+    // 비밀번호가 일치할 경우
+    setPasswordError('비밀번호가 변경되었습니다.');
+
+    // 폼 제출 로직
+    console.log('Form submitted with password:', newPassword);
+
+    // 몇 초 후에 페이지 이동
+    setTimeout(() => {
+      closePwModal();
+      if (redirectTo) {
+        navigate(redirectTo);
+      }
+    }, 2000); // 2초 후에 페이지 이동
+  };
   // 모달 밖 화면 클릭해도 모달 창 닫히지 않도록 설정
   // 모달 닫을 때는 닫기 버튼으로만 닫히도록 설정
   const backdrop = false;
 
-  // 비밀번호 재설정
-  const [newPassword, setNewPassword] = useState('');
-  const [checkNewPassword, setCheckNewPassword] = useState('');
-
   return (
-    <div>
-      <Modal isOpen={true} toggle={closePwModal} backdrop={backdrop}>
-        <CenteredModalHeader toggle={closePwModal}>{title}</CenteredModalHeader>
-        <CenteredModalBody>
-          <Input
-            label={
-              <>
-                <p>
-                  <PiUserCircle />
-                  비밀번호 재설정
-                </p>
-              </>
-            }
-            placeholder='영문, 숫자 포함 최소 8자리'
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-
-          <Input
-            label={
-              <>
-                <p>
-                  <PiUserCircle />
-                  비밀번호 확인
-                </p>
-              </>
-            }
-            placeholder='위에서 설정한 비밀번호 재입력'
-            value={checkNewPassword}
-            onChange={(e) => setCheckNewPassword(e.target.value)}
-          />
-          {contents}
-        </CenteredModalBody>
-        <CenteredModalFooter>
-          <Button onClick={handleButtonClick}>{btnName}</Button>
-        </CenteredModalFooter>
-      </Modal>
-    </div>
+    <form onSubmit={handleButtonClick}>
+      <div>
+        <Modal isOpen={true} toggle={closePwModal} backdrop={backdrop}>
+          <CenteredModalHeader toggle={closePwModal}>{title}</CenteredModalHeader>
+          <CenteredModalBody>
+            <Input
+              label={
+                <>
+                  <p>
+                    <PiUserCircle />
+                    비밀번호 재설정
+                  </p>
+                </>
+              }
+              placeholder='영문, 숫자 포함 최소 8자리'
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <Input
+              label={
+                <>
+                  <p>
+                    <PiUserCircle />
+                    비밀번호 확인
+                  </p>
+                </>
+              }
+              placeholder='위에서 설정한 비밀번호 재입력'
+              value={checkNewPassword}
+              onChange={(e) => setCheckNewPassword(e.target.value)}
+            />
+            {passwordError && (
+              <p
+                style={{ color: passwordError === '비밀번호가 변경되었습니다.' ? 'green' : 'red' }}
+              >
+                {passwordError}
+              </p>
+            )}
+            {/* 경고 메시지 표시 */}
+            {contents}
+          </CenteredModalBody>
+          <CenteredModalFooter>
+            <Button onClick={handleButtonClick}>{btnName}</Button>
+          </CenteredModalFooter>
+        </Modal>
+      </div>
+    </form>
   );
 };
 

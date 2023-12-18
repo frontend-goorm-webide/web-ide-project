@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import Logo from '../../components/Logo';
 import { PiUserCircle } from 'react-icons/pi';
 import { CiMail } from 'react-icons/ci';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { IoGlobeOutline } from 'react-icons/io5';
-import { GlobalStyle, Header, MainContainer } from './JoinStyle';
-import { Link } from 'react-router-dom';
+
+import {
+  GlobalStyle,
+  HeaderLogo,
+  FormStyle,
+  PageLayout,
+  CheckIdBtn,
+  StyledLogo,
+  IdInputWithBtn,
+  StyledButtons,
+  PwInputContainer,
+} from './JoinStyle';
 
 const Join = () => {
   const [name, setName] = useState('');
@@ -29,108 +38,117 @@ const Join = () => {
 
   return (
     <>
-      <GlobalStyle />
-      <form onSubmit={handleSubmit}>
-        <Header>
-          <Link to='/' style={{ textDecoration: 'none' }}>
-            <Logo />
-          </Link>
-          {/* <Link>
-            <Logo to='/' />
-          </Link> */}
-          <h2>Create Account</h2>
-        </Header>
+      <PageLayout>
+        <GlobalStyle />
+        <HeaderLogo>
+          <StyledLogo>
+            IDE<span>A</span>
+            <p>Create Account</p>
+          </StyledLogo>
+        </HeaderLogo>
 
-        <MainContainer>
-          <Input
-            label={
-              <>
-                <p>
-                  <PiUserCircle />
-                  성명(*)
-                </p>
-              </>
-            }
-            placeholder=' 예시) 홍길동'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-
-          <Input
-            label={
-              <>
-                <p>
-                  <PiUserCircle />
-                  아이디(*)
-                </p>
-              </>
-            }
-            placeholder=' 사용할 아이디 입력'
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-
-          <Input
-            label={
-              <>
-                <p>
-                  <RiLockPasswordLine />
-                  비밀번호(*)
-                </p>
-              </>
-            }
-            placeholder=' 영문, 숫자 포함 최소 8자리 이상'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <Input
-            label={
-              <>
-                <p>
-                  <CiMail />
-                  이메일(*)
-                </p>
-              </>
-            }
-            placeholder=' 예시) example@gmail.com'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <Input
-            label={
-              <>
-                <p>
-                  <IoGlobeOutline />
-                  휴대전화번호
-                </p>
-              </>
-            }
-            placeholder=' 예시) 01012345678'
-            value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
-          />
-
-          <div className='check-password'>
+        <FormStyle>
+          <form onSubmit={handleSubmit}>
             <Input
               label={
                 <>
                   <p>
-                    <RiLockPasswordLine />
-                    비밀번호 확인(*)
+                    <PiUserCircle />
+                    성명(*)
                   </p>
                 </>
               }
-              placeholder=' 입력한 비밀번호 재입력'
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder=' 예시) 홍길동'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
-            <Button type='submit'>취소</Button>
-            <Button type='submit'>회원가입 완료</Button>
-          </div>
-        </MainContainer>
-      </form>
+
+            <IdInputWithBtn>
+              <Input
+                label={
+                  <>
+                    <p>
+                      <PiUserCircle />
+                      아이디(*)
+                    </p>
+                  </>
+                }
+                placeholder=' 사용할 아이디 입력'
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+              />
+              <CheckIdBtn type='submit'>중복 확인</CheckIdBtn>
+            </IdInputWithBtn>
+
+            <PwInputContainer>
+              <Input
+                label={
+                  <>
+                    <p>
+                      <RiLockPasswordLine />
+                      비밀번호(*)
+                    </p>
+                  </>
+                }
+                placeholder=' 영문, 숫자 포함 최소 8자리 이상'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+
+              <Input
+                label={
+                  <>
+                    <p>
+                      <RiLockPasswordLine />
+                      비밀번호 확인(*)
+                    </p>
+                  </>
+                }
+                placeholder=' 입력한 비밀번호 재입력'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </PwInputContainer>
+
+            <Input
+              label={
+                <>
+                  <p>
+                    <CiMail />
+                    이메일(*)
+                  </p>
+                </>
+              }
+              placeholder=' 예시) example@gmail.com'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <Input
+              label={
+                <>
+                  <p>
+                    <IoGlobeOutline />
+                    휴대전화번호
+                  </p>
+                </>
+              }
+              placeholder=' 예시) 01012345678'
+              value={mobile}
+              onChange={(e) => setMobile(e.target.value)}
+            />
+
+            <StyledButtons>
+              <div className='buttons'>
+                <Button type='submit' className='cancel-btn'>
+                  취소
+                </Button>
+                <Button type='submit'>회원가입 완료</Button>
+              </div>
+            </StyledButtons>
+          </form>
+        </FormStyle>
+      </PageLayout>
     </>
   );
 };

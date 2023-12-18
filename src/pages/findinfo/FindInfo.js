@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -14,6 +14,9 @@ import {
 } from './FindInfoStyle';
 import CommonModal from '../../components/Modal';
 import NewPwModal from './NewPwModal';
+import axios from 'axios';
+
+const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 
 // FindInfo 컴포넌트
 const FindInfo = () => {
@@ -24,15 +27,15 @@ const FindInfo = () => {
   const [emailForPassword, setEmailForPassword] = useState('');
   const [idForPassword, setIdForPassword] = useState('');
 
+  // 서버에서 가져온 사용자 데이터를 저장하기 위한 state
+  const [fetchedUser, setFetchedUser] = useState(null);
+
   // 폼 제출 핸들러
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // 폼 제출 로직
     console.log(nameForId, emailForId, nameForPassword, emailForPassword, idForPassword);
-
-    // console.log대신 API호출
-    // 예: await axios.post('/api/userinfo', { username, email });
 
     // 입력 필드 초기화
     setNameForId('');
@@ -74,7 +77,8 @@ const FindInfo = () => {
 
   // 이메일 유효성 검사 함수
   const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // 영어 알파벳, 숫자 및 일부 특수문자(.-@)만 허용하는 정규식(한글입력불가)
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   };
 
@@ -94,9 +98,14 @@ const FindInfo = () => {
         redirectTo: null,
       });
     } else {
+      //사용자 데이터를 모달에 표시
       openModal({
-        title: '아이디 찾기',
-        contents: '해당 아이디로 다시 로그인 해주세요:)',
+        title: '아이디 찾기 결과',
+        contents: (
+          <>
+            <p>아이디: {fetchedUser?.name}</p>
+          </>
+        ),
         btnName: '로그인하기',
         redirectTo: '/', // main 페이지 이동
       });
@@ -119,15 +128,26 @@ const FindInfo = () => {
         redirectTo: null,
       });
     } else {
+      //비밀번호 변경 모달 실행
       openPwModal({
-
-        title: '비밀번호 재설정',
-        contents: '새로운 비밀번호로 로그인 해주세요 :)',
-        btnName: '로그인하기',
+        title: '아이디 찾기',
+        contents: '해당 비밀번호로 다시 로그인 해주세요:)',
+        btnName: '비밀번호 변경',
         redirectTo: '/', // main 페이지 이동
       });
     }
   };
+
+  useEffect(() => {
+    axios
+      .get(SERVER_URL)
+      .then((response) => {
+        setFetchedUser(response.data[0]); // 첫 번째 사용자 데이터를 state에 저장
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+      });
+  }, []);
 
   return (
     <>
@@ -194,7 +214,7 @@ const FindInfo = () => {
 
         <FindPasswordContainer>
           <div>
-            <h2>비밀번호 찾기</h2>
+            <span>비밀번호 변경</span>
             <div className='input-find-password'>
               <Input
                 label={

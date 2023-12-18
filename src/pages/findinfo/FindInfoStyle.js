@@ -5,8 +5,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', sans-serif;
-  }
-  
+  } 
 `;
 
 export const ErrorText = styled.p`
@@ -23,19 +22,13 @@ export const FindInfoLogo = styled.span`
 
 export const FindIdContainer = styled.div`
   border-top: 1.5px solid black;
-  padding-top: 2rem;
-  padding-left: 6rem;
-  margin: 30px; // 50 -> 30 변경
+  padding-top: 1.5rem;
+  padding-left: 5rem;
+  margin: 50px;
 
   span {
     margin-right: 1.5rem;
-    font-size: 1.8rem;
-    white-space: nowrap;
-  }
-
-  span {
-    margin-right: 1.5rem;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     white-space: nowrap;
   }
 
@@ -45,14 +38,8 @@ export const FindIdContainer = styled.div`
     justify-content: space-around;
   }
 
-  h2 {
-    margin-right: 2rem;
-    font-size: 1.8rem;
-    white-space: nowrap;
-  }
-
   p {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
     margin-top: 0.3rem;
     font-size: 18px;
   }
@@ -84,8 +71,8 @@ export const FindIdContainer = styled.div`
 export const FindPasswordContainer = styled.div`
   border-top: 1px solid black;
   margin: 50px;
-  padding-top: 2rem;
-  padding-left: 5rem;
+  padding-top: 1.5rem;
+  padding-left: 3.5rem;
 
   > div {
     display: flex;
@@ -93,14 +80,14 @@ export const FindPasswordContainer = styled.div`
     justify-content: space-around;
   }
 
-  h2 {
-    margin-right: 1.5rem;
-    font-size: 1.8rem;
+  span {
+    margin-right: 1.2rem;
+    font-size: 1.7rem;
     white-space: nowrap;
   }
 
   p {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
     margin-top: 0.3rem;
     font-size: 18px;
   }
@@ -121,7 +108,6 @@ export const FindPasswordContainer = styled.div`
   }
 
   Button {
-    margin-top: 1rem;
     display: block;
     margin-left: auto;
     margin-right: auto;

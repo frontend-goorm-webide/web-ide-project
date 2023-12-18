@@ -4,105 +4,117 @@ export const GlobalStyle = createGlobalStyle`
 body{
   margin:0;
   padding:0;
-  margin-left:10rem;
   font-family: 'Open Sans', sans-serif;
 }
 `;
 
-export const FormStyle = styled.form`
+export const HeaderLogo = styled.div`
+  width: 40%;
   display: flex;
-  align-items: start;
-  justify-content: space-between;
+  flex-direction: column;
+  padding-top: 15rem;
+  align-items: center;
+  justify-content: center;
 `;
 
-export const Header = styled.div`
-  width: 30%;
-  display: inline-block;
+export const StyledLogo = styled.p`
+  font-family: Inter;
+  font-size: 8vw;
+  font-weight: 600;
+  line-height: 1;
+  padding-top: 5vw;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #183258;
 
-  h2 {
+  span {
+    color: #e20000;
+  }
+
+  p {
+    color: black;
+    padding-top: 20px;
+    font-size: 4vw;
+  }
+`;
+
+export const PageLayout = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  padding-right: 20px;
+`;
+
+export const FormStyle = styled.form`
+  width: 60%;
+  max-width: 100%;
+  padding-top: 30px;
+  border: 3.5px solid #ccc;
+  border-radius: 50px;
+  padding-left: 25px;
+  margin-top: 50px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+
+  p {
+    margin: 2.5px;
     display: flex;
-    justify-content: flex-start;
+    align-items: center;
+    margin-top: 35px;
+    font-size: 18px;
+  }
+
+  svg {
+    color: #aaa;
+    font-size: 25px;
+    margin-right: 2px;
   }
 `;
 
-export const MainContainer = styled.div`
-  width: 70%; 
-  display: inline-block; 
+export const IdInputWithBtn = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const PwInputContainer = styled.span`
+  display: flex;
+  gap: 100px;
+`;
+
+export const CheckIdBtn = styled.button`
+  width: 65px;
+  height: 25px;
+  margin-top: 67px;
+  margin-left: 10px;
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 400;
+  white-space: nowrap;
+  border-radius: 15px;
+  background-color: #d3d3d3;
+  border: transparent;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: #e6e6e6;
   }
 `;
 
-export const CheckPwInput = styled.div`
-  // import React from 'react';
-  // import styled from 'styled-components';
+export const StyledButtons = styled.span`
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding-top: 20px;
+  }
 
-  // const Container = styled.div
+  .cancel-btn {
+    margin-top: 1rem;
+  }
 `;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   padding: 20px;
-// `;
-
-// const Title = styled.h1`
-//   color: #E63946; /* Replace with the exact color code from your design */
-//   margin-bottom: 24px;
-// `;
-
-// const Form = styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   width: 100%; /* Set to the width of your form */
-//   max-width: 500px; /* Adjust as needed */
-// `;
-
-// const Input = styled.input`
-//   padding: 10px;
-//   margin-bottom: 16px;
-//   border: 1px solid #ccc; /* Replace with your color code */
-//   border-radius: 4px;
-// `;
-
-// const Button = styled.button`
-//   padding: 10px;
-//   background-color: #457B9D; /* Replace with your color code */
-//   color: white;
-//   border: none;
-//   border-radius: 4px;
-//   cursor: pointer;
-//   margin-bottom: 16px;
-
-//   &:hover {
-//     background-color: #1D3557; /* Darker shade for hover effect */
-//   }
-// `;
-
-// const LinkButton = styled(Button)`
-//   background-color: transparent;
-//   color: #457B9D; /* Replace with your color code */
-//   text-decoration: underline;
-
-//   &:hover {
-//     background-color: transparent;
-//     color: #1D3557;
-//   }
-// `;
-
-// function SignupForm() {
-//   return (
-//     <Container>
-//       <Title>Create Account</Title>
-//       <Form>
-//         <Input type="text" placeholder="성명(이름 측성)" required />
-//         <Input type="text" placeholder="아이디(사용할 아이디 입력)" required />
-//         <Input type="password" placeholder="비밀번호(영문, 숫자 포함 8자리 이상)" required />
-//         <Input type="email" placeholder="이메일(example@gmail.com)" required />
-//         <Input type="text" placeholder="휴대전화번호(예시) 01012345678" required />
-//         <Button type="submit">가입</Button>
-//         <LinkButton type="button">회원가입 약관</LinkButton>
-//       </Form>
-//     </Container>
-//   );
-// }
-
-// export default SignupForm;
