@@ -6,33 +6,36 @@ import Input from '../../components/Input';
 import { Header, Body, LoginSection, LinkSection, LoginKakao, Background } from './MainStyle';
 
 function Main() {
-  // id, pw 입력 Input 설정
+  // 로그인 페이지
+  // 아이디, 비밀번호 초기화
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
+  // 로그인 실패 에러 문구 = false
   const [alert, setAlert] = useState(false);
 
   // 로그인 버튼 클릭 시 실행
   const clickLogin = (e) => {
     e.preventDefault();
     console.log(userId, userPw); // 임시 값 확인
-    //값 초기화
+    // 아이디, 비밀번호 초기화
     setUserId('');
     setUserPw('');
-    // setAlert(false);
   };
 
+  // 에러 문구 class 명
   const alertError = () => {
-    // alertError 함수 선언
     return alert ? 'login-error-alert' : 'login-alert';
   };
 
+  // 로그인 버튼 클릭 함수
   const handleAlertError = () => {
     if (!userId || !userPw) {
       setAlert(true);
       // alertError();
     }
   };
-  // 외부 화면 클릭시 에러메시지 값 변경
+
+  // 외부 화면 클릭시 에러메시지 숨김처리
   useEffect(() => {
     const handleClickOutside = (event) => {
       // 클릭된 요소가 alert 영역 내부인지 확인
