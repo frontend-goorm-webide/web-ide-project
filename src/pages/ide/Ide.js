@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MonacoEditor from 'react-monaco-editor';
-import Modal from 'react-modal';
+//import Modal from 'react-modal'; ===> 동작 확인 후 삭제 예정
+import MyInfoModal2 from './MyInfoModal2';
 import MyInfoModal from './MyInfoModal';
 import { BsToggles } from 'react-icons/bs';
 import { BsDownload } from 'react-icons/bs';
@@ -61,12 +62,14 @@ const IdeMain = () => {
     setSelectedLanguage(language);
   };
   //내정보 모달 열기
-  const openMyInfoModal = () => {
+  const openMyInfoModal = (content) => {
     setIsMyInfoModalOpen(true);
+    setMyInfoModalContent(content);
   };
   //내정보 모달 닫기
   const closeMyInfoModal = () => {
     setIsMyInfoModalOpen(false);
+    setMyInfoModalContent({});
   };
   // 테마 변경
   const toggleEditorTheme = () => {
@@ -165,16 +168,19 @@ const IdeMain = () => {
           <Button onClick={goToMainPage}>
             <IoIosLogOut />
           </Button>
+          {isMyInfoModalOpen && (
+            <MyInfoModal2 {...myInfoModalContent} closeMyInfoModal={closeMyInfoModal} />
+          )}
         </div>
       </Header>
 
-      <Modal
-        isOpen={isMyInfoModalOpen}
-        onRequestClose={closeMyInfoModal}
-        contentLabel='MyInfo Modal'
-      >
-        <MyInfoModal onRequestClose={closeMyInfoModal} />
-      </Modal>
+      {/*<Modal*/}
+      {/*  isOpen={isMyInfoModalOpen}*/}
+      {/*  onRequestClose={closeMyInfoModal}*/}
+      {/*  contentLabel='MyInfo Modal'*/}
+      {/*>*/}
+      {/*  <MyInfoModal onRequestClose={closeMyInfoModal} />*/}
+      {/*</Modal>*/}
 
       <MainContainer>
         <EditorTerminalContainer>
