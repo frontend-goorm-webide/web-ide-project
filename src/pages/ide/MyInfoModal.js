@@ -107,8 +107,6 @@ const MyInfoModal = ({ onRequestClose }) => {
       });
   }, []);
 
-  const backdrop = false;
-
   return (
     <ModalWrapper>
       {/* 프로필 섹션 */}
