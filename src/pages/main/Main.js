@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
-import Logo from '../../components/Logo';
 import Input from '../../components/Input';
-import { Header, Body, LoginSection, LinkSection, LoginKakao, Background } from './MainStyle';
+import Logo from '../../components/Logo';
+import { Header, Body, LoginSection, LinkSection, LoginKakao, Background } from './StyleMain';
 
 function Main() {
   // 로그인 페이지

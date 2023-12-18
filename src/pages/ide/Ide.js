@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MonacoEditor from 'react-monaco-editor';
+import CommonModal from '../../components/Modal';
 import MyInfoModal from './MyInfoModal';
+import MonacoEditor from 'react-monaco-editor';
 import { BsToggles } from 'react-icons/bs';
 import { BsDownload } from 'react-icons/bs';
 import { IoPersonCircleOutline } from 'react-icons/io5';
@@ -53,19 +54,34 @@ const IdeMain = () => {
   const [socket, setSocket] = useState(null);
 
   // ===========================모달===========================
-  // 내정보 MyInfoModal 열기
+  // 내정보 MyInfoModal 열기 초기화
   const [isMyInfoModalOpen, setIsMyInfoModalOpen] = useState(false);
-  // 내정보 MyInfoModal 내용
-  const [myInfoModalContent, setMyInfoModalContent] = useState({});
-  // 내정보 MyInfoModal 열기
-  const openMyInfoModal = (content) => {
+
+  // 내정보 MyInfoModal 열기 함수
+  const openMyInfoModal = () => {
     setIsMyInfoModalOpen(true);
-    setMyInfoModalContent(content);
   };
-  // 내정보 MyInfoModal 닫기
+  // 내정보 MyInfoModal 닫기 함수
   const closeMyInfoModal = () => {
     setIsMyInfoModalOpen(false);
-    setMyInfoModalContent({});
+  };
+
+  // 회원 탈퇴 모달(Modal.js) 열기 초기화
+  const [isModalOpen, setModalOpen] = useState(false);
+  // 회원 탈퇴 모달(Modal.js) 내용 초기화
+  const [modalContent, setModalContent] = useState({});
+
+  // 회원 탈퇴 모달(Modal.js) 열기 함수
+  const openModal = (content) => {
+    setModalOpen(true);
+    setModalContent(content);
+    closeMyInfoModal(); // 회원탈퇴 모달 열면서 내정보 모달 닫기
+  };
+  // 회원 탈퇴 모달(Modal.js) 닫기 함수
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalContent({});
+    console.log('회원탈퇴 완료');
   };
   // ===========================모달===========================
 
@@ -163,29 +179,28 @@ const IdeMain = () => {
           IDE<span style={{ color: '#E20000' }}>A</span>
         </h1>
         <div>
+          {/* 테마변경 */}
           <Button onClick={toggleEditorTheme}>
-            {' '}
-            {/* 테마변경 */}
             <BsToggles />
           </Button>
+          {/* 파일? */}
           <Button>
-            {' '}
-            {/* 파일? */}
             <BsDownload />
           </Button>
+          {/* 내정보 */}
           <Button onClick={openMyInfoModal}>
-            {' '}
-            {/* 내정보 */}
             <IoPersonCircleOutline />
           </Button>
+          <MyInfoModal
+            isMyInfoOpen={isMyInfoModalOpen}
+            closeMyInfo={closeMyInfoModal}
+            open={openModal}
+          />
+          <CommonModal isOpen={isModalOpen} {...modalContent} close={closeModal} />
+          {/* 로그아웃 */}
           <Button onClick={goToMainPage}>
-            {' '}
-            {/* 로그아웃 */}
             <IoIosLogOut />
           </Button>
-          {isMyInfoModalOpen && (
-            <MyInfoModal {...myInfoModalContent} closeMyInfoModal={closeMyInfoModal} />
-          )}
         </div>
       </Header>
 

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { Link, useNavigate } from 'react-router-dom';
 import { PiUserCircle } from 'react-icons/pi';
 import { CiMail } from 'react-icons/ci';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { IoGlobeOutline } from 'react-icons/io5';
-
 import {
   GlobalStyle,
   HeaderLogo,
