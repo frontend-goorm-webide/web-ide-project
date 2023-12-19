@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { Link, useNavigate } from 'react-router-dom';
 import { PiUserCircle } from 'react-icons/pi';
 import { CiMail } from 'react-icons/ci';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { IoGlobeOutline } from 'react-icons/io5';
-
 import {
   GlobalStyle,
   HeaderLogo,
@@ -17,7 +16,7 @@ import {
   IdInputWithBtn,
   StyledButtons,
   PwInputContainer,
-} from './JoinStyle';
+} from './StyleJoin';
 
 const Join = () => {
   const [name, setName] = useState('');
@@ -70,7 +69,6 @@ const Join = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-
             <IdInputWithBtn>
               <Input
                 label={
@@ -87,7 +85,6 @@ const Join = () => {
               />
               <CheckIdBtn type='submit'>중복 확인</CheckIdBtn>
             </IdInputWithBtn>
-
             <PwInputContainer>
               <Input
                 label={
@@ -102,7 +99,6 @@ const Join = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-
               <Input
                 label={
                   <>
@@ -117,7 +113,6 @@ const Join = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </PwInputContainer>
-
             <Input
               label={
                 <>
@@ -131,7 +126,6 @@ const Join = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-
             <Input
               label={
                 <>

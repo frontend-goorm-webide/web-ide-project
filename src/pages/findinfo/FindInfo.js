@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Logo from '../../components/Logo';
+import CommonModal from '../../components/Modal';
+import NewPwModal from './NewPwModal';
+import axios from 'axios';
 import { PiUserCircle } from 'react-icons/pi';
 import { CiMail } from 'react-icons/ci';
 import {
@@ -11,18 +14,15 @@ import {
   FindInfoLogo,
   FindIdContainer,
   FindPasswordContainer,
-} from './FindInfoStyle';
-import CommonModal from '../../components/Modal';
-import NewPwModal from './NewPwModal';
-import axios from 'axios';
+} from './StyleFindInfo';
 
 const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 
-// FindInfo 컴포넌트
 const FindInfo = () => {
+  // 아이디찾기 - 이름, 이메일
   const [nameForId, setNameForId] = useState('');
   const [emailForId, setEmailForId] = useState('');
-
+  // 비밀번호찾기 - 이름, 이메일, 아이디
   const [nameForPassword, setNameForPassword] = useState('');
   const [emailForPassword, setEmailForPassword] = useState('');
   const [idForPassword, setIdForPassword] = useState('');
@@ -33,48 +33,7 @@ const FindInfo = () => {
   // 폼 제출 핸들러
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // 폼 제출 로직
-    console.log(nameForId, emailForId, nameForPassword, emailForPassword, idForPassword);
-
-    // 입력 필드 초기화
-    setNameForId('');
-    setEmailForId('');
-    setNameForPassword('');
-    setEmailForPassword('');
-    setIdForPassword('');
   };
-  // ---------------------------------------------------------modal----------------------------------------------
-  // 모달 열고 닫기 -> false 초기화
-  const [isModalOpen, setModalOpen] = useState(false);
-  // 비밀번호재설정 모달 열고 닫기 -> false 초기화
-  const [isPwModalOpen, setPwModalOpen] = useState(false);
-  // 모달 내용 -> 빈내용 초기화
-  const [modalContent, setModalContent] = useState({});
-  // 비밀번호재설정모달 내용 -> 빈내용 초기화
-  const [pwModalContent, setPwModalContent] = useState({});
-
-  // 모달 열기 함수
-  const openModal = (content) => {
-    setModalOpen(true); // isModalOpen = true
-    setModalContent(content); // 모달 내용 전달
-  };
-  // 모달 닫기 함수
-  const closeModal = () => {
-    setModalOpen(false); // isModalOpen = false
-    setModalContent({}); // 모달 내용 공백 전달
-  };
-  // 모달 열기 함수 (비밀번호재설정 모달)
-  const openPwModal = (content) => {
-    setPwModalOpen(true); // isModalOpen = true
-    setPwModalContent(content); // 모달 내용 전달
-  };
-  // 모달 닫기 함수 (비밀번호재설정 모달)
-  const closePwModal = () => {
-    setPwModalOpen(false); // isModalOpen = false
-    setPwModalContent({}); // 모달 내용 공백 전달
-  };
-  // ---------------------------------------------------------modal----------------------------------------------
 
   // 이메일 유효성 검사 함수
   const validateEmail = (email) => {
@@ -82,62 +41,140 @@ const FindInfo = () => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   };
+  
+  // ===========================모달===========================
+  // 아이디찾기 - Modal.js
+  const [isModalOpen, setModalOpen] = useState(false);
+  // 아이디찾기(내용) - Modal.js
+  const [modalContent, setModalContent] = useState({});
+  // 비밀번호찾기 - NewPwModal
+  const [isPwModalOpen, setPwModalOpen] = useState(false);
+  // 비밀번호찾기(내용) - NewPwModal
+  const [pwModalContent, setPwModalContent] = useState({});
 
+  // 아이디찾기 - Modal.js 열기
+  const openModal = (content) => {
+    setModalOpen(true);
+    setModalContent(content);
+  };
+  // 아이디찾기 - Modal.js 닫기
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalContent({});
+  };
+  // 비밀번호찾기 - NewPwModal 열기
+  const openPwModal = (content) => {
+    setPwModalOpen(true);
+    setPwModalContent(content);
+  };
+  // 비밀번호찾기 - NewPwModal 닫기
+  const closePwModal = () => {
+    setPwModalOpen(false);
+    setPwModalContent({});
+  };
+
+  // 아이디찾기 버튼 클릭
   const handleFindIdButtonClick = () => {
+    // 에러 모달
     if (!nameForId || !emailForId) {
       openModal({
         title: '입력 오류',
-        contents: <ErrorText>모든 필드를 입력해주세요</ErrorText>,
+        contents: <ErrorText>모든 필드를 입력해주세요.</ErrorText>,
         btnName: '닫기',
         redirectTo: null,
       });
+      // 임시 값 확인
+      console.log('아이디 또는 이메일 필드 미입력 에러');
+      // 입력 필드 초기화
+      setNameForId('');
+      setEmailForId('');
     } else if (!validateEmail(emailForId)) {
       openModal({
         title: '입력 오류',
-        contents: <ErrorText>올바른 이메일 형식을 입력해주세요</ErrorText>,
+        contents: <ErrorText>올바른 이메일 형식을 입력해주세요.</ErrorText>,
         btnName: '닫기',
         redirectTo: null,
       });
+      // 임시 값 확인
+      console.log('이메일 형식 에러');
+      // 입력 필드 초기화
+      setNameForId('');
+      setEmailForId('');
     } else {
       //사용자 데이터를 모달에 표시
       openModal({
-        title: '아이디 찾기 결과',
+        title: '아이디 찾기',
         contents: (
           <>
-            <p>아이디: {fetchedUser?.name}</p>
+            <p>
+              아이디: {fetchedUser?.name} <br />
+              <br />위 아이디로 다시 로그인 해주세요 :)
+            </p>
           </>
         ),
         btnName: '로그인하기',
-        redirectTo: '/', // main 페이지 이동
+        redirectTo: '/',
       });
+      // 임시 값 확인
+      console.log('아이디 찾기 성공) id: ' + nameForId + ' / email: ' + emailForId);
+      // 입력 필드 초기화
+      setNameForId('');
+      setEmailForId('');
     }
   };
-
+  // 비밀번호찾기 버튼 클릭
   const handleFindPwButtonClick = () => {
+    // 에러 모달
     if (!nameForPassword || !emailForPassword || !idForPassword) {
       openModal({
         title: '입력 오류',
-        contents: <ErrorText>모든 필드를 입력해주세요</ErrorText>,
+        contents: <ErrorText>모든 필드를 입력해주세요.</ErrorText>,
         btnName: '닫기',
         redirectTo: null,
       });
+      // 임시 값 확인
+      console.log('이름 또는 이메일 또는 아이디 필드 미입력 에러');
+      // 입력 필드 초기화
+      setNameForPassword('');
+      setEmailForPassword('');
+      setIdForPassword('');
     } else if (!validateEmail(emailForPassword)) {
       openModal({
         title: '입력 오류',
-        contents: <ErrorText>올바른 이메일 형식을 입력해주세요</ErrorText>,
+        contents: <ErrorText>올바른 이메일 형식을 입력해주세요.</ErrorText>,
         btnName: '닫기',
         redirectTo: null,
       });
+      // 임시 값 확인
+      console.log('이메일 형식 에러');
+      // 입력 필드 초기화
+      setNameForPassword('');
+      setEmailForPassword('');
+      setIdForPassword('');
     } else {
       //비밀번호 변경 모달 실행
       openPwModal({
-        title: '아이디 찾기',
-        contents: '해당 비밀번호로 다시 로그인 해주세요:)',
-        btnName: '비밀번호 변경',
-        redirectTo: '/', // main 페이지 이동
+        title: '비밀번호 재설정',
+        contents: '변경한 비밀번호로 다시 로그인 해주세요 :)',
+        btnName: '로그인하기',
+        redirectTo: '/',
       });
+      // 임시 값 확인
+      console.log(
+        '비밀번호 찾기 성공) name: ' +
+          nameForPassword +
+          ' / email: ' +
+          emailForPassword +
+          ' / id: ' +
+          idForPassword,
+      );
+      // 입력 필드 초기화
+      setNameForPassword('');
+      setEmailForPassword('');
+      setIdForPassword('');
     }
   };
+  // ===========================모달===========================
 
   useEffect(() => {
     axios
@@ -157,11 +194,11 @@ const FindInfo = () => {
         <Link to='/' style={{ textDecoration: 'none' }}>
           <Logo />
         </Link>
-        {/* <Link>
-          <Logo to='/' />
-        </Link> */}
       </FindInfoLogo>
+
+      {/* 아이디찾기, 비밀번호찾기 전체 */}
       <form onSubmit={handleSubmit}>
+        {/* 아이디찾기 */}
         <FindIdContainer>
           <div>
             <span>아이디 찾기</span>
@@ -179,7 +216,6 @@ const FindInfo = () => {
                 value={nameForId}
                 onChange={(e) => setNameForId(e.target.value)}
               />
-
               <Input
                 label={
                   <>
@@ -193,26 +229,16 @@ const FindInfo = () => {
                 value={emailForId}
                 onChange={(e) => setEmailForId(e.target.value)}
               />
+
               <Button onClick={() => handleFindIdButtonClick({})} type='submit'>
                 찾기
               </Button>
-              {/* <Button
-                onClick={() =>
-                  openModal({
-                    title: '아이디 찾기',
-                    contents: '해당 아이디로 다시 로그인 해주세요:)',
-                    btnName: '로그인하기',
-                    redirectTo: '/', // main 페이지 이동
-                  })
-                }
-                type='submit'
-              >
-                찾기
-              </Button> */}
+              <CommonModal isOpen={isModalOpen} {...modalContent} close={closeModal} />
             </div>
           </div>
         </FindIdContainer>
 
+        {/* 비밀번호찾기 */}
         <FindPasswordContainer>
           <div>
             <span>비밀번호 찾기</span>
@@ -230,7 +256,6 @@ const FindInfo = () => {
                 value={nameForPassword}
                 onChange={(e) => setNameForPassword(e.target.value)}
               />
-
               <Input
                 label={
                   <>
@@ -244,7 +269,6 @@ const FindInfo = () => {
                 value={emailForPassword}
                 onChange={(e) => setEmailForPassword(e.target.value)}
               />
-
               <Input
                 label={
                   <>
@@ -258,28 +282,32 @@ const FindInfo = () => {
                 value={idForPassword}
                 onChange={(e) => setIdForPassword(e.target.value)}
               />
+
               <Button onClick={() => handleFindPwButtonClick({})} type='submit'>
                 찾기
               </Button>
-              {/* <Button
-                onClick={() =>
-                  openPwModal({
-                    title: '비밀번호 재설정',
-                    contents: '새로운 비밀번호로 로그인 해주세요 :)',
-                    btnName: '로그인하기',
-                    redirectTo: '/', // main 페이지 이동
-                  })
-                }
-                type='submit'
-              >
-                찾기
-              </Button> */}
+              <NewPwModal
+                isPwOpen={isPwModalOpen}
+                {...pwModalContent}
+                closePwModal={closePwModal}
+              />
             </div>
           </div>
-          {isModalOpen && <CommonModal {...modalContent} closeModal={closeModal} />}
-          {isPwModalOpen && <NewPwModal {...pwModalContent} closePwModal={closePwModal} />}
         </FindPasswordContainer>
       </form>
+      {/* <Button
+            onClick={() =>
+              openModal({
+                title: '아이디 찾기',
+                contents: '해당 아이디로 다시 로그인 해주세요:)',
+                btnName: '로그인하기',
+                redirectTo: '/', // main 페이지 이동
+              })
+            }
+            type='submit'
+          >
+            찾기
+          </Button> */}
     </>
   );
 };

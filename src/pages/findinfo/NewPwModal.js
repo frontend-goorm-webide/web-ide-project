@@ -1,33 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { PiUserCircle } from 'react-icons/pi';
+import { CenteredModalHeader, CenteredModalBody, CenteredModalFooter } from './StylePwModal';
 
-// 모달의 헤더, 본문, 푸터를 가운데 정렬하는 스타일
-const CenteredModalHeader = styled(ModalHeader)`
-  display: flex;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-`;
-
-const CenteredModalBody = styled(ModalBody)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-`;
-
-const CenteredModalFooter = styled(ModalFooter)`
-  display: flex;
-  justify-content: center;
-  padding: 0.3rem 1rem;
-`;
-
-const NewPwModal = ({ title, contents, btnName, closePwModal, redirectTo }) => {
+const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirectTo }) => {
   // 훅
   const navigate = useNavigate();
   // 비밀번호 재설정
@@ -47,7 +27,7 @@ const NewPwModal = ({ title, contents, btnName, closePwModal, redirectTo }) => {
     event.preventDefault();
 
     if (!validatePassword()) {
-      setPasswordError('비밀번호는 최소 8자 이상이며, 문자와 숫자를 모두 포함해야 합니다');
+      setPasswordError('비밀번호는 최소 8자 이상이며, 문자와 숫자를 모두 포함해야 합니다.');
       return;
     }
 
@@ -59,8 +39,8 @@ const NewPwModal = ({ title, contents, btnName, closePwModal, redirectTo }) => {
     // 비밀번호가 일치할 경우
     setPasswordError('비밀번호가 변경되었습니다.');
 
-    // 폼 제출 로직
-    console.log('Form submitted with password:', newPassword);
+    // 폼 제출 로직   임시 값 확인
+    console.log('비밀번호 재설정 완료) 새로운 비밀번호: ', newPassword);
 
     // 몇 초 후에 페이지 이동
     setTimeout(() => {
@@ -70,15 +50,13 @@ const NewPwModal = ({ title, contents, btnName, closePwModal, redirectTo }) => {
       }
     }, 2000); // 2초 후에 페이지 이동
   };
-  // 모달 밖 화면 클릭해도 모달 창 닫히지 않도록 설정
-  // 모달 닫을 때는 닫기 버튼으로만 닫히도록 설정
-  const backdrop = false;
 
   return (
     <form onSubmit={handleButtonClick}>
       <div>
-        <Modal isOpen={true} toggle={closePwModal} backdrop={backdrop}>
+        <Modal isOpen={isPwOpen} toggle={closePwModal} backdrop={false}>
           <CenteredModalHeader toggle={closePwModal}>{title}</CenteredModalHeader>
+
           <CenteredModalBody>
             <Input
               label={
@@ -116,6 +94,7 @@ const NewPwModal = ({ title, contents, btnName, closePwModal, redirectTo }) => {
             {/* 경고 메시지 표시 */}
             {contents}
           </CenteredModalBody>
+
           <CenteredModalFooter>
             <Button onClick={handleButtonClick}>{btnName}</Button>
           </CenteredModalFooter>
