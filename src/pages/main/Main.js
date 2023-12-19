@@ -1,17 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
-import {
-  Header,
-  Body,
-  LoginForm,
-  LoginBtn,
-  LinkSection,
-  LoginKakao,
-  Background,
-} from './MainStyle';
+import { Header, Body, LoginSection, LinkSection, LoginKakao, Background } from './MainStyle';
 
 function Main() {
   // id, pw 입력 Input 설정
@@ -26,7 +18,7 @@ function Main() {
     //값 초기화
     setUserId('');
     setUserPw('');
-    setAlert(false);
+    // setAlert(false);
   };
 
   const alertError = () => {
@@ -37,9 +29,24 @@ function Main() {
   const handleAlertError = () => {
     if (!userId || !userPw) {
       setAlert(true);
-      alertError();
+      // alertError();
     }
   };
+  // 외부 화면 클릭시 에러메시지 값 변경
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // 클릭된 요소가 alert 영역 내부인지 확인
+      if (!event.target.closest('.login-error-alert')) {
+        setAlert(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -48,9 +55,9 @@ function Main() {
       </Header>
       <Body>
         서비스 이용을 위해 로그인 해주세요 :)
-        {/* <form onSubmit={clickLogin}>
+        <form onSubmit={clickLogin}>
           <LoginSection>
-            <div>
+            <div className='input'>
               <Input placeholder=' ID' value={userId} onChange={(e) => setUserId(e.target.value)} />
               <Input
                 placeholder=' PASSWORD'
@@ -58,27 +65,16 @@ function Main() {
                 onChange={(e) => setUserPw(e.target.value)}
               />
             </div>
-            <div>
-              <Button type='submit'>로그인</Button>
+            <div className='loginBtn'>
+              <div className={alertError()}>
+                <h5> 아이디 또는 비밀번호를 확인해주세요. </h5>
+              </div>
+              <Button onClick={() => handleAlertError({})} type='submit'>
+                로그인
+              </Button>
             </div>
           </LoginSection>
-        </form> */}
-        <LoginForm onSubmit={clickLogin}>
-          <Input placeholder=' ID' value={userId} onChange={(e) => setUserId(e.target.value)} />
-          <Input
-            placeholder=' PASSWORD'
-            value={userPw}
-            onChange={(e) => setUserPw(e.target.value)}
-          />
-        </LoginForm>
-        <LoginBtn>
-          <div className={alertError()}>
-            <h5> 아이디 또는 비밀번호를 확인해주세요. </h5>
-          </div>
-          <Button onClick={() => handleAlertError({})} type='submit'>
-            로그인
-          </Button>
-        </LoginBtn>
+        </form>
         <LinkSection>
           <Link to='/findinfo' style={{ color: 'black', textDecoration: 'none' }}>
             아이디/비밀번호 찾기

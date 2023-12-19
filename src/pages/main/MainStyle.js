@@ -11,21 +11,25 @@ export const Body = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh; /* 화면 전체 높이를 차지하도록 설정 */
-  margin-top: 50px;
+  margin-top: 70px;
 `;
 
-export const LoginForm = styled.form`
-  margin-top: 30px;
-  & > * + * {
-    margin-top: 20px;
-  }
-`;
-
-export const LoginBtn = styled.form`
+export const LoginSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 35px;
+  margin-top: 30px;
+  .input {
+    & > * + * {
+      margin-top: 20px;
+    }
+  }
+  .loginBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+  }
   .login-alert {
     visibility: hidden;
   }
@@ -57,6 +61,33 @@ export const Background = styled.svg`
   flex-shrink: 0;
   z-index: -100;
 `;
+// export const LoginForm = styled.form`
+//   margin-top: 30px;
+//   & > * + * {
+//     margin-top: 20px;
+//   }
+// `;
+
+// export const LoginInput = styled.form`
+//   margin-top: 30px;
+//   & > * + * {
+//     margin-top: 20px;
+//   }
+// `;
+
+// export const LoginBtn = styled.form`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   margin-top: 35px;
+//   .login-alert {
+//     visibility: hidden;
+//   }
+//   .login-error-alert {
+//     // display: flex;
+//     color: red;
+//   }
+// `;
 
 // export const GlobalStyle = createGlobalStyle`
 //   body {
