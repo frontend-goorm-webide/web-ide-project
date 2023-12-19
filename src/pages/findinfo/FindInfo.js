@@ -14,11 +14,10 @@ import {
   FindInfoLogo,
   FindIdContainer,
   FindPasswordContainer,
-} from './FindInfoStyle';
+} from './StyleFindInfo';
 
 const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 
-// FindInfo 컴포넌트
 const FindInfo = () => {
   // 아이디찾기 - 이름, 이메일
   const [nameForId, setNameForId] = useState('');
@@ -34,16 +33,6 @@ const FindInfo = () => {
   // 폼 제출 핸들러
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // 임시 값 확인
-    console.log(nameForId, emailForId, nameForPassword, emailForPassword, idForPassword);
-
-    // 입력 필드 초기화
-    setNameForId('');
-    setEmailForId('');
-    setNameForPassword('');
-    setEmailForPassword('');
-    setIdForPassword('');
   };
 
   // 이메일 유효성 검사 함수
@@ -84,8 +73,9 @@ const FindInfo = () => {
     setPwModalContent({});
   };
 
-  // 아이디찾기 버튼 클릭 : 에러 모달
+  // 아이디찾기 버튼 클릭
   const handleFindIdButtonClick = () => {
+    // 에러 모달
     if (!nameForId || !emailForId) {
       openModal({
         title: '입력 오류',
@@ -93,6 +83,11 @@ const FindInfo = () => {
         btnName: '닫기',
         redirectTo: null,
       });
+      // 임시 값 확인
+      console.log('아이디 또는 이메일 필드 미입력 에러');
+      // 입력 필드 초기화
+      setNameForId('');
+      setEmailForId('');
     } else if (!validateEmail(emailForId)) {
       openModal({
         title: '입력 오류',
@@ -100,24 +95,36 @@ const FindInfo = () => {
         btnName: '닫기',
         redirectTo: null,
       });
+      // 임시 값 확인
+      console.log('이메일 형식 에러');
+      // 입력 필드 초기화
+      setNameForId('');
+      setEmailForId('');
     } else {
       //사용자 데이터를 모달에 표시
       openModal({
         title: '아이디 찾기',
         contents: (
           <>
-            <p>아이디: {fetchedUser?.name}</p>
-            {/*수정필요*/}
-            <p>위 아이디로 다시 로그인 해주세요 :)</p>
+            <p>
+              아이디: {fetchedUser?.name} <br />
+              <br />위 아이디로 다시 로그인 해주세요 :)
+            </p>
           </>
         ),
         btnName: '로그인하기',
         redirectTo: '/',
       });
+      // 임시 값 확인
+      console.log('아이디 찾기 성공) id: ' + nameForId + ' / email: ' + emailForId);
+      // 입력 필드 초기화
+      setNameForId('');
+      setEmailForId('');
     }
   };
-  // 비밀번호찾기 버튼 클릭 : 에러 모달
+  // 비밀번호찾기 버튼 클릭
   const handleFindPwButtonClick = () => {
+    // 에러 모달
     if (!nameForPassword || !emailForPassword || !idForPassword) {
       openModal({
         title: '입력 오류',
@@ -125,6 +132,12 @@ const FindInfo = () => {
         btnName: '닫기',
         redirectTo: null,
       });
+      // 임시 값 확인
+      console.log('이름 또는 이메일 또는 아이디 필드 미입력 에러');
+      // 입력 필드 초기화
+      setNameForPassword('');
+      setEmailForPassword('');
+      setIdForPassword('');
     } else if (!validateEmail(emailForPassword)) {
       openModal({
         title: '입력 오류',
@@ -132,6 +145,12 @@ const FindInfo = () => {
         btnName: '닫기',
         redirectTo: null,
       });
+      // 임시 값 확인
+      console.log('이메일 형식 에러');
+      // 입력 필드 초기화
+      setNameForPassword('');
+      setEmailForPassword('');
+      setIdForPassword('');
     } else {
       //비밀번호 변경 모달 실행
       openPwModal({
@@ -140,6 +159,19 @@ const FindInfo = () => {
         btnName: '로그인하기',
         redirectTo: '/',
       });
+      // 임시 값 확인
+      console.log(
+        '비밀번호 찾기 성공) name: ' +
+          nameForPassword +
+          ' / email: ' +
+          emailForPassword +
+          ' / id: ' +
+          idForPassword,
+      );
+      // 입력 필드 초기화
+      setNameForPassword('');
+      setEmailForPassword('');
+      setIdForPassword('');
     }
   };
   // ===========================모달===========================
@@ -163,6 +195,7 @@ const FindInfo = () => {
           <Logo />
         </Link>
       </FindInfoLogo>
+
       {/* 아이디찾기, 비밀번호찾기 전체 */}
       <form onSubmit={handleSubmit}>
         {/* 아이디찾기 */}
@@ -183,7 +216,6 @@ const FindInfo = () => {
                 value={nameForId}
                 onChange={(e) => setNameForId(e.target.value)}
               />
-
               <Input
                 label={
                   <>
@@ -197,6 +229,7 @@ const FindInfo = () => {
                 value={emailForId}
                 onChange={(e) => setEmailForId(e.target.value)}
               />
+
               <Button onClick={() => handleFindIdButtonClick({})} type='submit'>
                 찾기
               </Button>
@@ -204,6 +237,7 @@ const FindInfo = () => {
             </div>
           </div>
         </FindIdContainer>
+
         {/* 비밀번호찾기 */}
         <FindPasswordContainer>
           <div>
@@ -222,7 +256,6 @@ const FindInfo = () => {
                 value={nameForPassword}
                 onChange={(e) => setNameForPassword(e.target.value)}
               />
-
               <Input
                 label={
                   <>
@@ -236,7 +269,6 @@ const FindInfo = () => {
                 value={emailForPassword}
                 onChange={(e) => setEmailForPassword(e.target.value)}
               />
-
               <Input
                 label={
                   <>
@@ -250,6 +282,7 @@ const FindInfo = () => {
                 value={idForPassword}
                 onChange={(e) => setIdForPassword(e.target.value)}
               />
+
               <Button onClick={() => handleFindPwButtonClick({})} type='submit'>
                 찾기
               </Button>

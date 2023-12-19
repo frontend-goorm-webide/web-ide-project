@@ -27,7 +27,7 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
     event.preventDefault();
 
     if (!validatePassword()) {
-      setPasswordError('비밀번호는 최소 8자 이상이며, 문자와 숫자를 모두 포함해야 합니다');
+      setPasswordError('비밀번호는 최소 8자 이상이며, 문자와 숫자를 모두 포함해야 합니다.');
       return;
     }
 
@@ -39,8 +39,8 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
     // 비밀번호가 일치할 경우
     setPasswordError('비밀번호가 변경되었습니다.');
 
-    // 폼 제출 로직
-    console.log('Form submitted with password:', newPassword);
+    // 폼 제출 로직   임시 값 확인
+    console.log('비밀번호 재설정 완료) 새로운 비밀번호: ', newPassword);
 
     // 몇 초 후에 페이지 이동
     setTimeout(() => {
@@ -50,13 +50,13 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
       }
     }, 2000); // 2초 후에 페이지 이동
   };
-  // 모달 밖 화면 클릭해도 모달 창 닫히지 않도록 설정
 
   return (
     <form onSubmit={handleButtonClick}>
       <div>
         <Modal isOpen={isPwOpen} toggle={closePwModal} backdrop={false}>
           <CenteredModalHeader toggle={closePwModal}>{title}</CenteredModalHeader>
+
           <CenteredModalBody>
             <Input
               label={
@@ -94,6 +94,7 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
             {/* 경고 메시지 표시 */}
             {contents}
           </CenteredModalBody>
+
           <CenteredModalFooter>
             <Button onClick={handleButtonClick}>{btnName}</Button>
           </CenteredModalFooter>

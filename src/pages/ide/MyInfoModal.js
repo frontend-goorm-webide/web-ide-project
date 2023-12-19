@@ -66,6 +66,7 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
     <div>
       <Modal isOpen={isMyInfoOpen} toggle={closeMyInfo} backdrop={false}>
         <CenteredModalHeader toggle={closeMyInfo}>내 정보</CenteredModalHeader>
+
         <CenteredModalBody>
           {/* 프로필 섹션 */}
           <Section>
@@ -84,7 +85,6 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
               <Button onClick={handleProfileChange}>프로필 변경</Button>
             </ButtonContainer>
           </Section>
-
           {/* 가입 정보 섹션 */}
           <Section>
             <p>이름: {name}</p>
@@ -92,6 +92,7 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
             <p>이메일: {phone}</p>
           </Section>
         </CenteredModalBody>
+
         <CenteredModalFooter>
           {/* 회원 탈퇴 버튼 */}
           <Button onClick={clickRemoveButton}>회원탈퇴</Button>

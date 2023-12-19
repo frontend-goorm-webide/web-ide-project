@@ -27,7 +27,7 @@ import {
   TerminalSection,
   TerminalBar,
   TerminalContent,
-} from './IdeStyle';
+} from './StyleIde';
 
 const IdeMain = () => {
   //훅
@@ -60,6 +60,7 @@ const IdeMain = () => {
   // 내정보 MyInfoModal 열기 함수
   const openMyInfoModal = () => {
     setIsMyInfoModalOpen(true);
+    console.log('내정보 모달 열기) 내정보 요청');
   };
   // 내정보 MyInfoModal 닫기 함수
   const closeMyInfoModal = () => {
@@ -76,6 +77,7 @@ const IdeMain = () => {
     setModalOpen(true);
     setModalContent(content);
     closeMyInfoModal(); // 회원탈퇴 모달 열면서 내정보 모달 닫기
+    console.log('회원탈퇴 요청) 탈퇴처리여부: true');
   };
   // 회원 탈퇴 모달(Modal.js) 닫기 함수
   const closeModal = () => {
