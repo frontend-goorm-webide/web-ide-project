@@ -233,7 +233,7 @@ const FindInfo = () => {
               <Button onClick={() => handleFindIdButtonClick({})} type='submit'>
                 찾기
               </Button>
-              <CommonModal isOpen={isModalOpen} {...modalContent} close={closeModal} />
+              {/* <CommonModal isOpen={isModalOpen} {...modalContent} close={closeModal} /> */}
             </div>
           </div>
         </FindIdContainer>
@@ -286,13 +286,16 @@ const FindInfo = () => {
               <Button onClick={() => handleFindPwButtonClick({})} type='submit'>
                 찾기
               </Button>
-              <NewPwModal
+              {/* <NewPwModal
                 isPwOpen={isPwModalOpen}
                 {...pwModalContent}
                 closePwModal={closePwModal}
-              />
+              /> */}
             </div>
           </div>
+          <CommonModal isOpen={isModalOpen} {...modalContent} close={closeModal} />
+
+          <NewPwModal isPwOpen={isPwModalOpen} {...pwModalContent} closePwModal={closePwModal} />
         </FindPasswordContainer>
       </form>
       {/* <Button
