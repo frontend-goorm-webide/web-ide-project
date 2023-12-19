@@ -74,7 +74,7 @@ const FindInfo = () => {
     setPwModalOpen(false); // isModalOpen = false
     setPwModalContent({}); // 모달 내용 공백 전달
   };
-  // ---------------------------------------------------------modal----------------------------------------------
+  // -------------------------------------modal----------------------------------------------
 
   // 이메일 유효성 검사 함수
   const validateEmail = (email) => {
@@ -131,7 +131,7 @@ const FindInfo = () => {
     } else {
       //비밀번호 변경 모달 실행
       openPwModal({
-        title: '아이디 찾기',
+        title: '비밀번호 변경 결과',
         contents: '해당 비밀번호로 다시 로그인 해주세요:)',
         btnName: '비밀번호 변경',
         redirectTo: '/', // main 페이지 이동
@@ -215,7 +215,7 @@ const FindInfo = () => {
 
         <FindPasswordContainer>
           <div>
-            <span>비밀번호 찾기</span>
+            <span>비밀번호 변경</span>
             <div className='input-find-password'>
               <Input
                 label={
