@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -6,6 +6,7 @@ import { Modal } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { PiUserCircle } from 'react-icons/pi';
 import { CenteredModalHeader, CenteredModalBody, CenteredModalFooter } from './StylePwModal';
+// import axios from 'axios';
 
 const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirectTo }) => {
   // 훅
@@ -15,6 +16,9 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
   const [checkNewPassword, setCheckNewPassword] = useState('');
   // 경고 메시지 상태
   const [passwordError, setPasswordError] = useState('');
+
+  // API서버에서 가져온 사용자 데이터를 저장하기 위한 state
+  // const [fetchedUser, setFetchedUser] = useState(null);
 
   //비밀번호 유효성 검사 함수
   const validatePassword = () => {
@@ -50,6 +54,26 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
       }
     }, 2000); // 2초 후에 페이지 이동
   };
+
+  // //API
+  // useEffect(() => {
+  //   const payload = {};
+
+  //   axios
+  //     .post('https://jsonplaceholder.typicode.com/users', payload)
+  //     .then((response) => {
+  //       const userData = response.data[0];
+  //       const fetchedData = {
+  //         userId: userData.userId,
+  //         name: userData.name,
+  //         email: userData.email,
+  //       };
+  //       setFetchedUser(fetchedData);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching user data:', error);
+  //     });
+  // }, []);
 
   return (
     <div>
