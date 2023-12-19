@@ -52,55 +52,51 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
   };
 
   return (
-    <form onSubmit={handleButtonClick}>
-      <div>
-        <Modal isOpen={isPwOpen} toggle={closePwModal} backdrop={false}>
-          <CenteredModalHeader toggle={closePwModal}>{title}</CenteredModalHeader>
+    <div>
+      <Modal isOpen={isPwOpen} toggle={closePwModal} backdrop={false}>
+        <CenteredModalHeader toggle={closePwModal}>{title}</CenteredModalHeader>
 
-          <CenteredModalBody>
-            <Input
-              label={
-                <>
-                  <p>
-                    <PiUserCircle />
-                    비밀번호 재설정
-                  </p>
-                </>
-              }
-              placeholder='영문, 숫자 포함 최소 8자리'
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-            <Input
-              label={
-                <>
-                  <p>
-                    <PiUserCircle />
-                    비밀번호 확인
-                  </p>
-                </>
-              }
-              placeholder='위에서 설정한 비밀번호 재입력'
-              value={checkNewPassword}
-              onChange={(e) => setCheckNewPassword(e.target.value)}
-            />
-            {passwordError && (
-              <p
-                style={{ color: passwordError === '비밀번호가 변경되었습니다.' ? 'green' : 'red' }}
-              >
-                {passwordError}
-              </p>
-            )}
-            {/* 경고 메시지 표시 */}
-            {contents}
-          </CenteredModalBody>
+        <CenteredModalBody>
+          <Input
+            label={
+              <>
+                <p>
+                  <PiUserCircle />
+                  비밀번호 재설정
+                </p>
+              </>
+            }
+            placeholder='영문, 숫자 포함 최소 8자리'
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <Input
+            label={
+              <>
+                <p>
+                  <PiUserCircle />
+                  비밀번호 확인
+                </p>
+              </>
+            }
+            placeholder='위에서 설정한 비밀번호 재입력'
+            value={checkNewPassword}
+            onChange={(e) => setCheckNewPassword(e.target.value)}
+          />
+          {passwordError && (
+            <p style={{ color: passwordError === '비밀번호가 변경되었습니다.' ? 'green' : 'red' }}>
+              {passwordError}
+            </p>
+          )}
+          {/* 경고 메시지 표시 */}
+          {contents}
+        </CenteredModalBody>
 
-          <CenteredModalFooter>
-            <Button onClick={handleButtonClick}>{btnName}</Button>
-          </CenteredModalFooter>
-        </Modal>
-      </div>
-    </form>
+        <CenteredModalFooter>
+          <Button onClick={handleButtonClick}>{btnName}</Button>
+        </CenteredModalFooter>
+      </Modal>
+    </div>
   );
 };
 
