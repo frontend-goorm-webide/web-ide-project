@@ -44,7 +44,7 @@ const FindInfo = () => {
     setEmailForPassword('');
     setIdForPassword('');
   };
-
+  // ---------------------------------------------------------modal----------------------------------------------
   // 모달 열고 닫기 -> false 초기화
   const [isModalOpen, setModalOpen] = useState(false);
   // 비밀번호재설정 모달 열고 닫기 -> false 초기화
@@ -74,6 +74,7 @@ const FindInfo = () => {
     setPwModalOpen(false); // isModalOpen = false
     setPwModalContent({}); // 모달 내용 공백 전달
   };
+  // ---------------------------------------------------------modal----------------------------------------------
 
   // 이메일 유효성 검사 함수
   const validateEmail = (email) => {
