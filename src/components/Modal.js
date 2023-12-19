@@ -25,24 +25,21 @@ const CenteredModalFooter = styled(ModalFooter)`
   padding: 0.3rem 1rem;
 `;
 
-const CommonModal = ({ title, contents, btnName, closeModal, redirectTo }) => {
+const CommonModal = ({ isOpen, title, contents, btnName, close, redirectTo }) => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
     navigate(redirectTo);
-    closeModal();
+    close(); // closeModal 함수
   };
-
-  const backdrop = false;
 
   return (
     <div>
-      <Modal isOpen={true} toggle={closeModal} backdrop={backdrop}>
+      <Modal isOpen={isOpen} toggle={close} backdrop={false}>
+        {/*isOpen = true*/}
         {/* 회원 탈퇴인 경우 : toggle 제거 (닫기표시 제거) */}
         {title === '회원탈퇴' && <CenteredModalHeader>{title}</CenteredModalHeader>}
-        {title !== '회원탈퇴' && (
-          <CenteredModalHeader toggle={closeModal}>{title}</CenteredModalHeader>
-        )}
+        {title !== '회원탈퇴' && <CenteredModalHeader toggle={close}>{title}</CenteredModalHeader>}
         <CenteredModalBody>{contents}</CenteredModalBody>
         <CenteredModalFooter>
           <Button onClick={handleButtonClick}>{btnName}</Button>
