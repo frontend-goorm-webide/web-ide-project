@@ -4,7 +4,6 @@ import CommonModal from '../../components/Modal';
 import MyInfoModal from './MyInfoModal';
 import MonacoEditor from 'react-monaco-editor';
 import { BsToggles } from 'react-icons/bs';
-import { BsDownload } from 'react-icons/bs';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import { IoIosLogOut } from 'react-icons/io';
 import { FaRegPlayCircle } from 'react-icons/fa';
@@ -200,10 +199,6 @@ const IdeMain = () => {
           {/* 테마변경 */}
           <Button onClick={toggleEditorTheme}>
             <BsToggles />
-          </Button>
-          {/* 파일? */}
-          <Button>
-            <BsDownload />
           </Button>
           {/* 내정보 */}
           <Button onClick={openMyInfoModal}>
