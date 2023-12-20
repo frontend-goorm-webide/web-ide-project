@@ -184,6 +184,31 @@ const IdeMain = () => {
     console.log('회원탈퇴 완료');
   };
   // ===========================모달===========================
+  // ===========================api===========================
+  // 컴파일-코드실행 api 요청
+  const [codeRun, setCodeRun] = useState('');
+
+  useEffect(() => {
+    axios
+      .post('http://localhost:8080/api/ide/run-code', {
+        headers: {
+          Token: 'token-value',
+        },
+      })
+      .then((response) => {
+        // 성공적으로 응답을 받았을 때의 처리
+        console.log('서버 응답:', response.data);
+
+        // 응답 데이터에서 필요한 정보를 추출
+        const userData = response.data;
+        setCodeRun(userData.code);
+      })
+      .catch((error) => {
+        // 오류 발생 시의 처리
+        console.error('에러 발생:', error);
+      });
+  }, []);
+  // ===========================api===========================
 
   return (
     <>
