@@ -82,14 +82,9 @@ const IdeMain = () => {
   // 채팅방 인풋창에 입력한 내용 가져오기
   const [chatInputText, setChatInputText] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
-// ChatInput에 텍스트를 입력할 때마다 해당 텍스트를 chatInputText 상태에 업데이트
+  // ChatInput에 텍스트를 입력할 때마다 해당 텍스트를 chatInputText 상태에 업데이트
   const handleChatInputChange = (e) => {
-    // 한글 마지막 글자 출력 -> isComposing 프로퍼티 사용
-    const isComposing = e.nativeEvent instanceof CompositionEvent && e.nativeEvent.isComposing;
-
-    if (!isComposing) {
-      setChatInputText(e.target.value);
-    }
+    setChatInputText(e.target.value);
   };
   // ChatInput에 입력한 값 콘솔에 띄우기
   const handleSendChatMessage = () => {
@@ -102,7 +97,6 @@ const IdeMain = () => {
     } else {
       // 연결이 열려 있지 않을 때 사용자에게 알림 등을 표시할 수 있음
       console.error('WebSocket is not open.');
-
     }
 
     // 인풋값 확인 테스트용
@@ -111,8 +105,11 @@ const IdeMain = () => {
 
     setChatInputText('');
   };
+  // 채팅창에 한글 두번 출력되는 걸 방지하는 프로퍼티 생성
+  const [isComposing, setIsComposing] = useState(false);
   // 엔터 키를 누르면 handleSendChatMessage 함수를 호출, 채팅 메시지를 보냄
   const handleEnterKey = (e) => {
+    if (isComposing) return;
     if (e.key === 'Enter') {
       // 엔터 키의 기본 동작 방지 (새 줄이 추가되지 않도록)
       e.preventDefault();
@@ -292,6 +289,8 @@ const IdeMain = () => {
           <ChatInputContainer style={{ backgroundColor: backgroundColor }}>
             <Button>+</Button>
             <ChatInput
+              onCompositionStart={() => setIsComposing(true)}
+              onCompositionEnd={() => setIsComposing(false)}
               placeholder='Type your message...'
               value={chatInputText}
               onChange={handleChatInputChange}
