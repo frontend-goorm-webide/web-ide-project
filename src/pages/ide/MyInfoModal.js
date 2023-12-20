@@ -30,7 +30,6 @@ const Button = styled.button`
 
 const MyInfoModal = ({ onRequestClose }) => {
   // 상태 추가
-  const [profilePicture, setProfilePicture] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
