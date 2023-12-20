@@ -186,6 +186,31 @@ const IdeMain = () => {
   };
   // ===========================모달===========================
   // ===========================api===========================
+  // 로그아웃 api 요청
+  useEffect(() => {
+    axios
+      .post('http://localhost:8080/api/users/logout', {
+        headers: {
+          Token: 'token-value',
+        },
+      })
+      .then((response) => {
+        // 성공적으로 응답을 받았을 때의 처리
+        console.log('서버 응답:', response.data);
+        // 응답이 성공적으로 왔을 때(http의 응답메세지 start-line 값 == 200)
+        // 메인 페이지로 이동
+        if (response.status === 200) {
+          // 여기에 적절한 페이지 이동 로직을 추가
+          goToMainPage();
+        }
+        // 토큰을 지우는 로직 추가 한다면
+        // localStorage.removeItem('token');
+      })
+      .catch((error) => {
+        // 오류 발생 시의 처리
+        console.error('에러 발생:', error);
+      });
+  }, []);
   // 컴파일-코드실행 api 요청
   const [codeRun, setCodeRun] = useState('');
 
