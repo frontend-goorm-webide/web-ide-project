@@ -258,8 +258,8 @@ const IdeMain = () => {
             open={openModal}
           />
           <CommonModal isOpen={isModalOpen} {...modalContent} close={closeModal} />
-          {/* 로그아웃 */}
-          <Button onClick={goToMainPage}>
+          {/* 로그아웃 onClick={goToMainPage} */}
+          <Button>
             <IoIosLogOut />
           </Button>
         </div>
