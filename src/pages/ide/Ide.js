@@ -200,8 +200,8 @@ const IdeMain = () => {
         console.log('서버 응답:', response.data);
 
         // 응답 데이터에서 필요한 정보를 추출
-        const userData = response.data;
-        setCodeRun(userData.code);
+        const resultData = response.data;
+        setCodeRun(resultData.code);
       })
       .catch((error) => {
         // 오류 발생 시의 처리
@@ -286,6 +286,8 @@ const IdeMain = () => {
             </TerminalBar>
             <TerminalContent style={{ backgroundColor: backgroundColor }}>
               <span style={{ color: color }}>결과값</span>
+              <br />
+              <div>{codeRun}</div>
             </TerminalContent>
           </TerminalSection>
         </EditorTerminalContainer>
