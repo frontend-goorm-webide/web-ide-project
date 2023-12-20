@@ -18,7 +18,6 @@ import {
 // open : ide.js 에서 openModal() 함수 -> 회원탈퇴(공통 모달)
 const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
   // 상태 추가
-  const [profilePicture, setProfilePicture] = useState('');
   const [name, setName] = useState('');
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
