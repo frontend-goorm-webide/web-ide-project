@@ -13,8 +13,6 @@ import {
   Button,
 } from './StyleMyInfoModal';
 
-const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
-
 // isMyInfoOpen : 내정보 모달 열기/닫기
 // closeMyInfo : ide.js 에서 closeMyInfoModal() 함수
 // open : ide.js 에서 openModal() 함수 -> 회원탈퇴(공통 모달)
@@ -30,9 +28,6 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
     // 변경된 정보를 콘솔에 출력
     console.log('Profile information changed:', {
       profilePicture,
-      name,
-      email,
-      phone,
     });
   };
 
@@ -47,18 +42,28 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
     });
   };
 
+  // 내정보 api 요청
   useEffect(() => {
     axios
-      .get(SERVER_URL)
+      .get('http://localhost:8080/api/users/my-info', {
+        headers: {
+          Token: 'token-value',
+        },
+      })
       .then((response) => {
+        // 성공적으로 응답을 받았을 때의 처리
+        console.log('서버 응답:', response.data);
+
         const userData = response.data[0];
-        setProfilePicture(userData.profilePicture);
+        setProfilePicture(userData.storedFileName);
         setName(userData.name);
+        setName(userData.userId);
         setEmail(userData.email);
         setPhone(userData.phone);
       })
       .catch((error) => {
-        console.error('Error fetching user data:', error);
+        // 오류 발생 시의 처리
+        console.error('에러 발생:', error);
       });
   }, []);
 
