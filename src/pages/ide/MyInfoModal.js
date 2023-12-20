@@ -24,14 +24,6 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-  // 프로필 정보 변경 함수
-  const handleProfileChange = () => {
-    // 변경된 정보를 콘솔에 출력
-    console.log('Profile information changed:', {
-      profilePicture,
-    });
-  };
-
   // 회원 탈퇴 버튼 클릭 시 처리
   const clickRemoveButton = () => {
     // ide.js 에서 openModal() 실행 -> 공통 Modal
@@ -42,6 +34,43 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
       redirectTo: '/',
     });
   };
+  // ===========================프로필 사진 변경===========================
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewImage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+    setSelectedImage(file);
+  };
+
+  const handleImageUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('image', selectedImage);
+
+      const apiUrl = 'YOUR_API_ENDPOINT_URL';
+
+      const response = await axios.post(apiUrl, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log('서버 응답:', response.data);
+    } catch (error) {
+      console.error('에러 발생:', error);
+    }
+  };
+  // ===========================api===========================
 
   // 내정보 api 요청
   useEffect(() => {
@@ -79,6 +108,8 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
       .then((response) => {
         // 성공적으로 응답을 받았을 때의 처리
         console.log('서버 응답:', response.data);
+
+        clickRemoveButton();
       })
       .catch((error) => {
         // 오류 발생 시의 처리
@@ -95,18 +126,14 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
           {/* 프로필 섹션 */}
           <Section>
             <SectionContainer>
-              <ProfileImage src='' alt='기본 프로필 사진' />
-              <p>프로필 사진: {profilePicture}</p>
+              <ProfileImage src={previewImage || '/img/kakaoLogin.png'} alt='기본 프로필 사진' />
+              <p>프로필 사진</p>
               {/* 프로필 사진 변경 기능 */}
-              <input
-                type='file'
-                accept='image/*'
-                onChange={(e) => setProfilePicture(e.target.value)}
-              />
+              <input type='file' accept='image/*' onChange={handleImageChange} />
             </SectionContainer>
             {/* 프로필 변경 버튼 */}
             <ButtonContainer>
-              <Button onClick={handleProfileChange}>프로필 변경</Button>
+              <Button onClick={handleImageUpload}>프로필 변경</Button>
             </ButtonContainer>
           </Section>
           {/* 가입 정보 섹션 */}
@@ -119,7 +146,7 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
         </CenteredModalBody>
 
         <CenteredModalFooter>
-          {/* 회원 탈퇴 버튼 */}
+          {/* 회원 탈퇴 버튼 ==> 이벤트 삭제 */}
           <Button onClick={clickRemoveButton}>회원탈퇴</Button>
         </CenteredModalFooter>
       </Modal>
