@@ -114,6 +114,7 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
             <p>이름: {name}</p>
             <p>아이디: {userId}</p>
             <p>이메일: {email}</p>
+            <p>휴대폰 번호: {phone}</p>
           </Section>
         </CenteredModalBody>
 
