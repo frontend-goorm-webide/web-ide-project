@@ -112,8 +112,8 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
           {/* 가입 정보 섹션 */}
           <Section>
             <p>이름: {name}</p>
-            <p>아이디: {email}</p>
-            <p>이메일: {phone}</p>
+            <p>아이디: {userId}</p>
+            <p>이메일: {email}</p>
           </Section>
         </CenteredModalBody>
 
