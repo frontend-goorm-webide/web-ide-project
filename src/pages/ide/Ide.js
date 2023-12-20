@@ -30,14 +30,15 @@ import {
 } from './StyleIde';
 
 const IdeMain = () => {
-  //훅
+  // ===========================상단바===========================
   // useNavigate 훅을 사용하여 페이지 이동 함수 가져오기
   const navigate = useNavigate();
-
-  //에디터에 작성한 데이터값 가져오기 위해
-  const [editorData, setEditorData] = useState('');
-  //에디터 언어 설정을 위해(기본값 Java)
-  const [selectedLanguage, setSelectedLanguage] = useState('java');
+  // 나가기 버튼을 눌렀을 때 메인 페이지로 이동
+  const goToMainPage = () => {
+    // 로그아웃 시 알림창 표시
+    alert('로그아웃되었습니다.');
+    navigate('/');
+  };
 
   // 모나코 에디터의 테마를 관리
   const [editorTheme, setEditorTheme] = useState('vs-light');
@@ -45,14 +46,70 @@ const IdeMain = () => {
   const [backgroundColor, setBackgroundColor] = useState('#ffffff');
   // 터미널과 채팅방의 텍스트 색상 관리
   const [color, setColor] = useState('#000000');
-
+  // 테마 변경
+  const toggleEditorTheme = () => {
+    setEditorTheme((prevTheme) => (prevTheme === 'vs-light' ? 'vs-dark' : 'vs-light'));
+    setBackgroundColor((prevColor) => (prevColor === '#ffffff' ? '#000000' : '#ffffff'));
+    setColor((prevColor) => (prevColor === '#000000' ? '#ffffff' : '#000000'));
+  };
+  // ===========================상단바===========================
+  // ===========================에디터===========================
+  //에디터에 작성한 데이터값 가져오기 위해
+  const [editorData, setEditorData] = useState('');
+  //실행 버튼을 눌렀을 때 에디터에 작성된 데이터를 콘솔에 출력
+  const onClickEditorButton = () => {
+    console.log('editor Val : ' + editorData);
+  };
+  //에디터 언어 설정을 위해(기본값 Java)
+  const [selectedLanguage, setSelectedLanguage] = useState('java');
+  //selectbox에서 언어를 선택
+  const handleLanguageSelect = (language) => {
+    setSelectedLanguage(language);
+  };
+  // ===========================에디터===========================
+  // ===========================터미널===========================
+  // 채팅 버튼 누르면 채팅방 나타나기
+  const toggleOpenChatRoom = () => {
+    setShowChatRoom(true);
+  };
+  // 채팅 버튼 누르면 채팅방 나가기
+  const toggleCloseChatRoom = () => {
+    setShowChatRoom(false);
+  };
+  // ===========================터미널===========================
+  // ===========================채팅===========================
   // 채팅방 표시 여부 상태 추가
   const [showChatRoom, setShowChatRoom] = useState(false);
   // 채팅방 인풋창에 입력한 내용 가져오기
   const [chatInputText, setChatInputText] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
-  const [socket, setSocket] = useState(null);
+// ChatInput에 텍스트를 입력할 때마다 해당 텍스트를 chatInputText 상태에 업데이트
+  const handleChatInputChange = (e) => {
+    const isComposing = e.nativeEvent instanceof CompositionEvent && e.nativeEvent.isComposing;
 
+    if (!isComposing) {
+      setChatInputText(e.target.value);
+    }
+  };
+  // ChatInput에 입력한 값 콘솔에 띄우기
+  const handleSendChatMessage = () => {
+    console.log('Sending chat message:', chatInputText);
+
+    // 인풋값 확인 테스트용
+    const newMessage = { text: chatInputText, timestamp: new Date() };
+    setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    setChatInputText('');
+  };
+  // 엔터 키를 누르면 handleSendChatMessage 함수를 호출, 채팅 메시지를 보냄
+  const handleEnterKey = (e) => {
+    if (e.key === 'Enter') {
+      // 엔터 키의 기본 동작 방지 (새 줄이 추가되지 않도록)
+      e.preventDefault();
+      handleSendChatMessage();
+    }
+  };
+  // ===========================채팅===========================
   // ===========================모달===========================
   // 내정보 MyInfoModal 열기 초기화
   const [isMyInfoModalOpen, setIsMyInfoModalOpen] = useState(false);
@@ -86,92 +143,6 @@ const IdeMain = () => {
     console.log('회원탈퇴 완료');
   };
   // ===========================모달===========================
-
-  // 함수
-  //실행 버튼을 눌렀을 때 에디터에 작성된 데이터를 콘솔에 출력
-  const onClickEditorButton = () => {
-    console.log('editor Val : ' + editorData);
-  };
-  //selectbox에서 언어를 선택
-  const handleLanguageSelect = (language) => {
-    setSelectedLanguage(language);
-  };
-  // 테마 변경
-  const toggleEditorTheme = () => {
-    setEditorTheme((prevTheme) => (prevTheme === 'vs-light' ? 'vs-dark' : 'vs-light'));
-    setBackgroundColor((prevColor) => (prevColor === '#ffffff' ? '#000000' : '#ffffff'));
-    setColor((prevColor) => (prevColor === '#000000' ? '#ffffff' : '#000000'));
-  };
-  // 나가기 버튼을 눌렀을 때 메인 페이지로 이동
-  const goToMainPage = () => {
-    // 로그아웃 시 알림창 표시
-    alert('로그아웃되었습니다.');
-    navigate('/');
-  };
-  // 채팅 버튼 누르면 채팅방 나타나기
-  const toggleOpenChatRoom = () => {
-    setShowChatRoom(true);
-  };
-  // 채팅 버튼 누르면 채팅방 나가기
-  const toggleCloseChatRoom = () => {
-    setShowChatRoom(false);
-  };
-  // ChatInput에 텍스트를 입력할 때마다 해당 텍스트를 chatInputText 상태에 업데이트
-  const handleChatInputChange = (e) => {
-    setChatInputText(e.target.value);
-  };
-  // ChatInput에 입력한 값 콘솔에 띄우기
-  const handleSendChatMessage = () => {
-    console.log('Sending chat message:', chatInputText);
-
-    // 인풋값 확인 테스트용
-    const newMessage = { text: chatInputText, timestamp: new Date() };
-    setChatMessages((prevMessages) => [...prevMessages, newMessage]);
-
-    // Socket 파트 추가
-    // 추후 수정사항 ==> 닉네임 값
-    if (socket) {
-      socket.emit('chat message', { text: chatInputText, timestamp: new Date() });
-    }
-
-    setChatInputText('');
-  };
-  // 엔터 키를 누르면 handleSendChatMessage 함수를 호출, 채팅 메시지를 보냄
-  const handleEnterKey = (e) => {
-    if (e.key === 'Enter') {
-      // 엔터 키의 기본 동작 방지 (새 줄이 추가되지 않도록)
-      e.preventDefault();
-      handleSendChatMessage();
-    }
-  };
-  // Socket 파트
-  useEffect(() => {
-    const newSocket = io('http://localhost:3000');
-    setSocket(newSocket);
-
-    return () => {
-      if (newSocket) {
-        newSocket.close();
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (socket) {
-      // 서버로부터 메시지 수신
-      socket.on('chat message', (message) => {
-        // 새 메시지를 메시지 목록에 추가
-        setChatMessages((prevMessages) => [...prevMessages, message]);
-      });
-    }
-
-    // 컴포넌트 언마운트 시 소켓 이벤트 리스너 제거
-    return () => {
-      if (socket) {
-        socket.off('chat message');
-      }
-    };
-  }, [socket]);
 
   return (
     <>
