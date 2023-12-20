@@ -20,6 +20,7 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
   // 상태 추가
   const [profilePicture, setProfilePicture] = useState('');
   const [name, setName] = useState('');
+  const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -57,9 +58,27 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
         const userData = response.data[0];
         setProfilePicture(userData.storedFileName);
         setName(userData.name);
-        setName(userData.userId);
+        setUserId(userData.userId);
         setEmail(userData.email);
         setPhone(userData.phone);
+      })
+      .catch((error) => {
+        // 오류 발생 시의 처리
+        console.error('에러 발생:', error);
+      });
+  }, []);
+
+  // 회원탈퇴 api 요청
+  useEffect(() => {
+    axios
+      .put('http://localhost:8080/api/users/delete', {
+        headers: {
+          Token: 'token-value',
+        },
+      })
+      .then((response) => {
+        // 성공적으로 응답을 받았을 때의 처리
+        console.log('서버 응답:', response.data);
       })
       .catch((error) => {
         // 오류 발생 시의 처리
