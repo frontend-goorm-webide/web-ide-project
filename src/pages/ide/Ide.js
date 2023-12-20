@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import CommonModal from '../../components/Modal';
 import MyInfoModal from './MyInfoModal';
 import MonacoEditor from 'react-monaco-editor';
