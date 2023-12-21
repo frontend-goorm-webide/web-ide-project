@@ -13,6 +13,7 @@ export const ErrorText = styled.p`
   font-weight: bold;
   font-size: 18px;
   padding-top: 15px;
+  text-align: center;
 `;
 
 export const FindInfoLogo = styled.span`

@@ -97,7 +97,7 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
           <Input
             label={
               <>
-                <p>
+                <p style={{ paddingTop: '10px' }}>
                   <PiUserCircle />
                   비밀번호 확인
                 </p>
@@ -108,7 +108,12 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
             onChange={(e) => setCheckNewPassword(e.target.value)}
           />
           {passwordError && (
-            <p style={{ color: passwordError === '비밀번호가 변경되었습니다.' ? 'green' : 'red' }}>
+            <p
+              style={{
+                marginTop: '5px',
+                color: passwordError === '비밀번호가 변경되었습니다.' ? 'green' : 'red',
+              }}
+            >
               {passwordError}
             </p>
           )}
