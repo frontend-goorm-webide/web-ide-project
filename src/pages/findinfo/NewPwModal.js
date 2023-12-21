@@ -5,8 +5,8 @@ import Input from '../../components/Input';
 import { Modal } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { PiUserCircle } from 'react-icons/pi';
-import { CenteredModalHeader, CenteredModalBody, CenteredModalFooter } from './StylePwModal';
 // import axios from 'axios';
+import { CenteredModalHeader, CenteredModalBody, CenteredModalFooter } from './StylePwModal';
 
 const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirectTo }) => {
   // 훅
@@ -20,7 +20,7 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
   // API서버에서 가져온 사용자 데이터를 저장하기 위한 state
   // const [fetchedUser, setFetchedUser] = useState(null);
 
-  //비밀번호 유효성 검사 함수
+  // 비밀번호 유효성 검사 함수
   const validatePassword = () => {
     const regex = /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/;
     return regex.test(newPassword);
@@ -55,7 +55,7 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
     }, 2000); // 2초 후에 페이지 이동
   };
 
-  // //API
+  // API
   // useEffect(() => {
   //   const payload = {};
 

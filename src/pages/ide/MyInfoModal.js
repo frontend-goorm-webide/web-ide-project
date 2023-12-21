@@ -34,6 +34,7 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
       redirectTo: '/',
     });
   };
+
   // ===========================프로필 사진 변경===========================
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -70,8 +71,8 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
       console.error('에러 발생:', error);
     }
   };
-  // ===========================api===========================
 
+  // ===========================api===========================
   // 내정보 api 요청
   useEffect(() => {
     axios
@@ -126,7 +127,7 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
           {/* 프로필 섹션 */}
           <Section>
             <SectionContainer>
-              <ProfileImage src={previewImage || profilePicture } alt='기본 프로필 사진' />
+              <ProfileImage src={previewImage || profilePicture} alt='기본 프로필 사진' />
               <p>프로필 사진</p>
               {/* 프로필 사진 변경 기능 */}
               <input type='file' accept='image/*' onChange={handleImageChange} />
