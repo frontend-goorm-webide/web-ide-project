@@ -20,39 +20,41 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
   // API서버에서 가져온 사용자 데이터를 저장하기 위한 state
   // const [fetchedUser, setFetchedUser] = useState(null);
 
-  // 비밀번호 유효성 검사 함수
-  const validatePassword = () => {
-    const regex = /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/;
-    return regex.test(newPassword);
+  //비밀번호 유효성 검사 함수
+  const validatePassword = (newPassword) => {
+    // 8~16자 영문 대소문자, 숫자, 특수문자 포함
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+    return passwordRegex.test(newPassword);
   };
 
   // 버튼 클릭 시, 페이지 이동 및 모달 닫기
   const handleButtonClick = (event) => {
     event.preventDefault();
 
-    if (!validatePassword()) {
-      setPasswordError('비밀번호는 최소 8자 이상이며, 문자와 숫자를 모두 포함해야 합니다.');
+    if (!validatePassword(newPassword)) {
+      setPasswordError('비밀번호는 영어 대&소문자, 숫자, 특수문자 각 1개를 포함해야 합니다.');
+      setNewPassword('');
+      setCheckNewPassword('');
       return;
-    }
-
-    if (newPassword !== checkNewPassword) {
+    } else if (newPassword !== checkNewPassword) {
       // 비밀번호가 일치하지 않을경우
       setPasswordError('비밀번호가 일치하지 않습니다.');
+      setCheckNewPassword('');
       return;
     }
     // 비밀번호가 일치할 경우
     setPasswordError('비밀번호가 변경되었습니다.');
 
-    // 폼 제출 로직   임시 값 확인
+    // 폼 제출 로직 임시 값 확인
     console.log('비밀번호 재설정 완료) 새로운 비밀번호: ', newPassword);
 
-    // 몇 초 후에 페이지 이동
+    // 비밀번호 변경후 2 초 후에 메인페이지 이동
     setTimeout(() => {
       closePwModal();
       if (redirectTo) {
         navigate(redirectTo);
       }
-    }, 2000); // 2초 후에 페이지 이동
+    }, 2000);
   };
 
   // API
@@ -90,7 +92,8 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
                 </p>
               </>
             }
-            placeholder='영문, 숫자 포함 최소 8자리'
+            placeholder='영어 대&소문자, 숫자, 특수문자 각 1개
+            포함'
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />

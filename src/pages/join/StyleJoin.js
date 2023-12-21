@@ -55,7 +55,7 @@ export const FormStyle = styled.form`
   padding-top: 30px;
   border: 3.5px solid #ccc;
   border-radius: 50px;
-  padding-left: 25px;
+  padding-left: 10px;
   margin-top: 50px;
   padding-bottom: 20px;
   display: flex;
@@ -87,7 +87,7 @@ export const PwInputContainer = styled.span`
   align-items: center;
 
   span {
-    padding-right: 70px;
+    padding-right: 50px;
   }
 `;
 

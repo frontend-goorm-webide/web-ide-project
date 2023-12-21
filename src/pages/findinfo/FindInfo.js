@@ -29,7 +29,7 @@ const FindInfo = () => {
   const [idForPassword, setIdForPassword] = useState('');
 
   // 서버에서 가져온 사용자 데이터를 저장하기 위한 state
-  const [fetchedUser, setFetchedUser] = useState(null);
+  // const [fetchedUser, setFetchedUser] = useState(null);
 
   // 폼 제출 핸들러
   const handleSubmit = (e) => {
@@ -129,13 +129,14 @@ const FindInfo = () => {
       console.log('이메일 형식 에러');
       setEmailForId('');
     } else {
-      // 사용자 데이터를 모달에 표시
+      // 등록된 이메일인 경우의 처리
+      // 아이디 찾기 성공 로직
       openModal({
         title: '아이디 찾기',
         contents: (
           <>
             <p>
-              아이디: {fetchedUser?.name} <br />
+              아이디: <br />
               <br />위 아이디로 다시 로그인 해주세요 :)
             </p>
           </>
