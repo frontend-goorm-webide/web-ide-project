@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Modal } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import { data } from '../Data';
+//import { data } from '../Data';
 import {
   CenteredModalHeader,
   CenteredModalBody,
