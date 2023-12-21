@@ -18,6 +18,7 @@ import {
 // open : ide.js 에서 openModal() 함수 -> 회원탈퇴(공통 모달)
 const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
   // 상태 추가
+  const [profilePicture, setProfilePicture] = useState('');
   const [name, setName] = useState('');
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useState('');
@@ -125,7 +126,7 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
           {/* 프로필 섹션 */}
           <Section>
             <SectionContainer>
-              <ProfileImage src={previewImage || '/img/kakaoLogin.png'} alt='기본 프로필 사진' />
+              <ProfileImage src={previewImage || profilePicture } alt='기본 프로필 사진' />
               <p>프로필 사진</p>
               {/* 프로필 사진 변경 기능 */}
               <input type='file' accept='image/*' onChange={handleImageChange} />

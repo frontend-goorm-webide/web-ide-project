@@ -19,7 +19,7 @@ export const HeaderLogo = styled.div`
 
 export const StyledLogo = styled.p`
   font-family: Inter;
-  font-size: 8vw;
+  font-size: 6vw;
   font-weight: 600;
   line-height: 1;
   padding-top: 5vw;
@@ -27,7 +27,8 @@ export const StyledLogo = styled.p`
   margin-right: auto;
   letter-spacing: 0em;
   text-align: center;
-  color: #183258;
+  // color: #183258;
+  color: #350dff;
 
   span {
     color: #e20000;
@@ -36,7 +37,7 @@ export const StyledLogo = styled.p`
   p {
     color: black;
     padding-top: 20px;
-    font-size: 4vw;
+    font-size: 3vw;
   }
 `;
 
@@ -83,14 +84,18 @@ export const IdInputWithBtn = styled.div`
 
 export const PwInputContainer = styled.span`
   display: flex;
-  gap: 100px;
+  align-items: center;
+
+  span {
+    padding-right: 70px;
+  }
 `;
 
 export const CheckIdBtn = styled.button`
   width: 65px;
   height: 25px;
   margin-top: 67px;
-  margin-left: 10px;
+  margin-left: 5px;
   text-align: center;
   font-family: Inter;
   font-size: 13px;
@@ -117,4 +122,12 @@ export const StyledButtons = styled.span`
   .cancel-btn {
     margin-top: 1rem;
   }
+`;
+
+export const ErrorText = styled.p`
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 15px;
+  text-align: center;
 `;

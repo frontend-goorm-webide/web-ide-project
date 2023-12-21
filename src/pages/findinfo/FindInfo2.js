@@ -5,7 +5,7 @@ import Input from '../../components/Input';
 import Logo from '../../components/Logo';
 import CommonModal from '../../components/Modal';
 import NewPwModal from './NewPwModal';
-// import axios from 'axios';
+import axios from 'axios';
 import { PiUserCircle } from 'react-icons/pi';
 import { CiMail } from 'react-icons/ci';
 import {
@@ -16,8 +16,8 @@ import {
   FindPasswordContainer,
 } from './StyleFindInfo';
 
-// Server URL
-// const SERVER_URL = '';
+// 임시 jsonplaceholder
+// const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
 
 const FindInfo = () => {
   // 아이디찾기 - 이름, 이메일
@@ -28,8 +28,8 @@ const FindInfo = () => {
   const [emailForPassword, setEmailForPassword] = useState('');
   const [idForPassword, setIdForPassword] = useState('');
 
-  // 서버에서 가져온 사용자 데이터를 저장하기 위한 state
-  const [fetchedUser, setFetchedUser] = useState(null);
+  //josnplaceholder 서버에서 가져온 사용자 데이터를 저장하기 위한 state
+  // const [fetchedUser, setFetchedUser] = useState(null);
 
   // 폼 제출 핸들러
   const handleSubmit = (e) => {
@@ -55,6 +55,28 @@ const FindInfo = () => {
     // 영문 대소문자와 숫자만 허용, 길이는 2~10자
     const nameRegex = /^[a-zA-Z0-9]{5,10}$/;
     return nameRegex.test(id);
+  };
+
+  //서버에 이메일이 등록되어 있는지 확인하는 함수
+  const isEmailRegistered = async (name, email) => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/users/find-id', {
+        name,
+        email,
+      });
+
+      if (response.data.result === 'success') {
+        // 성공적으로 사용자 ID를 찾은 경우
+        return { success: true, userId: response.data.data.userId };
+      } else {
+        // 실패한 경우 (사용자 ID를 찾지 못함)
+        return { success: false, reason: response.data.data.reason };
+      }
+    } catch (error) {
+      // 네트워크 오류나 서버 에러 발생
+      console.error('Error during API call', error);
+      return { success: false, reason: 'Network or server error' };
+    }
   };
 
   //===========================모달===========================
@@ -89,7 +111,7 @@ const FindInfo = () => {
   };
 
   // 아이디찾기 버튼 클릭
-  const handleFindIdButtonClick = () => {
+  const handleFindIdButtonClick = async () => {
     // 에러모달
     // 이름과 이메일의 입력 여부 확인
     if (!nameForId || !emailForId) {
@@ -132,6 +154,60 @@ const FindInfo = () => {
       // 입력 필드 초기화
       // setNameForId('');
       setEmailForId('');
+
+      //이메일이 등록되지 않았을 경우
+    } else {
+      // isEmailRegistered 함수 호출
+      const emailCheckResult = await isEmailRegistered(nameForId, emailForId);
+
+      if (!emailCheckResult.success) {
+        openModal({
+          title: '입력 오류',
+          contents: <ErrorText>등록되지 않은 사용자입니다.</ErrorText>,
+          btnName: '닫기',
+          redirectTo: null,
+        });
+        console.log('등록되지 않은 이메일 에러');
+        setEmailForId('');
+      } else {
+        // 등록된 이메일인 경우의 처리
+        // 아이디 찾기 성공 로직
+        openModal({
+          title: '아이디 찾기',
+          contents: (
+            <>
+              <p>
+                아이디: {emailCheckResult.userId} <br />
+                <br />위 아이디로 다시 로그인 해주세요 :)
+              </p>
+            </>
+          ),
+          btnName: '로그인하기',
+          redirectTo: '/',
+        });
+        console.log('아이디 찾기 성공) id: ' + nameForId + ' / email: ' + emailForId);
+        setNameForId('');
+        setEmailForId('');
+      }
+      //등록된 사용자인경우 아이디를 모달에 표시 (jsonplaceholder에서 유저아이디 들고올경우)
+      // openModal({
+      //   title: '아이디 찾기',
+      //   contents: (
+      //     <>
+      //       <p>
+      //         아이디: {fetchedUser?.name} <br />
+      //         <br />위 아이디로 다시 로그인 해주세요 :)
+      //       </p>
+      //     </>
+      //   ),
+      //   btnName: '로그인하기',
+      //   redirectTo: '/',
+      // });
+      // // 임시 값 확인
+      // console.log('아이디 찾기 성공) id: ' + nameForId + ' / email: ' + emailForId);
+      // // 입력 필드 초기화
+      // setNameForId('');
+      // setEmailForId('');
     }
   };
 
@@ -216,7 +292,7 @@ const FindInfo = () => {
   };
   // ===========================모달===========================
 
-  //axios사용해 유저아이디값 들고오기
+  //json place holder 사용해 임의로 유저아이디값 들고오기
   // useEffect(() => {
   //   axios
   //     .get(SERVER_URL)
