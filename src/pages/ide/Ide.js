@@ -248,7 +248,7 @@ const IdeMain = () => {
             <BsToggles />
           </Button>
           {/* 내정보 */}
-          <Button onClick={goToMainPage}>
+          <Button onClick={openMyInfoModal}>
             <IoPersonCircleOutline />
           </Button>
           <MyInfoModal
@@ -311,7 +311,7 @@ const IdeMain = () => {
             <TerminalBar>
               <div>
                 <p>터미널</p>
-                <Button onClick={toggleChatRoom}>
+                <Button onClick={toggleOpenChatRoom}>
                   <BsChatDots />
                 </Button>
               </div>
@@ -330,7 +330,7 @@ const IdeMain = () => {
               <BsChatDots />
               채팅방
             </p>
-            <Button onClick={toggleChatRoom}>X</Button>
+            <Button onClick={toggleCloseChatRoom}>X</Button>
           </ChatBar>
 
           <ChatText style={{ backgroundColor: backgroundColor, color: Color }}>
