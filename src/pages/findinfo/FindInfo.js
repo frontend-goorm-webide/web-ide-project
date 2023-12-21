@@ -50,7 +50,7 @@ const FindInfo = () => {
     return nameRegex.test(name);
   };
 
-  //아이디 유효성 검사 함수
+  // 아이디 유효성 검사 함수
   const validateId = (id) => {
     // 영문 대소문자와 숫자만 허용, 길이는 2~10자
     const nameRegex = /^[a-zA-Z0-9]{5,10}$/;
@@ -90,8 +90,7 @@ const FindInfo = () => {
 
   // 아이디찾기 버튼 클릭
   const handleFindIdButtonClick = () => {
-    // 에러모달
-    // 이름과 이메일의 입력 여부 확인
+    // 에러모달 : 이름, 이메일 입력 여부 확인
     if (!nameForId || !emailForId) {
       openModal({
         title: '입력 오류',
@@ -104,13 +103,13 @@ const FindInfo = () => {
       // 입력 필드 초기화
       setNameForId('');
       setEmailForId('');
-      //이름 형식 유효성 확인
     } else if (!validateName(nameForId)) {
+      // 이름 형식 유효성 확인
       openModal({
         title: '입력 오류',
         contents: (
           <ErrorText>
-            이름은 2자이상 10자 이하의 영문또는 한글이어야 합니다. <br />
+            이름은 2자이상 10자 이하의 영문 또는 한글이어야 합니다. <br />
             (특수문자, 공백, 숫자 제외)
           </ErrorText>
         ),
@@ -119,25 +118,40 @@ const FindInfo = () => {
       });
       console.log('이름 형식 에러');
       setNameForId('');
-      //이메일 형식 유효성 확인
     } else if (!validateEmail(emailForId)) {
+      // 이메일 형식 유효성 확인
       openModal({
         title: '입력 오류',
         contents: <ErrorText>올바른 이메일 형식을 입력해주세요.</ErrorText>,
         btnName: '닫기',
         redirectTo: null,
       });
-      // 임시 값 확인
       console.log('이메일 형식 에러');
-      // 입력 필드 초기화
-      // setNameForId('');
+      setEmailForId('');
+    } else {
+      // 사용자 데이터를 모달에 표시
+      openModal({
+        title: '아이디 찾기',
+        contents: (
+          <>
+            <p>
+              아이디: {fetchedUser?.name} <br />
+              <br />위 아이디로 다시 로그인 해주세요 :)
+            </p>
+          </>
+        ),
+        btnName: '로그인하기',
+        redirectTo: '/',
+      });
+      console.log('아이디 찾기 성공) id: ' + nameForId + ' / email: ' + emailForId);
+      setNameForId('');
       setEmailForId('');
     }
   };
 
   // 비밀번호찾기 버튼 클릭
   const handleFindPwButtonClick = () => {
-    // 에러 모달
+    // 에러모달 : 이름, 이메일, 아이디 입력 여부 확인
     if (!nameForPassword || !emailForPassword || !idForPassword) {
       openModal({
         title: '입력 오류',
@@ -156,7 +170,7 @@ const FindInfo = () => {
         title: '입력 오류',
         contents: (
           <ErrorText>
-            이름은 2자이상 10자 이하의 영문또는 한글이어야 합니다. <br />
+            이름은 2자이상 10자 이하의 영문 또는 한글이어야 합니다. <br />
             (특수문자, 공백, 숫자 제외)
           </ErrorText>
         ),
@@ -172,12 +186,8 @@ const FindInfo = () => {
         btnName: '닫기',
         redirectTo: null,
       });
-      // 임시 값 확인
       console.log('이메일 형식 에러');
-      // 입력 필드 초기화
       setEmailForPassword('');
-      // setNameForPassword('');
-      // setIdForPassword('');
     } else if (!validateId(idForPassword)) {
       openModal({
         title: '입력 오류',
@@ -185,21 +195,16 @@ const FindInfo = () => {
         btnName: '닫기',
         redirectTo: null,
       });
-      // 임시 값 확인
       console.log('아이디 형식 에러');
-      // 입력 필드 초기화
-      // setNameForPassword('');
-      // setEmailForPassword('');
       setIdForPassword('');
     } else {
-      //비밀번호 변경 모달 실행
+      // 비밀번호 변경 모달 실행
       openPwModal({
         title: '비밀번호 재설정',
         contents: <p style={{ marginTop: '8px' }}>변경한 비밀번호로 다시 로그인 해주세요 :)</p>,
         btnName: '로그인하기',
         redirectTo: '/',
       });
-      // 임시 값 확인
       console.log(
         '비밀번호 찾기 성공) name: ' +
           nameForPassword +
@@ -208,7 +213,6 @@ const FindInfo = () => {
           ' / id: ' +
           idForPassword,
       );
-      // 입력 필드 초기화
       setNameForPassword('');
       setEmailForPassword('');
       setIdForPassword('');
@@ -335,7 +339,6 @@ const FindInfo = () => {
             </div>
           </div>
           <CommonModal isOpen={isModalOpen} {...modalContent} close={closeModal} />
-
           <NewPwModal isPwOpen={isPwModalOpen} {...pwModalContent} closePwModal={closePwModal} />
         </FindPasswordContainer>
       </form>
