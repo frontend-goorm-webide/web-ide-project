@@ -5,7 +5,7 @@ import Input from '../../components/Input';
 import Logo from '../../components/Logo';
 import CommonModal from '../../components/Modal';
 import NewPwModal from './NewPwModal';
-import axios from 'axios';
+// import axios from 'axios';
 import { PiUserCircle } from 'react-icons/pi';
 import { CiMail } from 'react-icons/ci';
 import {
@@ -16,7 +16,8 @@ import {
   FindPasswordContainer,
 } from './StyleFindInfo';
 
-const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
+// Server URL
+// const SERVER_URL = '';
 
 const FindInfo = () => {
   // 아이디찾기 - 이름, 이메일
@@ -42,7 +43,21 @@ const FindInfo = () => {
     return emailRegex.test(email);
   };
 
-  // ===========================모달===========================
+  // 성명 유효성 검사 함수
+  const validateName = (name) => {
+    // 특수문자, 공백, 숫자 제외, 영문 대소문자와 한글만 허용, 길이는 2~10자
+    const nameRegex = /^[a-zA-Z가-힣]{2,10}$/;
+    return nameRegex.test(name);
+  };
+
+  //아이디 유효성 검사 함수
+  const validateId = (id) => {
+    // 영문 대소문자와 숫자만 허용, 길이는 2~10자
+    const nameRegex = /^[a-zA-Z0-9]{5,10}$/;
+    return nameRegex.test(id);
+  };
+
+  //===========================모달===========================
   // 아이디찾기 - Modal.js
   const [isModalOpen, setModalOpen] = useState(false);
   // 아이디찾기(내용) - Modal.js
@@ -75,7 +90,8 @@ const FindInfo = () => {
 
   // 아이디찾기 버튼 클릭
   const handleFindIdButtonClick = () => {
-    // 에러 모달
+    // 에러모달
+    // 이름과 이메일의 입력 여부 확인
     if (!nameForId || !emailForId) {
       openModal({
         title: '입력 오류',
@@ -88,6 +104,22 @@ const FindInfo = () => {
       // 입력 필드 초기화
       setNameForId('');
       setEmailForId('');
+      //이름 형식 유효성 확인
+    } else if (!validateName(nameForId)) {
+      openModal({
+        title: '입력 오류',
+        contents: (
+          <ErrorText>
+            이름은 2자이상 10자 이하의 영문또는 한글이어야 합니다. <br />
+            (특수문자, 공백, 숫자 제외)
+          </ErrorText>
+        ),
+        btnName: '닫기',
+        redirectTo: null,
+      });
+      console.log('이름 형식 에러');
+      setNameForId('');
+      //이메일 형식 유효성 확인
     } else if (!validateEmail(emailForId)) {
       openModal({
         title: '입력 오류',
@@ -98,30 +130,11 @@ const FindInfo = () => {
       // 임시 값 확인
       console.log('이메일 형식 에러');
       // 입력 필드 초기화
-      setNameForId('');
-      setEmailForId('');
-    } else {
-      //사용자 데이터를 모달에 표시
-      openModal({
-        title: '아이디 찾기',
-        contents: (
-          <>
-            <p>
-              아이디: {fetchedUser?.name} <br />
-              <br />위 아이디로 다시 로그인 해주세요 :)
-            </p>
-          </>
-        ),
-        btnName: '로그인하기',
-        redirectTo: '/',
-      });
-      // 임시 값 확인
-      console.log('아이디 찾기 성공) id: ' + nameForId + ' / email: ' + emailForId);
-      // 입력 필드 초기화
-      setNameForId('');
+      // setNameForId('');
       setEmailForId('');
     }
   };
+
   // 비밀번호찾기 버튼 클릭
   const handleFindPwButtonClick = () => {
     // 에러 모달
@@ -138,6 +151,20 @@ const FindInfo = () => {
       setNameForPassword('');
       setEmailForPassword('');
       setIdForPassword('');
+    } else if (!validateName(nameForPassword)) {
+      openModal({
+        title: '입력 오류',
+        contents: (
+          <ErrorText>
+            이름은 2자이상 10자 이하의 영문또는 한글이어야 합니다. <br />
+            (특수문자, 공백, 숫자 제외)
+          </ErrorText>
+        ),
+        btnName: '닫기',
+        redirectTo: null,
+      });
+      console.log('이름 형식 에러');
+      setNameForPassword('');
     } else if (!validateEmail(emailForPassword)) {
       openModal({
         title: '입력 오류',
@@ -148,14 +175,27 @@ const FindInfo = () => {
       // 임시 값 확인
       console.log('이메일 형식 에러');
       // 입력 필드 초기화
-      setNameForPassword('');
       setEmailForPassword('');
+      // setNameForPassword('');
+      // setIdForPassword('');
+    } else if (!validateId(idForPassword)) {
+      openModal({
+        title: '입력 오류',
+        contents: <ErrorText>아이디는 5~10글자, 영문 대소문자와 숫자만 가능합니다.</ErrorText>,
+        btnName: '닫기',
+        redirectTo: null,
+      });
+      // 임시 값 확인
+      console.log('아이디 형식 에러');
+      // 입력 필드 초기화
+      // setNameForPassword('');
+      // setEmailForPassword('');
       setIdForPassword('');
     } else {
       //비밀번호 변경 모달 실행
       openPwModal({
         title: '비밀번호 재설정',
-        contents: '변경한 비밀번호로 다시 로그인 해주세요 :)',
+        contents: <p style={{ marginTop: '8px' }}>변경한 비밀번호로 다시 로그인 해주세요 :)</p>,
         btnName: '로그인하기',
         redirectTo: '/',
       });
@@ -176,16 +216,17 @@ const FindInfo = () => {
   };
   // ===========================모달===========================
 
-  useEffect(() => {
-    axios
-      .get(SERVER_URL)
-      .then((response) => {
-        setFetchedUser(response.data[0]); // 첫 번째 사용자 데이터를 state에 저장
-      })
-      .catch((error) => {
-        console.error('Error fetching user data:', error);
-      });
-  }, []);
+  //axios사용해 유저아이디값 들고오기
+  // useEffect(() => {
+  //   axios
+  //     .get(SERVER_URL)
+  //     .then((response) => {
+  //       setFetchedUser(response.data[0]); // 첫 번째 사용자 데이터를 state에 저장
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching user data:', error);
+  //     });
+  // }, []);
 
   return (
     <>
@@ -241,7 +282,7 @@ const FindInfo = () => {
         {/* 비밀번호찾기 */}
         <FindPasswordContainer>
           <div>
-            <span>비밀번호 변경</span>
+            <span>비밀번호 찾기</span>
             <div className='input-find-password'>
               <Input
                 label={
