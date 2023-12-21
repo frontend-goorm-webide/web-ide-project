@@ -118,6 +118,7 @@ const Join = () => {
     const mobileNumberRegex = /^01\d{8,9}$/;
     return mobileNumberRegex.test(mobile);
   };
+
   //===========================모달===========================
   // 아이디찾기 - Modal.js
   const [isModalOpen, setModalOpen] = useState(false);
@@ -145,14 +146,13 @@ const Join = () => {
         btnName: '닫기',
         redirectTo: null,
       });
-
       console.log('필드중 하나 혹은 여러개 미입력 ');
     } else if (!validateName(name)) {
       openModal({
         title: '입력 오류',
         contents: (
           <ErrorText>
-            이름은 2자이상 10자 이하의 영문또는 한글이어야 합니다. <br />
+            이름은 2자이상 10자 이하의 영문 또는 한글이어야 합니다. <br />
             (특수문자, 공백, 숫자 제외)
           </ErrorText>
         ),
@@ -207,7 +207,7 @@ const Join = () => {
     } else if (!validateMobileNumber(mobile)) {
       openModal({
         title: '입력 오류',
-        contents: <ErrorText>휴대폰 번호 형식이 올바르지 않습니다</ErrorText>,
+        contents: <ErrorText>휴대폰 번호 형식이 올바르지 않습니다.</ErrorText>,
         btnName: '닫기',
         redirectTo: null,
       });

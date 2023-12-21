@@ -36,7 +36,7 @@ const IdeMain = () => {
   // 나가기 버튼을 눌렀을 때 메인 페이지로 이동
   const goToMainPage = () => {
     // 로그아웃 시 알림창 표시
-    alert('로그아웃되었습니다.');
+    alert('로그아웃 되었습니다.');
     navigate('/');
   };
 
@@ -53,20 +53,22 @@ const IdeMain = () => {
     setColor((prevColor) => (prevColor === '#000000' ? '#ffffff' : '#000000'));
   };
   // ===========================상단바===========================
+
   // ===========================에디터===========================
-  //에디터에 작성한 데이터값 가져오기 위해
+  // 에디터에 작성한 데이터값 가져오기 위해
   const [editorData, setEditorData] = useState('');
-  //실행 버튼을 눌렀을 때 에디터에 작성된 데이터를 콘솔에 출력
+  // 실행 버튼을 눌렀을 때 에디터에 작성된 데이터를 콘솔에 출력
   const onClickEditorButton = () => {
     console.log('editor Val : ' + editorData);
   };
-  //에디터 언어 설정을 위해(기본값 Java)
+  // 에디터 언어 설정을 위해(기본값 Java)
   const [selectedLanguage, setSelectedLanguage] = useState('java');
-  //selectbox에서 언어를 선택
+  // selectbox에서 언어를 선택
   const handleLanguageSelect = (language) => {
     setSelectedLanguage(language);
   };
   // ===========================에디터===========================
+
   // ===========================터미널===========================
   // 채팅 버튼 누르면 채팅방 나타나기
   const toggleOpenChatRoom = () => {
@@ -77,6 +79,7 @@ const IdeMain = () => {
     setShowChatRoom(false);
   };
   // ===========================터미널===========================
+
   // ===========================채팅===========================
   // 채팅방 표시 여부 상태 추가
   const [showChatRoom, setShowChatRoom] = useState(false);
@@ -152,6 +155,7 @@ const IdeMain = () => {
     };
   }, []);
   // ===========================채팅===========================
+
   // ===========================모달===========================
   // 내정보 MyInfoModal 열기 초기화
   const [isMyInfoModalOpen, setIsMyInfoModalOpen] = useState(false);
@@ -185,6 +189,7 @@ const IdeMain = () => {
     console.log('회원탈퇴 완료');
   };
   // ===========================모달===========================
+
   // ===========================api===========================
   // 로그아웃 api 요청
   useEffect(() => {
@@ -292,7 +297,7 @@ const IdeMain = () => {
               language={selectedLanguage}
               theme={editorTheme}
               options={{ fontSize: 14, scrollBeyondLastLine: false, minimap: { enabled: false } }}
-              //에디터가 비어있을 때 기본 문구 출력, 내용이 있으면 내용 유지
+              // 에디터가 비어있을 때 기본 문구 출력, 내용이 있으면 내용 유지
               value={
                 editorData ||
                 `public class HelloWorld {\n  public static void main(String[] args) {\n    System.out.println("Hello, Java!");\n  }\n`

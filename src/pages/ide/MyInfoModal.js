@@ -24,6 +24,16 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
+  // data[1]의 값 가져와서 화면에 띄우기
+  useEffect(() => {
+    const userData = data[1];
+    setProfilePicture(userData.storedFileName);
+    setName(userData.name);
+    setUserId(userData.userId);
+    setEmail(userData.email);
+    setPhone(userData.phone);
+  }, []);
+
   // 회원 탈퇴 버튼 클릭 시 처리
   const clickRemoveButton = () => {
     // ide.js 에서 openModal() 실행 -> 공통 Modal
@@ -34,6 +44,7 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
       redirectTo: '/',
     });
   };
+
   // ===========================프로필 사진 변경===========================
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -70,8 +81,8 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
       console.error('에러 발생:', error);
     }
   };
-  // ===========================api===========================
 
+  // ===========================api===========================
   // 내정보 api 요청
   useEffect(() => {
     axios

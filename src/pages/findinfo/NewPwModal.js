@@ -5,8 +5,8 @@ import Input from '../../components/Input';
 import { Modal } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { PiUserCircle } from 'react-icons/pi';
-import { CenteredModalHeader, CenteredModalBody, CenteredModalFooter } from './StylePwModal';
 // import axios from 'axios';
+import { CenteredModalHeader, CenteredModalBody, CenteredModalFooter } from './StylePwModal';
 
 const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirectTo }) => {
   // 훅
@@ -57,7 +57,7 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
     }, 2000);
   };
 
-  // //API
+  // API
   // useEffect(() => {
   //   const payload = {};
 

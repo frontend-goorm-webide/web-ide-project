@@ -4,10 +4,8 @@ export const StyledLogo = styled.p`
   font-family: Inter;
   font-size: 60px;
   font-weight: 700;
-  // line-height: 50px; // 주석 변경
-  // padding-top: 50px;  // 주석 변경
-  margin-top: 30px; // 추가
-  margin-bottom: 0px; // 추가
+  margin-top: 30px;
+  margin-bottom: 0px;
   letter-spacing: 0em;
   text-align: center;
   color: #183258;
