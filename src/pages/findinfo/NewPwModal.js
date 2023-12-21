@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { PiUserCircle } from 'react-icons/pi';
 // import axios from 'axios';
 import { CenteredModalHeader, CenteredModalBody, CenteredModalFooter } from './StylePwModal';
+// import axios from 'axios';
 
 const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirectTo }) => {
   // 훅

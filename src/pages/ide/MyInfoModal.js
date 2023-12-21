@@ -13,25 +13,6 @@ import {
   Button,
 } from './StyleMyInfoModal';
 
-// const SERVER_URL = 'https://jsonplaceholder.typicode.com/users';
-// const [name, setName] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [phone, setPhone] = useState('');
-// useEffect(() => {
-//   axios
-//     .get(SERVER_URL)
-//     .then((response) => {
-//       const userData = response.data[0];
-//       setProfilePicture(userData.profilePicture);
-//       setName(userData.name);
-//       setEmail(userData.email);
-//       setPhone(userData.phone);
-//     })
-//     .catch((error) => {
-//       console.error('Error fetching user data:', error);
-//     });
-// }, []);
-
 // isMyInfoOpen : 내정보 모달 열기/닫기
 // closeMyInfo : ide.js 에서 closeMyInfoModal() 함수
 // open : ide.js 에서 openModal() 함수 -> 회원탈퇴(공통 모달)
