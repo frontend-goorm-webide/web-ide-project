@@ -26,14 +26,14 @@ const MyInfoModal = ({ isMyInfoOpen, closeMyInfo, open }) => {
   const [phone, setPhone] = useState('');
 
   // data[1]의 값 가져와서 화면에 띄우기
-  // useEffect(() => {
-  //   const userData = data[1];
-  //   setProfilePicture(userData.storedFileName);
-  //   setName(userData.name);
-  //   setUserId(userData.userId);
-  //   setEmail(userData.email);
-  //   setPhone(userData.phone);
-  // }, []);
+  useEffect(() => {
+    const userData = data[1];
+    setProfilePicture(userData.storedFileName);
+    setName(userData.name);
+    setUserId(userData.userId);
+    setEmail(userData.email);
+    setPhone(userData.phone);
+  }, []);
 
   // 회원 탈퇴 버튼 클릭 시 처리
   const clickRemoveButton = () => {
