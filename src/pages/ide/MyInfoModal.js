@@ -12,6 +12,7 @@ import {
   ButtonContainer,
   Button,
 } from './StyleMyInfoModal';
+import { data } from '../Data';
 
 // isMyInfoOpen : 내정보 모달 열기/닫기
 // closeMyInfo : ide.js 에서 closeMyInfoModal() 함수
