@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Logo from '../../components/Logo';
+import { data } from '../Data';
 import { Header, Body, LoginSection, LinkSection, LoginKakao, Background } from './StyleMain';
 
 function Main() {
@@ -12,6 +13,7 @@ function Main() {
   const [userPw, setUserPw] = useState('');
   // 로그인 실패 에러 메세지 초기화
   const [alert, setAlert] = useState(false);
+  const navigate = useNavigate();
 
   // 로그인 버튼 클릭 시 실행
   const clickLogin = (e) => {
@@ -22,16 +24,32 @@ function Main() {
   const handleAlertError = () => {
     if (!userId || !userPw) {
       setAlert(true);
-      console.log('로그인 실패'); // 임시 값 확인
+      console.log('모든 필드 확인'); // 임시 값 확인
       setUserId('');
       setUserPw('');
-    } else {
+    } else if (userId === 'testid2') {
+      setAlert(true);
+      console.log('아이디 또는 비밀번호 재확인'); // 임시 값 확인
+      setUserId('');
+      setUserPw('');
+    } else if (userId === 'testid1') {
       console.log('로그인 성공) id: ' + userId + '/ pw: ' + userPw); // 임시 값 확인
       // 아이디, 비밀번호 초기화
       setUserId('');
       setUserPw('');
+      navigate('/ide');
     }
   };
+
+  // // data[1]의 값 가져와서 화면에 띄우기
+  // useEffect(() => {
+  //   const userData = data[1];
+  //   setProfilePicture(userData.storedFileName);
+  //   setName(userData.name);
+  //   setUserId(userData.userId);
+  //   setEmail(userData.email);
+  //   setPhone(userData.phone);
+  // }, []);
 
   // 에러 메세지 class 명
   const alertError = () => {
