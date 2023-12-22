@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import CommonModal from '../../components/Modal';
@@ -120,6 +120,14 @@ const IdeMain = () => {
       handleSendChatMessage();
     }
   };
+  // 채팅방 스크롤 관리
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    // chatContainerRef가 변경되면 스크롤을 아래로 내림
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [chatMessages]);
+
   // 소켓 파트
   const [sock, setSock] = useState(null);
 
@@ -154,6 +162,7 @@ const IdeMain = () => {
       }
     };
   }, []);
+
   // ===========================채팅===========================
 
   // ===========================모달===========================
@@ -264,7 +273,7 @@ const IdeMain = () => {
           />
           <CommonModal isOpen={isModalOpen} {...modalContent} close={closeModal} />
           {/* 로그아웃 onClick={goToMainPage} */}
-          <Button>
+          <Button onClick={goToMainPage}>
             <IoIosLogOut />
           </Button>
         </div>
@@ -332,16 +341,22 @@ const IdeMain = () => {
             <Button onClick={toggleCloseChatRoom}>X</Button>
           </ChatBar>
 
-          <ChatText style={{ backgroundColor: backgroundColor, color: color }}>
+          <ChatText
+            ref={chatContainerRef}
+            style={{ backgroundColor: backgroundColor, color: color }}
+          >
             {/* chatMessages 배열을 순회 */}
-            {chatMessages.map((message, index) => (
-              <div key={index}>
-                {/* 각 메시지(시간:메세지 내용)를 화면에 표시하는 컴포넌트를 생성 */}
-                아이디:<strong>{message.text}</strong>
-                {message.timestamp.toLocaleTimeString()}
-              </div>
-            ))}
-            대화 기록
+            {chatMessages
+              .reverse()
+              .reverse()
+              .map((message, index) => (
+                <div key={index}>
+                  {/* 각 메시지(시간:메세지 내용)를 화면에 표시하는 컴포넌트를 생성 */}
+                  <span style={{ fontSize: '13px' }}>testid1:</span>&nbsp;
+                  <span>{message.text}</span>&nbsp;
+                  <span style={{ fontSize: '9px' }}>{message.timestamp.toLocaleTimeString()}</span>
+                </div>
+              ))}
           </ChatText>
 
           <ChatInputContainer style={{ backgroundColor: backgroundColor }}>
