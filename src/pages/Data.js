@@ -9,7 +9,7 @@ export const data = [
   },
   {
     userId: 'testid2',
-    pwd: 'Rnfma5678!', // 구름1234! (r은 대문자)
+    pwd: 'Rnfma5678!', // 구름5678! (r은 대문자)
     name: '똑바로',
     email: 'test2@gmail.com',
     phone: '01087654321',

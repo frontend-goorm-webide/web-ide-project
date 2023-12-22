@@ -25,12 +25,18 @@ export const StyledInput = styled.input`
   }
 `;
 
-const Input = ({ label, placeholder, value, onChange, type }) => {
+const Input = ({ label, type, placeholder, value, onChange, onClick }) => {
   return (
     <div>
       <label>
         {label}
-        <StyledInput placeholder={placeholder} value={value} onChange={onChange} type={type} />
+        <StyledInput
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          onClick={onClick}
+        />
       </label>
     </div>
   );
