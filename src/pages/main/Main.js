@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Logo from '../../components/Logo';
-import { data } from '../Data';
-import { Header, Body, LoginSection, LinkSection, LoginKakao, Background } from './StyleMain';
+// import { data } from '../Data';
+import { Header, Body, LoginSection, LinkSection, Background } from './StyleMain';
 
 function Main() {
   // 로그인 페이지
@@ -25,35 +25,37 @@ function Main() {
     if (!userId || !userPw) {
       setAlert(true);
       console.log('모든 필드 확인'); // 임시 값 확인
-      setUserId('');
-      setUserPw('');
-    } else if (userId === 'testid2') {
+    } else if (userId !== 'testid1') {
       setAlert(true);
       console.log('아이디 또는 비밀번호 재확인'); // 임시 값 확인
-      setUserId('');
-      setUserPw('');
     } else if (userId === 'testid1') {
       console.log('로그인 성공) id: ' + userId + '/ pw: ' + userPw); // 임시 값 확인
       // 아이디, 비밀번호 초기화
       setUserId('');
       setUserPw('');
       navigate('/ide');
+      return;
     }
   };
 
   // // data[1]의 값 가져와서 화면에 띄우기
   // useEffect(() => {
   //   const userData = data[1];
-  //   setProfilePicture(userData.storedFileName);
-  //   setName(userData.name);
   //   setUserId(userData.userId);
-  //   setEmail(userData.email);
-  //   setPhone(userData.phone);
   // }, []);
 
   // 에러 메세지 class 명
   const alertError = () => {
     return alert ? 'login-error-alert' : 'login-alert';
+  };
+
+  // 에러 메세지 문구
+  const errorText = () => {
+    if (!userId || !userPw) {
+      return '아이디, 비밀번호를 모두 입력해주세요.';
+    } else if (userId !== 'testid1') {
+      return '아이디 또는 비밀번호를 다시 확인해주세요.';
+    }
   };
 
   // 외부 화면 클릭시 에러 메세지 숨김 처리
@@ -85,14 +87,17 @@ function Main() {
             <div className='input'>
               <Input placeholder=' ID' value={userId} onChange={(e) => setUserId(e.target.value)} />
               <Input
+                type='password'
                 placeholder=' PASSWORD'
                 value={userPw}
                 onChange={(e) => setUserPw(e.target.value)}
+                onClick={() => setUserPw('')}
               />
             </div>
             <div className='loginBtn'>
               <div className={alertError()}>
-                <h5> 아이디 또는 비밀번호를 확인해주세요. </h5>
+                <h5>{errorText()}</h5>
+                {/* <h5> 아이디 또는 비밀번호를 확인해주세요. </h5> */}
               </div>
               <Button onClick={() => handleAlertError({})} type='submit'>
                 로그인
@@ -109,11 +114,11 @@ function Main() {
           </Link>
         </LinkSection>
         {/* 카카오 로그인 시 이동 경로 수정 필요 */}
-        <LoginKakao>
+        {/* <LoginKakao>
           <Link to='/ide'>
             <img src='img/kakaoLogin.png' alt=''></img>
           </Link>
-        </LoginKakao>
+        </LoginKakao> */}
       </Body>
 
       <Background xmlns='http://www.w3.org/2000/svg' fill='none'>
