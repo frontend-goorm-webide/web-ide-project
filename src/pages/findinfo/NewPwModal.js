@@ -96,6 +96,7 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
             포함'
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
+            type='password'
           />
           <Input
             label={
@@ -109,6 +110,7 @@ const NewPwModal = ({ isPwOpen, title, contents, btnName, closePwModal, redirect
             placeholder='위에서 설정한 비밀번호 재입력'
             value={checkNewPassword}
             onChange={(e) => setCheckNewPassword(e.target.value)}
+            type='password'
           />
           {passwordError && (
             <p

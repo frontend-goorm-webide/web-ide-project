@@ -15,6 +15,7 @@ import {
   FindIdContainer,
   FindPasswordContainer,
 } from './StyleFindInfo';
+import { data } from '../Data';
 
 // Server URL
 // const SERVER_URL = '';
@@ -90,7 +91,7 @@ const FindInfo = () => {
 
   // 아이디찾기 버튼 클릭
   const handleFindIdButtonClick = () => {
-    // 에러모달 : 이름, 이메일 입력 여부 확인
+    // 버튼 클릭시 유효성 검사 수행
     if (!nameForId || !emailForId) {
       openModal({
         title: '입력 오류',
@@ -98,13 +99,8 @@ const FindInfo = () => {
         btnName: '닫기',
         redirectTo: null,
       });
-      // 임시 값 확인
       console.log('아이디 또는 이메일 필드 미입력 에러');
-      // 입력 필드 초기화
-      setNameForId('');
-      setEmailForId('');
     } else if (!validateName(nameForId)) {
-      // 이름 형식 유효성 확인
       openModal({
         title: '입력 오류',
         contents: (
@@ -117,9 +113,7 @@ const FindInfo = () => {
         redirectTo: null,
       });
       console.log('이름 형식 에러');
-      setNameForId('');
     } else if (!validateEmail(emailForId)) {
-      // 이메일 형식 유효성 확인
       openModal({
         title: '입력 오류',
         contents: <ErrorText>올바른 이메일 형식을 입력해주세요.</ErrorText>,
@@ -127,16 +121,19 @@ const FindInfo = () => {
         redirectTo: null,
       });
       console.log('이메일 형식 에러');
-      setEmailForId('');
     } else {
-      // 등록된 이메일인 경우의 처리
+      // 유효성 검사가 모두 통과된 경우에만 상태를 업데이트
+      const userData = data[0];
+      setNameForId(userData.userId);
+
       // 아이디 찾기 성공 로직
       openModal({
         title: '아이디 찾기',
         contents: (
           <>
             <p>
-              아이디: <br />
+              아이디: {userData.userId}
+              <br />
               <br />위 아이디로 다시 로그인 해주세요 :)
             </p>
           </>
@@ -144,7 +141,8 @@ const FindInfo = () => {
         btnName: '로그인하기',
         redirectTo: '/',
       });
-      console.log('아이디 찾기 성공) id: ' + nameForId + ' / email: ' + emailForId);
+      console.log('아이디 찾기 성공) id: ' + userData.userId + ' / email: ' + emailForId);
+      // 입력 필드 초기화
       setNameForId('');
       setEmailForId('');
     }

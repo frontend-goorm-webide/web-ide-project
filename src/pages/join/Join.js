@@ -38,13 +38,30 @@ const Join = () => {
   const handleIdDuplicationCheck = (event) => {
     event.preventDefault();
 
-    if (id) {
+    if (!validateId(id)) {
       openModal({
-        title: '중복 확인',
-        contents: <ErrorText>사용할수 있는 아이디입니다.</ErrorText>,
+        title: '입력 오류',
+        contents: (
+          <ErrorText>
+            아이디는 4~10글자사이로, 특수문자를 제외한 영문 대문자 또는 소문자를 포함하고, 숫자를
+            반드시 포함하여야 합니다.
+          </ErrorText>
+        ),
         btnName: '닫기',
         redirectTo: null,
       });
+      // 임시 값 확인
+      console.log('아이디 형식 에러');
+      // 입력 필드 초기화
+      setId('');
+    } else {
+      openModal({
+        title: '중복 확인',
+        contents: '사용할수 있는 아이디입니다.',
+        btnName: '닫기',
+        redirectTo: null,
+      });
+      console.log('아이디 중복확인 성공');
     }
   };
 
@@ -56,8 +73,8 @@ const Join = () => {
         title: '입력 오류',
         contents: (
           <ErrorText>
-            아이디는 4~10글자사이로, 특수문자를 제외한 영문 대문자 또는 소문자를 포함하고, 숫자를
-            반드시 포함하여야 합니다.
+            비밀번호는 8~16글자사이로, 영어 대문자, 소문자, 숫자, 특수문자 각 1개씩 반드시
+            포함하여야 합니다.
           </ErrorText>
         ),
         btnName: '닫기',
@@ -70,6 +87,7 @@ const Join = () => {
         btnName: '닫기',
         redirectTo: null,
       });
+      setConfirmPassword('');
     } else {
       openModal({
         title: '비밀번호 중복확인',
@@ -78,7 +96,7 @@ const Join = () => {
             <p>비밀번호 중복확인이 되었습니다.</p>
           </>
         ),
-        btnName: '로그인하기',
+        btnName: '닫기',
         redirectTo: null,
       });
       console.log('비밀번호 중복확인 성공');
@@ -139,7 +157,7 @@ const Join = () => {
   const handleSignupSubmit = (e) => {
     e.preventDefault();
 
-    if (!name || !id || !password || !confirmPassword || !email || !mobile) {
+    if (!name || !id || !password || !confirmPassword || !email) {
       openModal({
         title: '입력 오류',
         contents: <ErrorText>모든 필드를 입력해주세요.</ErrorText>,
@@ -204,18 +222,20 @@ const Join = () => {
       console.log('이메일 형식 에러');
       // 입력 필드 초기화
       setEmail('');
-    } else if (!validateMobileNumber(mobile)) {
-      openModal({
-        title: '입력 오류',
-        contents: <ErrorText>휴대폰 번호 형식이 올바르지 않습니다.</ErrorText>,
-        btnName: '닫기',
-        redirectTo: null,
-      });
-      // 임시 값 확인
-      console.log('휴대번호 형식 에러');
-      // 입력 필드 초기화
-      setMobile('');
-    } else {
+    }
+    // else if (!validateMobileNumber(mobile)) {
+    //   openModal({
+    //     title: '입력 오류',
+    //     contents: <ErrorText>휴대폰 번호 형식이 올바르지 않습니다.</ErrorText>,
+    //     btnName: '닫기',
+    //     redirectTo: null,
+    //   });
+    //   // 임시 값 확인
+    //   console.log('휴대번호 형식 에러');
+    //   // 입력 필드 초기화
+    //   setMobile('');
+    // }
+    else {
       // 모든 필드조건이 맞을경우
       // 회원가입 성공 로직
       openModal({
@@ -299,6 +319,7 @@ const Join = () => {
                   포함'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  type='password'
                 />
               </span>
 
@@ -314,6 +335,7 @@ const Join = () => {
                 placeholder=' 입력한 비밀번호 재입력'
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                type='password'
               />
               <CheckIdBtn onClick={handlePwDuplicationCheck} type='submit'>
                 중복 확인
