@@ -9,7 +9,7 @@ import { IoPersonCircleOutline } from 'react-icons/io5';
 import { IoIosLogOut } from 'react-icons/io';
 import { FaRegPlayCircle } from 'react-icons/fa';
 import { BsChatDots } from 'react-icons/bs';
-import SockJS from 'sockjs-client';
+//import SockJS from 'sockjs-client';
 import {
   GlobalStyle,
   Header,
@@ -94,15 +94,6 @@ const IdeMain = () => {
   const handleSendChatMessage = () => {
     console.log('Sending chat message:', chatInputText);
 
-    // Socket 파트 추가
-    // 아이디 추가 사항
-    if (sock && sock.readyState === SockJS.OPEN) {
-      sock.send(JSON.stringify({ text: chatInputText, timestamp: new Date() }));
-    } else {
-      // 연결이 열려 있지 않을 때 사용자에게 알림 등을 표시할 수 있음
-      console.error('WebSocket is not open.');
-    }
-
     // 인풋값 확인 테스트용
     const newMessage = { text: chatInputText, timestamp: new Date() };
     setChatMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -127,41 +118,6 @@ const IdeMain = () => {
     // chatContainerRef가 변경되면 스크롤을 아래로 내림
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   }, [chatMessages]);
-
-  // 소켓 파트
-  const [sock, setSock] = useState(null);
-
-  useEffect(() => {
-    // SockJS 인스턴스 생성
-    const newSock = new SockJS('http://localhost:3000/ide');
-    setSock(newSock);
-
-    // 소켓 열림 이벤트 핸들러 등록
-    newSock.onopen = () => {
-      console.log('WebSocket 연결이 열렸습니다.');
-    };
-
-    // 메시지 수신 이벤트 핸들러 등록
-    newSock.onmessage = (event) => {
-      const message = event.data;
-      console.log('새로운 메시지:', message);
-
-      // 채팅 메시지 배열 업데이트
-      setChatMessages((prevMessages) => [...prevMessages, message]);
-    };
-
-    // 소켓 닫힘 이벤트 핸들러 등록
-    newSock.onclose = () => {
-      console.log('WebSocket 연결이 닫혔습니다.');
-    };
-
-    // 컴포넌트 언마운트 시 소켓 닫기
-    return () => {
-      if (newSock) {
-        newSock.close();
-      }
-    };
-  }, []);
 
   // ===========================채팅===========================
 
